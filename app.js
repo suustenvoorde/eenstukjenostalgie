@@ -6,11 +6,10 @@ var session = require('express-session')({
   saveUninitialized: true
 });
 var bodyParser = require('body-parser');
-var serverless = require('serverless-http');
 var app = express();
 
 // Require .env files:
-require('dotenv').config({ path: '../.env' });
+require('dotenv').config({ path: './.env' });
 
 // view engine setup > templates weergeven
 app.set('views', 'views');
@@ -22,12 +21,10 @@ app.use(express.static('public'));
 app.use(session);
 
 // Require routes:
-var routes = require('../routes');
+var routes = require('./routes');
 
 // Use routes:
-app.use('/.netlify/functions/app', routes);
-
-module.exports.handler = serverless(app);
+app.use('/', routes);
 
 //run
 app.listen(3000, function () {

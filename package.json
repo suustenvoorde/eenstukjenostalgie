@@ -8,10 +8,7 @@
     "build": "browserify public/js/*.js -o public/dist/bundle.js",
     "dev": "watch 'npm run build'",
     "watch-js": "watchify public/js/*.js -o public/dist/bundle.js -dv",
-    "watch": "npm run build | npm run watch-js",
-    "postinstall": "netlify-lambda install",
-    "netlifystart": "./node_modules/.bin/netlify-lambda serve app",
-    "netlifybuild": "./node_modules/.bin/netlify-lambda build app"
+    "watch": "npm run build | npm run watch-js"
   },
   "repository": {
     "type": "git",
