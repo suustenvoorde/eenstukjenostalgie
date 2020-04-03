@@ -67,7 +67,7 @@ We have used the following frameworks and packages:
 * Select a location on the map based on a selected radius
 * Search for your own street or a street of your choice
 * Change the radius on the map to get a more or less precise location
-* Select a time period between 1900 and 2018
+* Select a time period between 1900 and 2020
 
 **Selecting pictures:**
 * Browse between the pictures, ordered by year
