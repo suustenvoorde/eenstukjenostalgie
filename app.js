@@ -27,6 +27,6 @@ var routes = require('./routes');
 app.use('/', routes);
 
 //run
-app.listen(3000, function () {
+app.listen(80, function () {
   console.log('runs');
 });
