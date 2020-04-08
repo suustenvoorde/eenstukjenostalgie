@@ -27,6 +27,6 @@ var routes = require('./routes');
 app.use('/', routes);
 
 //run
-app.listen(80, 'eenstukjenostalgie.amsterdam', function () {
+app.listen(5000, function () {
   console.log('runs');
 });
