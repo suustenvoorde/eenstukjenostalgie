@@ -11,6 +11,8 @@ var inputCircle;
 	"use strict";
 
 	var map = {
+		searchbar: document.querySelector('[name="searchLocation"]'),
+		selectRadius: document.getElementById('radius-selected'),
 		mapboxAccessToken: 'pk.eyJ1IjoibWF4ZGV2cmllczk1IiwiYSI6ImNqZWZydWkyNjF3NXoyd28zcXFqdDJvbjEifQ.Dl3DvuFEqHVAxfajg0ESWg',
 		map: L.map('map', {
 			zoomControl: false
@@ -29,12 +31,9 @@ var inputCircle;
 			52.370216,
 			4.895168
 		],
-		startPos: {x: 0, y: 0},
-		currentPos: {x: 0, y: 0},
+		startPos: { x: 0, y: 0 },
+		currentPos: { x: 0, y: 0 },
 		init: async function () {
-			var self = this;
-			var searchbar = document.querySelector('[name="searchLocation"]');
-
 			// Set the original view of the map:
 			this.map.setView(this.centerPoint, 14);
 
@@ -56,7 +55,6 @@ var inputCircle;
 
 			// Initialize circle events:
 			this.changeRadius();
-			// this.moveCircle();
 
 			// Create the polygon, with the centerPoint as coords:
 			this.createPolygon(this.centerPoint);
@@ -65,12 +63,10 @@ var inputCircle;
 			var allStreets = await this.getAllStreets();
 
 			// Map the street names from allStreets for search:
-			var streetNames = allStreets.map(function (street) {
-				return street.properties.name;
-			});
+			var streetNames = allStreets.map(street => street.properties.name);
 
 			// Initialize the autocomplete search:
-			search.init(searchbar, streetNames);
+			search.init(this.searchbar, streetNames);
 
 			// Add the streets data to geoJSON:
 			this.geoJSON.addData(allStreets);
@@ -83,47 +79,40 @@ var inputCircle;
 			this.startPos.y = this.circle._point.y;
 
 			// Calculate the new center:
-			draggable.on('drag', function (e) {
-				self.currentPos.x = e.sourceTarget._newPos.x;
-				self.currentPos.y = e.sourceTarget._newPos.y;
-				self.moveCircle();
+			draggable.on('drag', (e) => {
+				this.currentPos.x = e.sourceTarget._newPos.x;
+				this.currentPos.y = e.sourceTarget._newPos.y;
+				this.moveCircle();
 			});
 
-			this.map.on('zoom', function (e) {
+			this.map.on('zoom', (e) => {
 				var newZoomLevel = Number(e.sourceTarget._animateToZoom);
-				var layerPoint = this.latLngToLayerPoint(self.centerPoint);
-				this.setView(self.centerPoint, newZoomLevel);
-
-				var circleX = layerPoint.x - self.currentPos.x;
-				var circleY = layerPoint.y - self.currentPos.y;
-
-				self.startPos.x = circleX;
-				self.startPos.y = circleY;
-				self.moveCircle();
+				var layerPoint = this.map.latLngToLayerPoint(this.centerPoint);
+				this.map.setView(this.centerPoint, newZoomLevel);
+				this.startPos.x = layerPoint.x - this.currentPos.x;
+				this.startPos.y = layerPoint.y - this.currentPos.y;
+				this.moveCircle();
 			});
 		},
 		getAllStreets: async function () {
 			return fetch('/js/streets.json')
-				.then((res) => res.json())
-				.catch(function (error) {
-					console.log(error);
-				})
+				.then(res => res.json())
+				.catch(err => {
+					console.log(err);
+				});
 		},
 		changeRadius: function () {
-			var self = this;
-			var selectRadius = document.querySelector("#radius-selected");
-
-			selectRadius.addEventListener("change", function(e) {
-				var latlng = self.circle.getLatLng();
-				var meters = e.target.value / 2 * 1000;
-				self.createCircle(Object.values(latlng), meters);
-				self.createPolygon(self.centerPoint, meters);
+			this.selectRadius.addEventListener('change', (e) => {
+				var latlng = this.circle.getLatLng();
+				var meters = (e.target.value / 2) * 1000;
+				this.createCircle(Object.values(latlng), meters);
+				this.createPolygon(this.centerPoint, meters);
 			});
 		},
 		moveCircle: function () {
 			var x = this.startPos.x + this.currentPos.x;
 			var y = this.startPos.y + this.currentPos.y;
-			var point = {x: x, y: y};
+			var point = { x: x, y: y };
 			var latlng = this.map.layerPointToLatLng(point);
 			var radius = this.circle.getRadius();
 
@@ -131,7 +120,7 @@ var inputCircle;
 			this.centerPoint = Object.values(latlng);
 			this.createCircle(Object.values(latlng), radius);
 			this.createPolygon(Object.values(latlng), radius);
-			L.DomUtil.setTransform(this.circle._path, {x: 0, y: 0});
+			L.DomUtil.setTransform(this.circle._path, { x: 0, y: 0 });
 		},
 		createCircle: function (coords, radius = this.circle.getRadius()) {
 			this.circle.setLatLng(coords);
@@ -156,7 +145,7 @@ var inputCircle;
 	map.init();
 
 	exports.selectedStreet = function (streetName) {
-		map.geoJSON.eachLayer(function (layer) {
+		map.geoJSON.eachLayer(layer => {
 			if (layer.feature.properties.name === streetName) {
 				var bounds = layer.getBounds();
 				var center = bounds.getCenter();
