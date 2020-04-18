@@ -132,6 +132,16 @@
 	</div>
 
 	<script>
+		//Create a loader on page load:
+
+		var contents = document.querySelector('.contents');
+		window.addEventListener('load', () => {
+			contents.classList.add('show');
+		});
+
+	</script>
+
+	<script>
 		//hamburger menu mobile
 		if('querySelector' in document && 'querySelectorAll' in document && 'addEventListener' in window) {
 			var open = document.querySelector('.open');
