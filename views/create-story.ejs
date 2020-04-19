@@ -1,5 +1,8 @@
 <%- include('partials/head.ejs') %>
 <body class="create-story">
+
+	<% var years = Object.keys(dataFirstQuery); %>
+
 	<div class="grid">
 		<section class="map-visualisation">
 			<div id="map"></div>
@@ -31,97 +34,68 @@
 					s1-0.2,1.4-0.6L48,62.8l32.5,32.5c0.4,0.4,0.9,0.6,1.4,0.6s1-0.2,1.4-0.6l12-12c0.8-0.8,0.8-2,0-2.8L62.8,48z"/>
 				</svg>
 			</button>
-			<ol class="menu"><%
-				for (var i = 0; i < Object.keys(dataFirstQuery).length; i++) { %>
+			<ol class="menu">
+				<% years.forEach(year => { %>
 					<li>
-						<a href="#year-<%- Object.keys(dataFirstQuery)[i] %>">
-							<h2 class="year-title"><%= Object.keys(dataFirstQuery)[i] %></h2>
+						<a href="#year-<%- year %>">
+							<h2 class="year-title"><%= year %></h2>
 						</a>
-					</li><%
-				} %>
+					</li>
+				<% }); %>
 			</ol>
 		</nav>
 
 		<main class="contents">
 			<h1>Selecteer de foto's die je wilt gebruiken voor jouw herinneringenboek</h1>
-			<form class="data" action="/my-story/<%- id %>" method="post"><%
-				var allChapters = Object.values(selection);
-				var arr = allChapters.map(function (chapter) {
-					return [].concat.apply([], Object.values(chapter));
-				});
+			<form class="data" action="/my-story/<%- id %>" method="post">
+				<% for (var year in dataFirstQuery) { %>
+					<% if (dataFirstQuery.hasOwnProperty(year)) { %>
+						<% var images = Object.values(dataFirstQuery[year])[0]; %>
+						<section id="year-<%- year %>" class="year <%- year %>">
+							<img class="crosses" src="/images/crosses.svg" alt="">
+							<ul>
+								<% images.forEach(image => { %>
+									<li class="data-image">
+										<label>
+											<div class="content">
+												<input id="checkbox" type="checkbox" name="images" value="<%- image.img.value %>">
+												<span class="check"></span>
+												<img class="lazy" src="<%- image.img.value %>" alt="<%- image.title.value %>">
+												<p><%= image.title.value %></p>
+												<a class="openDetail"
+													 data-image="<%- image.img.value %>"
+													 data-text="<%- image.title.value %>"
+													 href="">
+													<img src="/images/zoom-in.svg" alt="zoom-in icon">
+												</a>
+											</div>
+										</label>
+									</li>
+								<% }); %>
+							</ul>
+						</section>
+					<% } %>
+				<% } %>
 
-				var merged = [].concat.apply([], arr);
+				<%
+					var allChapters = Object.values(selection);
+					var arr = allChapters.map(chapter => [].concat.apply([], Object.values(chapter)));
+					var merged = [].concat.apply([], arr);
+				%>
 
-				for (var i = 0; i < Object.keys(dataFirstQuery).length; i++) { %>
-					<section id="year-<%- Object.keys(dataFirstQuery)[i] %>" class="year <%- Object.keys(dataFirstQuery)[i] %>">
-						<img class="crosses" src="/images/crosses.svg">
-						<ul><%
-							var objectYearsSelection = dataFirstQuery[Object.keys(selection)[i]];
-
-							if (objectYearsSelection !== null && objectYearsSelection !== undefined) {
-								for (var j = 0; j < Object.keys(objectYearsSelection).length; j++) {
-									var objectChaptersSelection = objectYearsSelection[Object.keys(objectYearsSelection)[j]];
-
-									for (var k = 0; k < Object.keys(objectChaptersSelection).length; k++) { %>
-										<li class="data-image">
-											<label>
-												<div class="content">
-													<input id="checkbox" type="checkbox" name="images" value="<%- Object.values(objectChaptersSelection)[k].img.value %>" checked>
-													<span class="check"></span>
-													<img class="lazy" src="<%- Object.values(objectChaptersSelection)[k].img.value %>" alt="<%- Object.values(objectChaptersSelection)[k].title.value %>">
-													<p>
-														<%= Object.values(objectChaptersSelection)[k].title.value %>
-													</p>
-													<a class="openDetail" data-image="<%- Object.values(objectChaptersSelection)[k].img.value %>" data-text="<%- Object.values(objectChaptersSelection)[k].title.value %>" href="">
-														<img src="/images/zoom-in.svg" alt="zoom-in icon">
-													</a>
-												</div>
-											</label>
-										</li><%
-									}
-								}
-							} else {
-								var objectYears = dataFirstQuery[Object.keys(dataFirstQuery)[i]];
-
-								for (var j = 0; j < Object.keys(objectYears).length; j++) {
-									var objectChapters = objectYears[Object.keys(objectYears)[j]];
-
-									for (var k = 0; k < Object.keys(objectChapters).length; k++) { %>
-										<li class="data-image">
-											<label>
-												<div class="content">
-													<input id="checkbox" type="checkbox" name="images" value="<%- Object.values(objectChapters)[k].img.value %>">
-													<span class="check"></span>
-													<img class="lazy" src="<%- Object.values(objectChapters)[k].img.value %>" alt="<%- Object.values(objectChapters)[k].title.value %>">
-													<p>
-														<%= Object.values(objectChapters)[k].title.value %>
-													</p>
-													<a class="openDetail" data-image="<%- Object.values(objectChapters)[k].img.value %>" data-text="<%- Object.values(objectChapters)[k].title.value %>" href="">
-														<img src="/images/zoom-in.svg" alt="zoom-in icon">
-													</a>
-												</div>
-											</label>
-										</li><%
-									}
-								}
-							} %>
-						</ul>
-					</section><%
-				}
-
-				if (merged.length) { %>
-					<section class="selected-images show-selected-images"><%
-						merged.forEach(function (item) { %>
-							<img src="<%- item.img.value %>" alt="<%- item.title.value %>"><%
-						}); %>
+				<% if (merged.length) { %>
+					<section class="selected-images show-selected-images">
+						<% merged.forEach(image => { %>
+							<img src="<%- image.img.value %>" alt="<%- image.title.value %>">
+						<% }); %>
 					</section>
 					<div class="next-page">
 						<button class="submit-chapter show-selected-images" type="submit">Opslaan</button>
 						<span class="count-images show-selected-images"><%= merged.length %></span>
-					</div><%
-				} else { %>
-					<section class="selected-images"></section><%
-				} %>
+					</div>
+				<% } else { %>
+					<section class="selected-images"></section>
+				<% } %>
 
 				<div class="next-page">
 					<button class="submit-chapter action-btn" type="submit">Opslaan</button>
@@ -183,12 +157,6 @@
 				}
 			}
 		});
-
-		yearTitle.forEach(function(year){
-			year.addEventListener('click', function(){
-				console.log("click");
-			});
-		});
 	</script>
 	<script>
 		var checkboxes = document.querySelectorAll('input[name="images"]');
@@ -196,12 +164,12 @@
 		var submitButton = document.querySelector('.submit-chapter');
 		var span = document.querySelector('.count-images');
 
-		checkboxes.forEach(function(item) {
-			item.addEventListener('change', function(){
+		checkboxes.forEach(item => {
+			item.addEventListener('change', (e) => {
 				var li = item.parentElement.parentElement.parentElement;
 				var ul = li.parentElement;
 
-				if(item.checked == true) {
+				if (item.checked == true) {
 					//add number
 					span.innerHTML++;
 
