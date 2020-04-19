@@ -6,16 +6,10 @@ var map = require('./map.js');
     timestampMin: document.querySelector('[name="timestamp-min"]'),
     timestampMax: document.querySelector('[name="timestamp-max"]'),
     init: function () {
-      var self = this;
-      self.form.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        var valMin = self.timestampMin.value;
-        var valMax = self.timestampMax.value;
-
+      this.form.addEventListener('submit', (e) => {
         var data = {
-          'valMin': valMin,
-          'valMax': valMax,
+          'valMin': this.timestampMin.value,
+          'valMax': this.timestampMax.value,
           'wkt': map.inputCircle().wkt,
           'coords': map.inputCircle().coords
         };
@@ -32,6 +26,7 @@ var map = require('./map.js');
           }
         }
         http.send(JSON.stringify(data));
+        e.preventDefault();
       });
     }
   };
