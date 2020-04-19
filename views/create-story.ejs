@@ -7,32 +7,16 @@
 		<section class="map-visualisation">
 			<div id="map"></div>
 			<a class="back" href="/new-story">
-				<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
- 				viewBox="0 0 492 492" style="enable-background:new 0 0 492 492;" xml:space="preserve">
-					<g>
-						<g>
-							<path d="M464.3,207.4l0.8,0.2H135.9l103.5-103.7c5.1-5.1,7.8-11.9,7.8-19.1c0-7.2-2.8-14-7.8-19.1l-16.1-16.1
-							c-5.1-5.1-11.8-7.9-19-7.9c-7.2,0-14,2.8-19,7.8L7.8,226.9C2.8,232,0,238.8,0,246c0,7.2,2.8,14,7.8,19.1l177.4,177.4
-							c5.1,5.1,11.8,7.8,19,7.8c7.2,0,13.9-2.8,19-7.8l16.1-16.1c5.1-5.1,7.8-11.8,7.8-19c0-7.2-2.8-13.6-7.8-18.7L134.7,284.4h330
-							c14.8,0,27.3-12.8,27.3-27.6V234C492,219.2,479.2,207.4,464.3,207.4z"/>
-						</g>
-					</g>
-				</svg>
+				<img src="/images/icons/back.svg" alt="">
 			</a>
 		</section>
 
 		<nav class="table-of-contents">
 			<button class="open">
-				<svg class="navicon" viewBox="0 0 32 32">
-					<path d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z"/>
-				</svg>
+				<%- include('../public/images/icons/menu.svg') %>
 			</button>
 			<button class="close">
-				<svg class="navicon" viewBox="0 0 95.9 95.9">
-					<path d="M62.8,48l32.5-32.5c0.8-0.8,0.8-2,0-2.8l-12-12C83,0.2,82.4,0,81.9,0s-1,0.2-1.4,0.6L48,33.1L15.4,0.6
-					c-0.8-0.8-2.1-0.8-2.8,0l-12,12c-0.8,0.8-0.8,2,0,2.8L33.1,48L0.6,80.5c-0.8,0.8-0.8,2,0,2.8l12,12c0.4,0.4,0.9,0.6,1.4,0.6
-					s1-0.2,1.4-0.6L48,62.8l32.5,32.5c0.4,0.4,0.9,0.6,1.4,0.6s1-0.2,1.4-0.6l12-12c0.8-0.8,0.8-2,0-2.8L62.8,48z"/>
-				</svg>
+				<%- include('../public/images/icons/close.svg') %>
 			</button>
 			<ol class="menu">
 				<% years.forEach(year => { %>
@@ -66,7 +50,7 @@
 													 data-image="<%- image.img.value %>"
 													 data-text="<%- image.title.value %>"
 													 href="">
-													<img src="/images/zoom-in.svg" alt="zoom-in icon">
+													<%- include('../public/images/icons/zoom-in.svg') %>
 												</a>
 											</div>
 										</label>

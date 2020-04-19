@@ -5,7 +5,7 @@
 
 	<nav class="register">
 		<a href="/new-story">
-			<img src="/images/home.svg">
+			<%- include('../public/images/icons/home.svg') %>
 		</a>
 		<ol class="register-years"><%
 			years.forEach(function (year) { %>
@@ -20,7 +20,7 @@
 		<section class="personal-data">
 			<h1>Jouw herinneringenboek</h1>
 			<button class="action-btn" type="button">
-				<img src="/images/share.svg" alt="Deel jouw herinneringenboek">
+				<%- include('../public/images/icons/share.svg') %>
 				<span>Deel jouw herinneringenboek</span>
 			</button>
 		</section><%
@@ -36,7 +36,9 @@
 
 	<div class="modal-overlay">
 		<div class="modal">
-			<button class="modal-close-btn" type="button">&times;</button>
+			<button class="modal-close-btn" type="button">
+				<%- include('../public/images/icons/close.svg') %>
+			</button>
 			<h1>Deel jouw herinneringenboek</h1>
 			<p>
 				Kopieer deze link om jouw herinneringenboek te delen met vrienden en familie.
