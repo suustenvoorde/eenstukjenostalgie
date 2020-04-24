@@ -1,0 +1,317 @@
+.new-story {
+
+  /********************
+    Leaflet map
+  ********************/
+
+  & #map {
+    position: absolute;
+    z-index: 0;
+	  top: 0;
+	  left: 0;
+	  width: 100vw;
+	  height: 100vh;
+
+    & .leaflet-interactive {
+      fill: $color-primary;
+      stroke: $color-primary;
+    }
+  }
+
+  & .mapboxgl-ctrl-logo,
+  & .mapboxgl-ctrl-bottom-right {
+    display: none !important;
+  }
+
+  /********************
+    Metadata
+  ********************/
+
+  & .meta-data {
+    position: absolute;
+    left: 0;
+    top: 0;
+    @include prefix(display, grid);
+    @include prefix(grid-template-rows, 5rem 1fr);
+    @include prefix(grid-template-columns, calc(5% + 3.5rem) 1fr);
+    @include prefix(align-items, start);
+    width: 100%;
+    height: 0;
+    @include largeScreen() {
+      @include prefix(align-items, stretch);
+      min-width: 25rem;
+      width: 30%;
+      height: 100vh;
+      background-color: rgba(255,255,255,.8);
+    }
+  }
+
+  /********************
+    Timestamp
+  ********************/
+
+  & .timestamp {
+    @include prefix(grid-row, span 2);
+    @include prefix(grid-column, 1 / span 2);
+    display: block;
+    height: 100vh;
+    background-color: rgba(255,255,255,.8);
+    @include largeScreen() {
+      background-color: transparent;
+    }
+  }
+
+  /********************
+    Outputs
+  ********************/
+
+  & .timestamp-min-static,
+  & .timestamp-max-static {
+    position: absolute;
+    z-index: 0;
+    left: 4.5rem;
+    display: none;
+    font-size: $subheading-fz;
+    @include largeScreen() {
+      display: block;
+    }
+  }
+
+  & .timestamp-min-static {
+    top: 4vh;
+  }
+
+  & .timestamp-max-static {
+    bottom: 4vh;
+  }
+
+  & #rangevalueMin,
+  & #rangevalueMax {
+    display: none;
+  }
+
+  /********************
+    Select street
+  ********************/
+
+  .select-street {
+    @include prefix(grid-row, span 2);
+    @include prefix(grid-column, 2 / span 1);
+    z-index: 10;
+    display: block;
+    background-color: rgba(255,255,255,.8);
+    @include largeScreen() {
+      @include prefix(grid-row, 2 / span 1);
+      background-color: transparent;
+    }
+
+    & h1 {
+      max-width: 25rem;
+      margin-top: 2rem;
+      @include largeScreen() {
+        margin-top: 0;
+      }
+    }
+  }
+
+  /********************
+    Searchbar
+  ********************/
+
+  & .search-location {
+    & input {
+      display: inline-block;
+	    width: calc(100% - 6.5rem);
+      max-width: 20rem;
+      margin: $spacing-unit 0;
+	    border: .1875rem solid $color-black;
+	    border-top-right-radius: 0;
+	    border-bottom-right-radius: 0;
+      outline: 0;
+      color: $color-black;
+      background-color: $color-white;
+      font-weight: $base-fw;
+
+      &:focus {
+        border-color: $color-primary;
+      }
+    }
+
+    & button {
+      display: inline-block;
+	    width: 5rem;
+	    border: .1875rem solid $color-black;
+	    border-top-left-radius: 0;
+	    border-bottom-left-radius: 0;
+	    margin-left: -.25rem;
+      cursor: pointer;
+
+      &:hover,
+      &:focus {
+        border-color: $color-primary;
+      }
+    }
+  }
+
+  /********************
+    Autocomplete
+  ********************/
+
+  & .autocomplete {
+    display: block;
+    width: calc(100% - $spacing-unit);
+
+    & ul {
+      display: block;
+      width: 100%;
+      padding: 0;
+    }
+
+    & li {
+      display: block;
+
+      & a {
+        display: block;
+        padding: 1rem;
+        border-bottom: .1875rem solid $color-black;
+        color: $color-black;
+        text-decoration: none;
+
+        &:hover,
+        &:active,
+        &:focus,
+        &.autocomplete-active {
+          color: $color-primary;
+          border-color: $color-primary;
+        }
+      }
+    }
+  }
+
+  /********************
+    Radius select
+  ********************/
+
+  .radiusSelect {
+    overflow: hidden;
+	  width: calc(100% - #{$spacing-unit});
+    max-width: 25rem;
+    border-radius: .625rem;
+    margin-bottom: 5%;
+	  background: url(/images/icons/arrow-down.svg) no-repeat 95% 50%;
+    background-size: auto 30%;
+	  background-color: $color-black;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: $color-primary;
+    }
+
+    & select {
+      width: 100%;
+	    border: none;
+      background-color: transparent;
+      font-weight: $base-fw;
+    }
+  }
+
+  /********************
+    Submit button
+  ********************/
+
+  & form.submit-location-and-timestamp {
+    & button {
+      position: absolute;
+      right: 3.5rem;
+	    bottom: 3.5vh;
+	    width: calc(95% - 7.5rem);
+      max-width: 15rem;
+      @include largeScreen() {
+        right: 5rem;
+      }
+
+      &::after {
+        display: inline-block;
+	      width: 1rem;
+	      height: 1rem;
+	      margin-left: 5%;
+        background-image: url(/images/icons/next.svg);
+	      background-size: 1rem 1rem;
+        content: '';
+      }
+    }
+  }
+}
+
+/********************
+  Slider
+********************/
+
+#slider {
+  position: absolute;
+  left: 5%;
+	top: 4vh;
+  display: block;
+  width: $spacing-unit;
+	height: 92vh;
+  border-radius: $spacing-unit;
+}
+
+.noUi-background {
+  background: $color-black;
+}
+
+.noUi-vertical {
+  width: 2rem;
+
+  & .noUi-handle {
+    position: relative;
+    z-index: 1;
+    left: -1rem;
+    top: -2rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    border: .3rem solid $color-primary;
+	  border-radius: 50%;
+	  background-color: $color-white;
+	  cursor: ns-resize;
+  }
+}
+
+.noUi-base,
+.noUi-handle {
+  @include prefix(transform, translate3d(0,0,0));
+}
+
+.noUi-base {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.noUi-connect {
+  background-color: $color-primary;
+}
+
+.noUi-origin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: $spacing-unit;
+}
+
+.animate {
+  @include prefix(transition, top 1s);
+}
+
+.noUi-tooltip {
+  position: absolute;
+  left: .3rem;
+  top: .9rem;
+	height: 1rem;
+	font-weight: $form-fw;
+}

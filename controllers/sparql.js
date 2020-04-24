@@ -31,10 +31,10 @@ var sparqlqueries = {
       PREFIX sem: <http://semanticweb.cs.vu.nl/2009/11/sem/>
       PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
       PREFIX dc: <http://purl.org/dc/elements/1.1/>
-      SELECT ?street ?streetLabel ?wkt WHERE {
-        ?street a hg:Street ;
+      SELECT ?uri ?label ?wkt WHERE {
+        ?uri a hg:Street ;
         geo:hasGeometry/geo:asWKT ?wkt ;
-        rdfs:label ?streetLabel .
+        rdfs:label ?label .
 
         BIND (bif:st_geomfromtext("${wkt}") as ?circle)
         BIND (bif:st_geomfromtext(?wkt) AS ?streetGeo)

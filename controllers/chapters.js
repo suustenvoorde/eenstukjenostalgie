@@ -9,63 +9,44 @@ exports.location = async function (newStoryData) {
     var url = sparqlqueries.url(sparqlqueries.getStreetWkts(newStoryData.wkt));
 
     return await fetch(url)
-      .then((resp => resp.json()))
-      .then(function (data) {
-        return data.results.bindings;
-      })
-      .catch(function (error) {
-        console.log(error);
+      .then(res => res.json())
+      .then(data => data.results.bindings)
+      .catch((err) => {
+        console.log(err);
       });
   }
 
   var streetWkts = await fetchStreetWkts();
 
-  // Check if a radius is selected, or just one street:
-  // if (newStoryData.coords !== null && newStoryData.coords !== undefined) {
-  //   console.log('has coords');
-  // } else {
-  //   console.log('does not have coords');
-  // }
-
-  var streetsInRadius = streetWkts.map(function (street) {
+  var streetsInRadius = streetWkts.map(street => {
     var parseWkt = wellknown(street.wkt.value);
     var point = turf.point([newStoryData.coords[1], newStoryData.coords[0]]);
-    var line;
-
-    // Check what type the wkt is:
-    if (parseWkt.type == 'MultiLineString') {
-      line = turf.multiLineString(parseWkt.coordinates);
-    } else if (parseWkt.type == 'LineString') {
-      line = turf.lineString(parseWkt.coordinates);
-    } else {
-      // line = turf.point(parseWkt.coordinates);
-      return;
-    }
+    var line = parseWkt.type == 'MultiLineString'
+      ? turf.multiLineString(parseWkt.coordinates) : parseWkt.type == 'LineString'
+      ? turf.lineString(parseWkt.coordinates)
+      : null;
 
     var nearestPoint = turf.nearestPointOnLine(line, point, {units: 'kilometers'});
 
     return {
-      'street': street.street.value,
-      'streetLabel': street.streetLabel.value,
+      'street': street.uri.value,
+      'label': street.label.value,
       'distance': nearestPoint.properties.dist * 1000
     };
   });
 
   // Sort the streets by distance to centerpoint (closes first):
-  streetsInRadius.sort(function (a, b) {
-    return a.distance - b.distance;
-  });
+  streetsInRadius.sort((a,b) => a.distance - b.distance);
 
   // Fetch the images for selected location and timestamp:
   var fetchLocationAndTimestamp = async function () {
     var url = sparqlqueries.url(sparqlqueries.getLocationAndTimestamp(newStoryData));
 
     return await fetch(url)
-	    .then((resp) => resp.json()) // transform the data into json
-      .then(function (data) {
-			  return data.results.bindings;
-      }).catch(function (error) {
-        console.log(error);
+	    .then(res => res.json())
+      .then(data => data.results.bindings)
+      .catch(err => {
+        console.log(err);
       });
   }
 
@@ -75,27 +56,16 @@ exports.location = async function (newStoryData) {
     years: {}
   };
 
-  allData.forEach(function(item, i, self) {
+  allData.forEach(item => {
     var year = item.start.value.split('-')[0];
-    var chapter;
+    item.chapter = item.street.value == streetsInRadius[0].street
+      ? streetsInRadius[0].label
+      : 'Jouw buurt';
 
-    if (item.street.value == streetsInRadius[0].street) {
-      chapter = streetsInRadius[0].streetLabel;
-    } else {
-      chapter = 'Jouw buurt';
-    }
+    if (!allDataMapped.years[year]) allDataMapped.years[year] = {};
+    if (!allDataMapped.years[year][item.chapter]) allDataMapped.years[year][item.chapter] = [];
 
-    // Add chapter to item:
-    item.chapter = chapter;
-
-    if (!allDataMapped.years[year]) {
-      allDataMapped.years[year] = {};
-    }
-    if (!allDataMapped.years[year][chapter]) {
-      allDataMapped.years[year][chapter] = [];
-    }
-
-    allDataMapped.years[year][chapter].push(item);
+    allDataMapped.years[year][item.chapter].push(item);
   });
 
   return allDataMapped;

@@ -7,7 +7,7 @@
 			<div class="timestamp">
 				<div id="slider"></div>
 				<output class="timestamp-min-static">1900</output>
-				<output class="timestamp-max-static">2020</output>
+				<output class="timestamp-max-static"><% new Date(Date.now()).getFullYear(); %></output>
 				<output id="rangevalueMin" name="timestamp-min"></output>
 				<output id="rangevalueMax" name="timestamp-max"></output>
 			</div>
@@ -19,17 +19,17 @@
 					<button type="submit">Zoek</button>
 				</form>
 
-				<div class="autocomplete"><%
-					if (data !== null && data !== undefined) { %>
-						<ul id="autocomplete-list" class="autocomplete-items"><%
-							data.forEach(function (street) { %>
+				<div class="autocomplete">
+					<% if (data !== null && data !== undefined) { %>
+						<ul id="autocomplete-list" class="autocomplete-items">
+							<% data.forEach(street => { %>
 								<li>
 									<input id="<%- street.street.value %>" type="radio" name="wkt" value="<%- street.wkt.value %>">
 									<label for="<%- street.street.value %>"><%= street.name.value %></label>
-								</li><%
-							}); %>
-						</ul><%
-					} %>
+								</li>
+							<% }); %>
+						</ul>
+					<% } %>
 				</div>
 
 				<div class="radiusSelect">
@@ -55,7 +55,7 @@
 		var range = document.getElementById('slider');
 
 		noUiSlider.create(range, {
-			start: [ 1900, 2020 ], // Handle start position
+			start: [ 1900, new Date(Date.now()).getFullYear() ], // Handle start position
 			step: 1, // Slider moves in increments of '10'
 			margin: 1, // Handles must be more than '20' apart
 			connect: true, // Display a colored bar between the handles
@@ -74,7 +74,7 @@
 			},
 			range: {
 				'min': 1900,
-				'max': 2020
+				'max': new Date(Date.now()).getFullYear()
 			}
 		});
 

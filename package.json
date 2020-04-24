@@ -5,10 +5,11 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "build": "browserify public/js/*.js -o public/dist/bundle.js",
-    "dev": "watch 'npm run build'",
+    "build-sass": "node-sass --include-path scss sass/main.scss public/css/main.css",
+    "watch-sass": "node-sass -w --include-path scss sass/main.scss public/css/main.css",
+    "build-js": "browserify public/js/*.js -o public/dist/bundle.js",
     "watch-js": "watchify public/js/*.js -o public/dist/bundle.js -dv",
-    "watch": "npm run build | npm run watch-js"
+    "build": "npm run build-sass | npm run build-js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "express-session": "^1.15.6",
     "netlify-lambda": "^1.6.3",
     "node-fetch": "^2.1.2",
+    "node-sass": "^4.13.1",
     "serverless-http": "^2.3.2",
     "shortid": "^2.2.8",
     "uuid": "^3.2.1",

@@ -5,27 +5,26 @@
   var imageDetail = {
     trigger: document.querySelectorAll('.openDetail'),
     detail: document.querySelector('.detail'),
-    detailImg: document.querySelector('.detail img'),
-    detailText: document.querySelector('.detail p'),
-    detailCloseBtn: document.querySelector('.detail .popupCloseButton'),
     init: function () {
-      var self = this;
+      this.detailImg = this.detail.getElementsByTagName('img')[0];
+      this.detailText = this.detail.getElementsByTagName('p')[0];
+      this.detailCloseBtn = this.detail.querySelector('.popupCloseButton');
 
-      this.trigger.forEach(function (el) {
-        el.addEventListener('click', function (e) {
+      this.trigger.forEach(elem => {
+        elem.addEventListener('click', (e) => {
+          this.openDetail(elem.dataset.image, elem.dataset.text);
           e.preventDefault();
-          self.openDetail(this.dataset.image, this.dataset.text);
         });
       });
 
-      this.detailCloseBtn.addEventListener('click', function (e) {
+      this.detailCloseBtn.addEventListener('click', (e) => {
+        this.closeDetail();
         e.preventDefault();
-        self.closeDetail();
       });
 
-      this.detail.addEventListener('click', function (e) {
+      this.detail.addEventListener('click', (e) => {
+        this.closeDetail();
         e.preventDefault();
-        self.closeDetail();
       });
     },
     openDetail: function (img, text = '') {
@@ -43,5 +42,4 @@
   };
 
   imageDetail.init();
-
 })();

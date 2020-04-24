@@ -1,17 +1,17 @@
-// modules laden (express als framework)
 var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
+var routes = require('./routes');
 var session = require('express-session')({
   secret: 'keyboard cat',
   resave: true,
   saveUninitialized: true
 });
-var bodyParser = require('body-parser');
-var app = express();
 
-// Require .env files:
-require('dotenv').config({ path: './.env' });
+// Setup .env file:
+require('dotenv').config({ path: 'vars.env' });
 
-// view engine setup > templates weergeven
+// view engine setup:
 app.set('views', 'views');
 app.set('view engine', 'ejs');
 
@@ -20,13 +20,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public', { dotfiles: 'allow'}));
 app.use(session);
 
-// Require routes:
-var routes = require('./routes');
-
 // Use routes:
 app.use('/', routes);
 
-//run
-app.listen(4000, function () {
-  console.log('runs');
+// Run:
+app.listen(process.env.PORT, () => {
+  console.log('runs on port ' + process.env.PORT);
 });

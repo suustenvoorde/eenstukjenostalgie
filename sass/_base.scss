@@ -1,0 +1,66 @@
+/********************
+  Colors
+********************/
+
+$color-primary: #DA121A;
+$color-black:   #000000;
+$color-white:   #FFFFFF;
+
+/********************
+  Fonts
+********************/
+
+// Base:
+$base-ff:       helvetica, sans-serif;
+$base-fz:       1em;
+$base-fw:       400;
+$base-lh:       1.4;
+
+// Heading:
+$heading-ff:    helvetica, sans-serif;
+$heading-fz:    1.5em;
+$heading-fw:    700;
+$heading-lh:    1.2;
+
+// Subheading:
+$subheading-ff: helvetica, sans-serif;
+$subheading-fz: 1.5em;
+$subheading-fw: 400;
+$subheading-lh: 1.2;
+
+// Form:
+$form-ff:       helvetica, sans-serif;
+$form-fz:       1em;
+$form-fw:       700;
+$form-lh:       1;
+
+/********************
+  Spacing
+********************/
+
+$spacing-unit:  1.5rem; // 24px
+
+/********************
+  Mixins
+********************/
+
+// Prefixer:
+$prefixes:      webkit, moz, o;
+
+@mixin prefix($property, $value) {
+  @each $prefix in $prefixes {
+    @if $property == 'display' {
+      #{$property}: #{'-' + $prefix + '-' + $value};
+    } @else {
+      #{'-' + $prefix + '-' + $property}: $value;
+    }
+  }
+  #{$property}: $value;
+}
+
+// Media queries:
+@mixin largeScreen {
+  @media all and (min-width: 50em) {
+    @content;
+  }
+}

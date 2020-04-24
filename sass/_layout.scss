@@ -1,0 +1,138 @@
+/********************
+  General
+********************/
+
+* {
+  @include prefix(box-sizing, border-box);
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+body {
+  color: $color-black;
+  font-family: $base-ff;
+  font-size: $base-fz;
+  font-weight: $base-fw;
+  line-height: $base-lh;
+}
+
+h1 {
+  font-size: $heading-fz;
+  font-weight: $heading-fw;
+  line-height: $heading-lh;
+}
+
+h2 {
+  font-size: $subheading-fz;
+  font-weight: $subheading-fw;
+  line-height: $subheading-lh;
+}
+
+button,
+input,
+select {
+  @include prefix(display, flex);
+  @include prefix(justify-content, center);
+  @include prefix(align-items, center);
+  height: 3.125rem;
+  padding: 0 1rem;
+  border: 0;
+  border-radius: .625rem;
+  color: $color-white;
+  background-color: $color-black;
+  font-size: $form-fz;
+  font-weight: $form-fw;
+  line-height: $form-lh;
+  @include prefix(appearance, none);
+}
+
+button,
+select {
+  cursor: pointer;
+}
+
+select > option {
+  color: $color-black;
+}
+
+button:hover,
+button:focus,
+select:hover,
+select:focus {
+  background-color: $color-primary;
+}
+
+button.action-btn {
+  background-color: $color-primary;
+
+  &:focus,
+  &:hover {
+    background-color: $color-black;
+  }
+}
+
+/********************
+  Image detail
+********************/
+
+.detail {
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  display: none;
+  @include prefix(justify-content, center);
+  @include prefix(align-items, center);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.8);
+  cursor: pointer;
+
+  &.show {
+    @include prefix(display, flex);
+  }
+
+  & > div {
+    position: relative;
+    display: block;
+    width: min-content;
+    max-width: calc(100vw - #{2 * $spacing-unit});
+    height: auto;
+    max-height: 100%;
+    padding: $spacing-unit;
+    border-radius: .625rem;
+    background-color: $color-white;
+
+    & img {
+      width: auto;
+      max-width: calc(100vw - #{4 * $spacing-unit});
+      margin-bottom: $spacing-unit;
+    }
+  }
+}
+
+.popupCloseButton {
+  position: absolute;
+  top: -1.5625rem;
+  right: -1.5625rem;
+  @include prefix(display, flex);
+  @include prefix(justify-content, center);
+  @include prefix(align-items, center);
+  width: 3.125rem;
+  height: 3.125rem;
+  border-radius: 50%;
+	color: $color-white;
+  background-color: $color-primary;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background-color: $color-black;
+  }
+}

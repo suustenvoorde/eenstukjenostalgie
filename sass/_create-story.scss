@@ -1,0 +1,468 @@
+.create-story {
+
+  /********************
+    Layout page
+  ********************/
+
+  & .grid {
+    @include prefix(display, flex);
+    @include prefix(flex-direction, row);
+    @include prefix(flex-wrap, nowrap);
+  }
+
+  /********************
+    Map visualisation
+  ********************/
+
+  & .map-visualisation {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+		top: 0;
+		display: none;
+		width: 4.5rem;
+    @include largeScreen() {
+      display: block;
+    }
+
+    & #map {
+      width: 20vw;
+	    height: 100vh;
+
+      & .leaflet-interactive {
+        display: none;
+      }
+    }
+
+    & .back {
+      position: absolute;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 4.5rem;
+      height: 4.5rem;
+      padding: $spacing-unit;
+      background-color: rgba(255,255,255,.8);
+      text-decoration: none;
+
+      & svg {
+        width: 100%;
+        height: auto;
+      }
+
+      &:hover svg,
+      &:active svg,
+      &:focus svg {
+        fill: $color-primary;
+      }
+    }
+  }
+
+  /********************
+    Table of contents
+  ********************/
+
+  & .table-of-contents {
+    @include prefix(flex, 0 0 10vw);
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    display: block;
+    height: 100vh;
+    @include largeScreen() {
+      left: 4.5rem;
+		  width: 15vw;
+		  height: 100%;
+    }
+
+    & button {
+      display: block;
+      width: 4rem;
+      height: 4rem;
+      padding: 1rem;
+	    border: 0;
+      border-radius: 0;
+	    background-color: $color-primary;
+      @include largeScreen() {
+        display: none;
+      }
+
+      & svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+	      fill: $color-white;
+      }
+
+      &:nth-child(2) svg {
+        width: 75%;
+        height: 75%;
+        margin: 12.5%;
+      }
+    }
+
+    & .close {
+      display: none;
+    }
+
+    & .open,
+    & .close {
+      @include largeScreen() {
+        display: none !important;
+      }
+    }
+
+    & ol {
+      z-index: 99;
+      display: block;
+      overflow: scroll;
+      height: calc(100vh - 4rem);
+      background-color: $color-primary;
+      list-style: none;
+	    clear: both;
+      @include prefix(transform, translateX(-4rem));
+      @include prefix(transition, all .3s ease-in-out);
+      @include largeScreen() {
+        height: 100vh;
+        padding-top: 5vh;
+        background-color: rgba(255,255,255,.8);
+        @include prefix(transform, translateX(0));
+      }
+
+      &::after {
+        @include largeScreen() {
+          position: absolute;
+          z-index: 100;
+		      top: 0;
+          right: 0;
+		      width: 50%;
+          min-height: 100vh;
+		      height: inherit;
+          padding-bottom: 5%;
+		      background-color: $color-primary;
+          content: '';
+        }
+      }
+
+      & li {
+        & a {
+          @include prefix(display, flex);
+          @include prefix(justify-content, center);
+          text-decoration: none;
+          @include largeScreen() {
+            @include prefix(justify-content, flex-start);
+            color: $color-black;
+          }
+
+          &:hover,
+          &:active,
+          &:focus {
+            color: $color-primary;
+          }
+        }
+
+        & h2 {
+          width: 50%;
+          padding: .25rem 0;
+          color: $color-white;
+          font-size: $base-fz;
+	        text-align: center;
+          text-decoration: underline;
+          @include prefix(transition, 1s);
+          @include largeScreen() {
+            color: $color-black;
+          }
+
+          &.active-year {
+            font-size: 1.25em;
+            font-weight: $heading-fw;
+            text-decoration: none;
+            @include largeScreen() {
+              position: relative;
+              z-index: 1000;
+  	          width: 50%;
+              margin-left: 50%;
+  	          color: $color-white;
+  	          font-size: 1.75em;
+              font-weight: $heading-fw;
+  	          text-align: center;
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+
+    & .first {
+      @include prefix(transform, translateX(-4rem));
+      @include largeScreen() {
+        @include prefix(transform, translateX(0));
+      }
+    }
+
+    & .close-menu {
+      @include prefix(transform, translateX(-4rem));
+    }
+
+    & .open-menu {
+      @include prefix(transform, translateX(0));
+    }
+  }
+
+  /********************
+    Contents
+  ********************/
+
+  & .contents {
+    position: relative;
+    top: 4rem;
+    display: block;
+    width: 100%;
+    @include largeScreen() {
+      left: calc(15vw + 4.5rem);
+      top: 0;
+      width: calc(100% - 15vw - 4.5rem);
+    }
+
+    & h1 {
+      display: block;
+	    width: 95%;
+	    margin: 2.5vw;
+    }
+  }
+
+  & .year {
+    margin: 0 2.5vw;
+
+    & .crosses {
+      width: 10rem;
+	    margin-top: 2%;
+      margin-bottom: 5%;
+    }
+  }
+
+  & .data {
+    & ul {
+      @include prefix(columns, 15rem 2);
+	    margin: 0;
+	    padding: 0;
+	    list-style: none;
+      @include largeScreen() {
+        @include prefix(columns, 20vw 3);
+      }
+
+      & li {
+        opacity: 1;
+        border-radius: .3125rem;
+        margin-bottom: 10%;
+        color: $color-black;
+        background-color: $color-white;
+	      break-inside: avoid;
+
+        & label {
+          cursor: pointer;
+        }
+
+        & div {
+          & p {
+            display: inline-block;
+            width: 75%;
+            padding: 5% 0;
+	          margin: 0;
+          }
+
+          & a {
+            display: inline-block;
+            width: 7.5%;
+            margin-left: 12.5%;
+	          margin-top: 5%;
+
+            &:hover,
+            &:focus {
+              padding-bottom: 1%;
+	            border-bottom: .125rem solid $color-black;
+              outline: 0;
+            }
+
+            & svg {
+              width: 75%;
+              height: auto;
+            }
+          }
+
+          &:first-child img {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  & form ul li {
+    & input[type='checkbox'] {
+      opacity: 0;
+      width: 0;
+	    height: 0;
+      padding: 0;
+	    margin: 0;
+
+      &:checked ~ .check,
+      &:focus ~ .check {
+        position: absolute;
+        z-index: 10;
+        left: 0;
+        top: 0;
+        display: block;
+        opacity: 1;
+	      width: 100%;
+	      height: 80%;
+      }
+
+      &:checked ~ img {
+        opacity: .3;
+      }
+    }
+
+    & div.content {
+      position: relative;
+    }
+
+    & div:hover .check,
+    & label div input[type='checkbox']:focus + .check {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: block;
+      opacity: 1;
+	    width: 100%;
+	    height: 80%;
+    }
+
+    & label div:hover .check::after,
+    & input[type='checkbox']:focus ~ .check::after {
+      position: absolute;
+      left: calc((100% - 3.125rem) / 2);
+      top: calc((100% - 3.125rem) / 2);
+      display: block;
+	    width: 3.125rem;
+	    height: 3.125rem;
+	    background: url(/images/icons/unchecked.svg) no-repeat center;
+	    background-size: 3.125rem 3.125rem;
+	    content: '';
+      @include prefix(transition, transform .3s ease-in-out);
+    }
+
+    & input[type='checkbox']:checked ~ .check::after {
+      position: absolute;
+      left: calc((100% - 3.125rem) / 2);
+      top: calc((100% - 3.125rem) / 2);
+      display: block;
+	    width: 3.125rem;
+	    height: 3.125rem;
+	    background: url(/images/icons/checked.svg) no-repeat center;
+      background-size: 3.125rem 3.125rem;
+	    content: '';
+      @include prefix(transform, scale(1.5, 1.5));
+      @include prefix(transition, transform .3s ease-in-out);
+    }
+  }
+
+  /********************
+    Selected-images bar
+  ********************/
+
+  & .selected-images {
+    position: fixed;
+    z-index: 999;
+    bottom: 0;
+    @include prefix(display, flex);
+    @include prefix(flex-wrap, nowrap);
+    @include prefix(flex-direction, row);
+    overflow-x: scroll;
+    width: 100%;
+	  height: 20vh;
+	  background-color: $color-primary;
+	  box-shadow: .0625rem .0625rem 0 .25rem rgba(0,0,0,.1);
+    @include prefix(transform, translateY(20vh));
+    @include prefix(transition, transform .7s);
+    @include largeScreen() {
+      width: 80vw;
+    }
+
+    &::-webkit-scrollbar {
+      width: .625rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      opacity: .5;
+      background: $color-primary;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: .625rem;
+      background: $color-white;
+
+      &:hover {
+        background: $color-black;
+      }
+    }
+
+    & a {
+      cursor: zoom-in;
+      @include prefix(transition, all .3s ease-in-out);
+
+      &:hover,
+      &:active,
+      &:focus {
+        @include prefix(transform, scale(.9, .9));
+      }
+    }
+
+    & img {
+      display: inline-block;
+      height: 15vh;
+	    margin-top: 1.5vh;
+      margin-right: 2%;
+
+      &:last-of-type {
+        padding-right: 2%;
+      }
+    }
+  }
+
+  & .show-selected-images {
+    @include prefix(transform, translateY(0) !important);
+  }
+
+  & .next-page .submit-chapter {
+    position: fixed;
+    z-index: 11;
+    right: 2vw;
+	  bottom: 22vh;
+	  width: 50vw;
+    @include prefix(transform, translateY(30vh));
+    @include largeScreen() {
+      width: 15vw;
+    }
+
+    & + span {
+      position: fixed;
+      z-index: 12;
+      right: 1vw;
+      bottom: 27.5vh;
+      width: 2rem;
+      height: 2rem;
+      padding: .25%;
+      border: .1875rem solid $color-primary;
+      border-radius: 50%;
+      color: $color-black;
+      background-color: $color-white;
+      text-align: center;
+      @include prefix(transform, translateY(35vh));
+      @include largeScreen() {
+        bottom: 27.5vh;
+      }
+    }
+  }
+}
