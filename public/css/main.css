@@ -90,6 +90,9 @@ button.action-btn {
   button.action-btn:focus, button.action-btn:hover {
     background-color: #000000; }
 
+a {
+  color: black; }
+
 /********************
   Image detail
 ********************/
