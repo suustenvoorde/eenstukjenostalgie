@@ -66,6 +66,7 @@ select {
   font-size: 1em;
   font-weight: 700;
   line-height: 1;
+  width: 100%;
   -webkit-appearance: none;
   -moz-appearance: none;
   -o-appearance: none;
@@ -157,355 +158,137 @@ button.action-btn {
   .popupCloseButton:hover, .popupCloseButton:focus {
     background-color: #000000; }
 
-.home section:first-of-type,
-.home section:last-of-type {
-  width: 90%;
-  margin-left: 5%; }
-  @media all and (min-width: 50em) {
-    .home section:first-of-type,
-    .home section:last-of-type {
-      float: left;
-      width: 55%; } }
+/* Leaflet map */
+#map {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh; }
+  #map .leaflet-interactive {
+    fill: #DA121A;
+    stroke: #DA121A; }
+  #map .leaflet-control-attribution {
+    display: none; }
 
-.home aside {
+/* Slider meta-data */
+.meta-data {
+  position: absolute;
+  left: 0;
   top: 0;
   width: 100%;
-  height: 100%;
-  background-color: #DA121A; }
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 2.5vw; }
   @media all and (min-width: 50em) {
-    .home aside {
-      position: fixed;
-      display: inline-block;
-      float: right;
-      width: 35%;
-      margin-left: 5%; } }
-  .home aside h2 {
-    width: 80%;
-    margin-left: 10%;
-    margin-top: 30%;
-    color: #FFFFFF;
-    text-align: center; }
+    .meta-data {
+      width: 35vw;
+      height: 100vh; } }
+  @media screen and (min-width: 40em) {
+    .meta-data > div {
+      box-sizing: border-box; } }
+  .meta-data nav {
+    display: flex;
+    justify-content: space-between;
+    min-width: 30vw; }
+    .meta-data nav::after {
+      content: "";
+      width: 30vw;
+      height: 2px;
+      background-color: black;
+      position: absolute;
+      margin-top: 15px; }
+  .meta-data nav button {
+    cursor: pointer;
+    display: inline-block;
+    width: 20px;
+    height: 30px;
+    border-radius: 50%;
+    z-index: 10; }
+  .meta-data .activeSlider {
+    background-color: #DA121A; }
 
-.home section:first-of-type h1 {
-  width: 80%;
-  margin-top: 20vh;
-  font-size: 4em;
-  font-weight: bolder; }
-  .home section:first-of-type h1 span {
-    color: #DA121A;
-    font-size: 140%; }
+/* Styling slides */
+.meta-data > div {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 5vh - 3.125rem);
+  justify-content: space-between; }
+  .meta-data > div h1 {
+    margin-bottom: 5vh;
+    margin-top: 7.5vh; }
+  .meta-data > div p {
+    margin-bottom: 2.5vh; }
 
-.home section:first-of-type p {
-  width: 50%;
-  font-size: 1.1em;
-  font-weight: light; }
-
-.home section:last-of-type input {
-  display: block;
-  width: 60%;
-  height: 5vh;
-  padding: 2%;
-  border: none;
-  border-radius: .625rem;
-  margin-bottom: 2%;
-  color: #FFFFFF;
-  background-color: #DA121A;
-  text-indent: 1.875rem; }
-  .home section:last-of-type input::placeholder {
-    color: rgba(255, 255, 255, 0.7); }
-
-.home section:last-of-type div.search {
-  position: relative; }
-  .home section:last-of-type div.search img {
-    position: absolute;
-    z-index: 1;
-    width: .9375rem !important;
-    margin-left: .625rem;
-    margin-top: .625rem;
-    color: #4F5B66; }
-
-.home section:last-of-type .stories a {
+/* Searchbar */
+form input {
   display: inline-block;
-  width: 30%;
-  margin-right: 2%; }
-  .home section:last-of-type .stories a img {
-    width: 100%; }
-  .home section:last-of-type .stories a p {
-    margin-bottom: 2rem; }
+  width: calc(100% - 6.5rem);
+  max-width: 20rem;
+  margin: 1.5rem 0;
+  border: 0.1875rem solid #000000;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  outline: 0;
+  color: #000000;
+  background-color: #FFFFFF;
+  font-weight: 400; }
+  form input:focus {
+    border-color: #DA121A; }
 
-.home form {
-  width: 80%;
-  padding-top: 10%;
-  margin: 0;
-  margin-left: 10%; }
-  .home form div {
-    z-index: 100;
-    display: inline-block;
-    width: 70%;
-    height: 12em;
-    margin-left: 5%;
-    color: #FFFFFF;
-    text-align: center; }
-    .home form div img {
-      display: block;
-      width: 30%;
-      margin-left: 35%; }
-    .home form div p {
-      width: 90%;
-      margin-left: 5%;
-      font-size: 1em;
-      text-align: center; }
-  .home form button.slider {
-    float: left;
-    border: none;
-    margin-top: 10%;
-    background: none; }
-  .home form .next {
-    float: right !important; }
-  .home form input[type='radio'] {
-    opacity: 0;
-    width: 0;
-    height: 0;
-    padding: 0;
-    margin: 0; }
-  .home form nav {
-    width: 4.6875rem;
-    margin-top: 10%;
-    margin-left: calc((100% - 4.6875rem) / 2); }
-    .home form nav button {
-      display: inline-block;
-      width: 1.25rem;
-      height: 1.25rem;
-      border: 0;
-      border-radius: 50%;
-      margin-left: .3125rem;
-      background-color: rgba(255, 255, 255, 0.5);
-      cursor: pointer; }
-  .home form button[type='submit'] {
-    width: 80%;
-    height: 7.5%;
-    border: none;
-    border-radius: .625rem;
-    margin-left: 10%;
-    margin-top: 10%;
-    color: #DA121A;
-    background-color: #FFFFFF;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer; }
-    .home form button[type='submit']:hover, .home form button[type='submit']:focus {
-      color: #FFFFFF;
-      background-color: #000000; }
+.search button {
+  display: inline-block;
+  width: 5rem;
+  border: 0.1875rem solid #000000;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-left: -.25rem;
+  cursor: pointer; }
+  .search button:hover, .search button:focus {
+    border-color: #DA121A; }
 
-.home .activeSlider {
-  background-color: #FFFFFF !important; }
-
-.new-story {
-  /********************
-    Leaflet map
-  ********************/
-  /********************
-    Metadata
-  ********************/
-  /********************
-    Timestamp
-  ********************/
-  /********************
-    Outputs
-  ********************/
-  /********************
-    Select street
-  ********************/
-  /********************
-    Searchbar
-  ********************/
-  /********************
-    Autocomplete
-  ********************/
-  /********************
-    Radius select
-  ********************/
-  /********************
-    Submit button
-  ********************/ }
-  .new-story #map {
-    position: absolute;
-    z-index: 0;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh; }
-    .new-story #map .leaflet-interactive {
-      fill: #DA121A;
-      stroke: #DA121A; }
-  .new-story .mapboxgl-ctrl-logo,
-  .new-story .mapboxgl-ctrl-bottom-right {
-    display: none !important; }
-  .new-story .meta-data {
-    position: absolute;
-    left: 0;
-    top: 0;
-    display: -webkit-grid;
-    display: -moz-grid;
-    display: -o-grid;
-    display: grid;
-    -webkit-grid-template-rows: 5rem 1fr;
-    -moz-grid-template-rows: 5rem 1fr;
-    -o-grid-template-rows: 5rem 1fr;
-    grid-template-rows: 5rem 1fr;
-    -webkit-grid-template-columns: calc(5% + 3.5rem) 1fr;
-    -moz-grid-template-columns: calc(5% + 3.5rem) 1fr;
-    -o-grid-template-columns: calc(5% + 3.5rem) 1fr;
-    grid-template-columns: calc(5% + 3.5rem) 1fr;
-    -webkit-align-items: start;
-    -moz-align-items: start;
-    -o-align-items: start;
-    align-items: start;
+/* Autocomplete */
+.autocomplete {
+  display: block;
+  width: calc(100% - $spacing-unit);
+  height: 15vh;
+  overflow: scroll; }
+  .autocomplete ul {
+    display: block;
     width: 100%;
-    height: 0; }
-    @media all and (min-width: 50em) {
-      .new-story .meta-data {
-        -webkit-align-items: stretch;
-        -moz-align-items: stretch;
-        -o-align-items: stretch;
-        align-items: stretch;
-        min-width: 25rem;
-        width: 30%;
-        height: 100vh;
-        background-color: rgba(255, 255, 255, 0.8); } }
-  .new-story .timestamp {
-    -webkit-grid-row: span 2;
-    -moz-grid-row: span 2;
-    -o-grid-row: span 2;
-    grid-row: span 2;
-    -webkit-grid-column: 1/span 2;
-    -moz-grid-column: 1/span 2;
-    -o-grid-column: 1/span 2;
-    grid-column: 1/span 2;
-    display: block;
-    height: 100vh;
-    background-color: rgba(255, 255, 255, 0.8); }
-    @media all and (min-width: 50em) {
-      .new-story .timestamp {
-        background-color: transparent; } }
-  .new-story .timestamp-min-static,
-  .new-story .timestamp-max-static {
-    position: absolute;
-    z-index: 0;
-    left: 4.5rem;
-    display: none;
-    font-size: 1.5em; }
-    @media all and (min-width: 50em) {
-      .new-story .timestamp-min-static,
-      .new-story .timestamp-max-static {
-        display: block; } }
-  .new-story .timestamp-min-static {
-    top: 4vh; }
-  .new-story .timestamp-max-static {
-    bottom: 4vh; }
-  .new-story #rangevalueMin,
-  .new-story #rangevalueMax {
-    display: none; }
-  .new-story .select-street {
-    -webkit-grid-row: span 2;
-    -moz-grid-row: span 2;
-    -o-grid-row: span 2;
-    grid-row: span 2;
-    -webkit-grid-column: 2/span 1;
-    -moz-grid-column: 2/span 1;
-    -o-grid-column: 2/span 1;
-    grid-column: 2/span 1;
-    z-index: 10;
-    display: block;
-    background-color: rgba(255, 255, 255, 0.8); }
-    @media all and (min-width: 50em) {
-      .new-story .select-street {
-        -webkit-grid-row: 2/span 1;
-        -moz-grid-row: 2/span 1;
-        -o-grid-row: 2/span 1;
-        grid-row: 2/span 1;
-        background-color: transparent; } }
-    .new-story .select-street h1 {
-      max-width: 25rem;
-      margin-top: 2rem; }
-      @media all and (min-width: 50em) {
-        .new-story .select-street h1 {
-          margin-top: 0; } }
-  .new-story .search-location input {
-    display: inline-block;
-    width: calc(100% - 6.5rem);
-    max-width: 20rem;
-    margin: 1.5rem 0;
-    border: 0.1875rem solid #000000;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    outline: 0;
-    color: #000000;
-    background-color: #FFFFFF;
-    font-weight: 400; }
-    .new-story .search-location input:focus {
-      border-color: #DA121A; }
-  .new-story .search-location button {
-    display: inline-block;
-    width: 5rem;
-    border: 0.1875rem solid #000000;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    margin-left: -.25rem;
-    cursor: pointer; }
-    .new-story .search-location button:hover, .new-story .search-location button:focus {
-      border-color: #DA121A; }
-  .new-story .autocomplete {
-    display: block;
-    width: calc(100% - $spacing-unit); }
-    .new-story .autocomplete ul {
+    padding: 0; }
+  .autocomplete li {
+    display: block; }
+    .autocomplete li a {
       display: block;
-      width: 100%;
-      padding: 0; }
-    .new-story .autocomplete li {
-      display: block; }
-      .new-story .autocomplete li a {
-        display: block;
-        padding: 1rem;
-        border-bottom: 0.1875rem solid #000000;
-        color: #000000;
-        text-decoration: none; }
-        .new-story .autocomplete li a:hover, .new-story .autocomplete li a:active, .new-story .autocomplete li a:focus, .new-story .autocomplete li a.autocomplete-active {
-          color: #DA121A;
-          border-color: #DA121A; }
-  .new-story .radiusSelect {
-    overflow: hidden;
-    width: calc(100% - 1.5rem);
-    max-width: 25rem;
-    border-radius: .625rem;
-    margin-bottom: 5%;
-    background: url(/images/icons/arrow-down.svg) no-repeat 95% 50%;
-    background-size: auto 30%;
-    background-color: #000000; }
-    .new-story .radiusSelect:hover, .new-story .radiusSelect:active, .new-story .radiusSelect:focus {
-      background-color: #DA121A; }
-    .new-story .radiusSelect select {
-      width: 100%;
-      border: none;
-      background-color: transparent;
-      font-weight: 400; }
-  .new-story form.submit-location-and-timestamp button {
-    position: absolute;
-    right: 3.5rem;
-    bottom: 3.5vh;
-    width: calc(95% - 7.5rem);
-    max-width: 15rem; }
-    @media all and (min-width: 50em) {
-      .new-story form.submit-location-and-timestamp button {
-        right: 5rem; } }
-    .new-story form.submit-location-and-timestamp button::after {
-      display: inline-block;
-      width: 1rem;
-      height: 1rem;
-      margin-left: 5%;
-      background-image: url(/images/icons/next.svg);
-      background-size: 1rem 1rem;
-      content: ''; }
+      padding: 1rem;
+      border-bottom: 0.1875rem solid #000000;
+      color: #000000;
+      text-decoration: none; }
+      .autocomplete li a:hover, .autocomplete li a:active, .autocomplete li a:focus, .autocomplete li a.autocomplete-active {
+        color: #DA121A;
+        border-color: #DA121A; }
+
+/* Radius select */
+.radiusSelect {
+  position: absolute;
+  top: 10vh;
+  left: 50vw;
+  overflow: hidden;
+  width: max-content;
+  padding-right: 25px;
+  border-radius: .625rem;
+  margin-bottom: 5%;
+  background: url(/images/icons/arrow-down.svg) no-repeat 90% 50%;
+  background-size: auto 30%;
+  background-color: #000000; }
+  .radiusSelect:hover, .radiusSelect:active, .radiusSelect:focus {
+    background-color: #DA121A; }
+  .radiusSelect select {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    font-weight: 400; }
 
 /********************
   Slider

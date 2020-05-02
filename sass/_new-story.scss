@@ -1,246 +1,186 @@
-.new-story {
+/* Leaflet map */
+#map {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 
-  /********************
-    Leaflet map
-  ********************/
-
-  & #map {
-    position: absolute;
-    z-index: 0;
-	  top: 0;
-	  left: 0;
-	  width: 100vw;
-	  height: 100vh;
-
-    & .leaflet-interactive {
-      fill: $color-primary;
-      stroke: $color-primary;
-    }
+  .leaflet-interactive {
+    fill: $color-primary;
+    stroke: $color-primary;
   }
 
-  & .mapboxgl-ctrl-logo,
-  & .mapboxgl-ctrl-bottom-right {
-    display: none !important;
+  .leaflet-control-attribution {
+    display: none;
   }
+}
 
-  /********************
-    Metadata
-  ********************/
-
-  & .meta-data {
-    position: absolute;
-    left: 0;
-    top: 0;
-    @include prefix(display, grid);
-    @include prefix(grid-template-rows, 5rem 1fr);
-    @include prefix(grid-template-columns, calc(5% + 3.5rem) 1fr);
-    @include prefix(align-items, start);
-    width: 100%;
-    height: 0;
+/* Slider meta-data */
+.meta-data {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background-color: rgba(255,255,255,.8);
+  padding: 2.5vw;
     @include largeScreen() {
-      @include prefix(align-items, stretch);
-      min-width: 25rem;
-      width: 30%;
+      width: 35vw;
       height: 100vh;
-      background-color: rgba(255,255,255,.8);
-    }
-  }
-
-  /********************
-    Timestamp
-  ********************/
-
-  & .timestamp {
-    @include prefix(grid-row, span 2);
-    @include prefix(grid-column, 1 / span 2);
-    display: block;
-    height: 100vh;
-    background-color: rgba(255,255,255,.8);
-    @include largeScreen() {
-      background-color: transparent;
-    }
-  }
-
-  /********************
-    Outputs
-  ********************/
-
-  & .timestamp-min-static,
-  & .timestamp-max-static {
-    position: absolute;
-    z-index: 0;
-    left: 4.5rem;
-    display: none;
-    font-size: $subheading-fz;
-    @include largeScreen() {
-      display: block;
-    }
-  }
-
-  & .timestamp-min-static {
-    top: 4vh;
-  }
-
-  & .timestamp-max-static {
-    bottom: 4vh;
-  }
-
-  & #rangevalueMin,
-  & #rangevalueMax {
-    display: none;
-  }
-
-  /********************
-    Select street
-  ********************/
-
-  .select-street {
-    @include prefix(grid-row, span 2);
-    @include prefix(grid-column, 2 / span 1);
-    z-index: 10;
-    display: block;
-    background-color: rgba(255,255,255,.8);
-    @include largeScreen() {
-      @include prefix(grid-row, 2 / span 1);
-      background-color: transparent;
     }
 
-    & h1 {
-      max-width: 25rem;
-      margin-top: 2rem;
-      @include largeScreen() {
-        margin-top: 0;
+    > div {
+
+      @media screen and (min-width: 40em){
+        box-sizing: border-box;
       }
-    }
-  }
 
-  /********************
-    Searchbar
-  ********************/
-
-  & .search-location {
-    & input {
-      display: inline-block;
-	    width: calc(100% - 6.5rem);
-      max-width: 20rem;
-      margin: $spacing-unit 0;
-	    border: .1875rem solid $color-black;
-	    border-top-right-radius: 0;
-	    border-bottom-right-radius: 0;
-      outline: 0;
-      color: $color-black;
-      background-color: $color-white;
-      font-weight: $base-fw;
-
-      &:focus {
-        border-color: $color-primary;
-      }
     }
 
-    & button {
-      display: inline-block;
-	    width: 5rem;
-	    border: .1875rem solid $color-black;
-	    border-top-left-radius: 0;
-	    border-bottom-left-radius: 0;
-	    margin-left: -.25rem;
-      cursor: pointer;
-
-      &:hover,
-      &:focus {
-        border-color: $color-primary;
-      }
-    }
-  }
-
-  /********************
-    Autocomplete
-  ********************/
-
-  & .autocomplete {
-    display: block;
-    width: calc(100% - $spacing-unit);
-
-    & ul {
-      display: block;
-      width: 100%;
-      padding: 0;
-    }
-
-    & li {
-      display: block;
-
-      & a {
-        display: block;
-        padding: 1rem;
-        border-bottom: .1875rem solid $color-black;
-        color: $color-black;
-        text-decoration: none;
-
-        &:hover,
-        &:active,
-        &:focus,
-        &.autocomplete-active {
-          color: $color-primary;
-          border-color: $color-primary;
-        }
-      }
-    }
-  }
-
-  /********************
-    Radius select
-  ********************/
-
-  .radiusSelect {
-    overflow: hidden;
-	  width: calc(100% - #{$spacing-unit});
-    max-width: 25rem;
-    border-radius: .625rem;
-    margin-bottom: 5%;
-	  background: url(/images/icons/arrow-down.svg) no-repeat 95% 50%;
-    background-size: auto 30%;
-	  background-color: $color-black;
-
-    &:hover,
-    &:active,
-    &:focus {
-      background-color: $color-primary;
-    }
-
-    & select {
-      width: 100%;
-	    border: none;
-      background-color: transparent;
-      font-weight: $base-fw;
-    }
-  }
-
-  /********************
-    Submit button
-  ********************/
-
-  & form.submit-location-and-timestamp {
-    & button {
-      position: absolute;
-      right: 3.5rem;
-	    bottom: 3.5vh;
-	    width: calc(95% - 7.5rem);
-      max-width: 15rem;
-      @include largeScreen() {
-        right: 5rem;
-      }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      min-width: 30vw;
 
       &::after {
-        display: inline-block;
-	      width: 1rem;
-	      height: 1rem;
-	      margin-left: 5%;
-        background-image: url(/images/icons/next.svg);
-	      background-size: 1rem 1rem;
-        content: '';
+        content: "";
+        width: 30vw;
+        height: 2px;
+        background-color: black;
+        position: absolute;
+        margin-top: 15px;
       }
     }
+
+    nav button {
+      cursor: pointer;
+      display: inline-block;
+      width: 20px;
+      height: 30px;
+      border-radius: 50%;
+      z-index: 10;
+    }
+
+    .activeSlider {
+      background-color: $color-primary;
+    }
+}
+
+/* Styling slides */
+.meta-data > div {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 5vh - 3.125rem);
+  justify-content: space-between;
+
+  h1 {
+    margin-bottom: 5vh;
+    margin-top: 7.5vh;
+  }
+
+  p {
+    margin-bottom: 2.5vh;
+  }
+}
+
+/* Searchbar */
+form {
+  input {
+    display: inline-block;
+    width: calc(100% - 6.5rem);
+    max-width: 20rem;
+    margin: $spacing-unit 0;
+    border: .1875rem solid $color-black;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    outline: 0;
+    color: $color-black;
+    background-color: $color-white;
+    font-weight: $base-fw;
+
+    &:focus {
+      border-color: $color-primary;
+    }
+  }
+}
+
+.search {
+  button {
+    display: inline-block;
+    width: 5rem;
+    border: .1875rem solid $color-black;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: -.25rem;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      border-color: $color-primary;
+    }
+  }
+}
+
+/* Autocomplete */
+.autocomplete {
+  display: block;
+  width: calc(100% - $spacing-unit);
+  height: 15vh;
+  overflow: scroll;
+
+  ul {
+    display: block;
+    width: 100%;
+    padding: 0;
+  }
+
+  li {
+    display: block;
+
+    a {
+      display: block;
+      padding: 1rem;
+      border-bottom: .1875rem solid $color-black;
+      color: $color-black;
+      text-decoration: none;
+
+      &:hover,
+      &:active,
+      &:focus,
+      &.autocomplete-active {
+        color: $color-primary;
+        border-color: $color-primary;
+      }
+    }
+  }
+}
+
+/* Radius select */
+.radiusSelect {
+  position: absolute;
+  top: 10vh;
+  left: 50vw;
+  overflow: hidden;
+  width: max-content;
+  padding-right: 25px;
+  border-radius: .625rem;
+  margin-bottom: 5%;
+  background: url(/images/icons/arrow-down.svg) no-repeat 90% 50%;
+  background-size: auto 30%;
+  background-color: $color-black;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: $color-primary;
+  }
+
+  select {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    font-weight: $base-fw;
   }
 }
 
@@ -265,7 +205,7 @@
 .noUi-vertical {
   width: 2rem;
 
-  & .noUi-handle {
+  .noUi-handle {
     position: relative;
     z-index: 1;
     left: -1rem;

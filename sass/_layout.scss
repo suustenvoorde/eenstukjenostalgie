@@ -47,6 +47,7 @@ select {
   font-size: $form-fz;
   font-weight: $form-fw;
   line-height: $form-lh;
+  width: 100%;
   @include prefix(appearance, none);
 }
 

@@ -3,6 +3,9 @@ var circleToPolygon = require('./circletopolygon.js');
 var toWKT = require('./towkt.js');
 var search = require('./search.js');
 
+// Delete leaflet logo
+// document.getElementsByClassName( 'leaflet-control-attribution' )[0].style.display = 'none';
+
 // Set global wkt variable:
 var inputCircle;
 

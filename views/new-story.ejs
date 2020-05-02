@@ -2,19 +2,36 @@
 <body class="new-story">
 	<div id='map'></div>
 
-	<div class="location-and-timestamp">
-		<div class="meta-data">
-			<div class="timestamp">
-				<div id="slider"></div>
-				<output class="timestamp-min-static">1900</output>
-				<output class="timestamp-max-static"><% new Date(Date.now()).getFullYear(); %></output>
-				<output id="rangevalueMin" name="timestamp-min"></output>
-				<output id="rangevalueMax" name="timestamp-max"></output>
-			</div>
+	<div class="radiusSelect">
+		<select id="radius-selected" name="radius">
+			<option value="0.1">100 m</option>
+			<option value="0.2">200 m</option>
+			<option value="0.3">300 m</option>
+			<option value="0.4">400 m</option>
+			<option value="0.5" selected>500 m</option>
+			<option value="0.6">600 m</option>
+			<option value="0.7">700 m</option>
+		</select>
+	</div>
 
-			<div class="select-street">
-				<h1>Selecteer een plek en een tijdperk</h1>
-				<form class="search-location" action="/search-location" method="post">
+	<div class="meta-data">
+		<nav></nav>
+		<div class="slideone">
+			<div>
+				<h1>Ga op zoek naar foto’s uit het verleden in twee stappen.</h1>
+				<p> Ben jij benieuwd hoe jouw straat er vroeger uit zag? Of zou je graag terug blikken op hoe de wijk er ook alweer uit zag? Start met zoeken en laat de herinneringen naar boven komen...</p>
+				<p>Dit project is ontwikkeld door Max de Vries en Suus ten Voorde in samenwerking met Adamnet en de Openbare Bibliotheek Amsterdam.</p>
+			</div>
+			<button class="next-to-two">Ga door naar stap 1</button>
+		</div>
+		<div class="slidetwo">
+			<div>
+				<h1>Kies een locatie</h1>
+				<h2>Verplaats de cirkel om een gebied te selecteren...</h2>
+				<p>Denk bijvoorbeeld aan een wijk waar je hebt gewoond, een bekende plek in de stad of het park waar je veel te vinden was. </p>
+				<h2>...of ga op zoek naar een straat.</h2>
+				<p>Denk bijvoorbeeld aan een woonadres, de straat van jouw school of een straat van een vriend of vriendin.</p>
+				<form class="search" action="/search-location" method="post">
 					<input type="text" name="searchLocation" placeholder="Zoek jouw straat" value="" autocomplete="off">
 					<button type="submit">Zoek</button>
 				</form>
@@ -31,75 +48,102 @@
 						</ul>
 					<% } %>
 				</div>
-
-				<div class="radiusSelect">
-					<select id="radius-selected" name="radius">
-						<option value="0.1">100 m</option>
-						<option value="0.2">200 m</option>
-						<option value="0.3">300 m</option>
-						<option value="0.4">400 m</option>
-						<option value="0.5" selected>500 m</option>
-						<option value="0.6">600 m</option>
-						<option value="0.7">700 m</option>
-					</select>
-				</div>
 			</div>
+			<button class="next-to-three">Ga door naar stap 2</button>
 		</div>
-		<form class="submit-location-and-timestamp" action="/create-story" method="post">
-			<button class="action-btn" type="submit">Zoek herinneringen</button>
-		</form>
+		<div class="slidethree">
+			<div>
+				<h1>Kies een periode</h1>
+				<h2>Selecteer een beginjaar en een eindjaar</h2>
+				<p>Denk bijvoorbeeld aan beelden tijdens de Tweede Wereldoorlog. Kies dan als beginjaar 1940 en eindjaar 1945.</p>
+				<h2>Beginjaar</h2>
+				<form class="timestamp-min search">
+					<input type="number" name="timestamp-min" placeholder="1970" value="" autocomplete="off">
+					<button type="submit">Zoek</button>
+				</form>
+				<h2>Eindjaar</h2>
+				<form class="timestamp-max search">
+					<input type="number" name="timestamp-max" placeholder="1980" value="" autocomplete="off">
+					<button type="submit">Zoek</button>
+				</form>
+			</div>
+			<form class="submit-location-and-timestamp" action="/create-story" method="post">
+				<button type="submit">Zoek herinneringen</button>
+			</form>
+		</div>
 	</div>
 
-	<script src="//cdn.bootcss.com/noUiSlider/8.5.1/nouislider.js"></script>
 	<script>
-		var range = document.getElementById('slider');
+		if('querySelector' in document && 'querySelectorAll' in document && 'addEventListener' in window) {
+			var figures = document.querySelectorAll(".meta-data > div");
+			var buttons = document.querySelectorAll("button");
+			var slideIndex = 1;
 
-		noUiSlider.create(range, {
-			start: [ 1900, new Date(Date.now()).getFullYear() ], // Handle start position
-			step: 1, // Slider moves in increments of '10'
-			margin: 1, // Handles must be more than '20' apart
-			connect: true, // Display a colored bar between the handles
-			orientation: 'vertical',
-			behaviour: 'tap-drag', // Move handle on tap, bar is draggable
-			tooltips: true,
-			animate: true,
-			animationDuration: 300,
-			format: {
-				to: function ( value ) {
-				return value + '';
-				},
-				from: function ( value ) {
-				return value.replace('', '');
+			buttons.forEach(function(button){
+				button.style.display = "inline-block";
+			})
+
+			//create dot navigation
+			for(var i = 0; i < figures.length; i++) {
+				var nav = document.querySelector('nav');
+				var dot = document.createElement('button');
+				nav.appendChild(dot);
+			}
+			var dots = document.querySelectorAll('nav button');
+			dots[0].classList.add("activeSlider")
+
+			//prev next buttons function
+			function showDivs(n) {
+				var i;
+				if (n > figures.length){
+					slideIndex = 1
 				}
-			},
-			range: {
-				'min': 1900,
-				'max': new Date(Date.now()).getFullYear()
+				if (n < 1) {
+					slideIndex = figures.length
+				}
+				for (i = 0; i < figures.length; i++) {
+					 figures[i].style.display = "none";
+				}
+				figures[slideIndex-1].style.display = "flex";
 			}
-		});
 
-		var minValue = document.getElementById('rangevalueMin');
-		var maxValue = document.getElementById('rangevalueMax');
+			showDivs(slideIndex);
 
-	 	// When the slider value changes, update the input and span
-	 	range.noUiSlider.on('update', function( values, handle ) {
-			if ( handle ) {
-		 		maxValue.innerHTML = values[handle];
-			} else {
-		 		minValue.innerHTML = values[handle];
+			function plusDivs(n) {
+				showDivs(slideIndex += n);
+				for (i = 0; i < dots.length; i++) {
+					dots[i].classList.remove("activeSlider");
+				}
+				dots[slideIndex-1].classList.add("activeSlider");
+
 			}
-	 	});
 
-		//animate slider zero state
-		var bar = document.querySelectorAll('.noUi-origin');
-		bar.forEach(function(e){
-			setTimeout(function(){
-				e.classList.add('animate');
-				range.noUiSlider.set([1970, 1980]);
-			}, 1000);
-			setTimeout(function(){
-				e.classList.remove('animate');
-			}, 2000);
-		});
+			//dot navigation
+			function specificDivs(n) {
+				showDivs(slideIndex = n);
+				for (i = 0; i < dots.length; i++) {
+					dots[i].classList.remove("activeSlider");
+				}
+				dots[slideIndex-1].classList.add("activeSlider");
+			}
+
+			dots.forEach(function(el, index){
+				el.addEventListener('click', function(){
+					specificDivs(index + 1)
+				})
+			})
+
+			var nexttotwo = document.querySelector(".next-to-two");
+			var nexttothree = document.querySelector(".next-to-three");
+
+			nexttotwo.addEventListener('click', function(){
+				specificDivs(1 + 1)
+			})
+
+			nexttothree.addEventListener('click', function(){
+				specificDivs(2 + 1)
+			})
+		}
+
 	</script>
 <%- include('partials/foot.ejs') %>
