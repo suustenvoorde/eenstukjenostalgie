@@ -11,10 +11,6 @@ var findCurrentStory = function (arr, id) {
   return arr.find(story => story.id == id);
 }
 
-exports.homePage = function (req, res, next) {
-  res.render('index');
-}
-
 exports.newStoryPage = function (req, res, next) {
   res.render('new-story', {
     data: req.session.searchResults
@@ -29,7 +25,7 @@ exports.searchLocationPage = function (req, res, next) {
     .then(data => {
       var rows = data.results.bindings;
       req.session.searchResults = rows;
-      res.redirect('/new-story');
+      res.redirect('/');
     })
     .catch(err => {
       console.log(err);
