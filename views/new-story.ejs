@@ -58,12 +58,12 @@
 				<p>Denk bijvoorbeeld aan beelden tijdens de Tweede Wereldoorlog. Kies dan als beginjaar 1940 en eindjaar 1945.</p>
 				<h2>Beginjaar</h2>
 				<form class="timestamp-min search">
-					<input type="number" name="timestamp-min" placeholder="1970" value="" autocomplete="off">
+					<input type="number" name="timestamp-min" min="1000" max ="2020" step="1" placeholder="1970" value="1970" autocomplete="off">
 					<button type="submit">Zoek</button>
 				</form>
 				<h2>Eindjaar</h2>
 				<form class="timestamp-max search">
-					<input type="number" name="timestamp-max" placeholder="1980" value="" autocomplete="off">
+					<input type="number" name="timestamp-max" min="1000" max ="2020" step="1" placeholder="1980" value="1980" autocomplete="off">
 					<button type="submit">Zoek</button>
 				</form>
 			</div>
