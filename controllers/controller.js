@@ -11,8 +11,8 @@ var findCurrentStory = function (arr, id) {
   return arr.find(story => story.id == id);
 }
 
-exports.newStoryPage = function (req, res, next) {
-  res.render('new-story', {
+exports.homepage = function (req, res, next) {
+  res.render('index', {
     data: req.session.searchResults
   });
 }

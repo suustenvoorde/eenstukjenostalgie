@@ -3,7 +3,7 @@ var router = express.Router();
 var controller = require('../controllers/controller.js');
 
 // GET new story page:
-router.get('/', controller.newStoryPage);
+router.get('/', controller.homepage);
 
 // POST search location page:
 router.post('/search-location', controller.searchLocationPage);
