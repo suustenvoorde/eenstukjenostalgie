@@ -2,50 +2,45 @@
   Colors
 ********************/
 
-$color-primary: #DA121A;
-$color-black:   #000000;
-$color-white:   #FFFFFF;
+$color-primary:      #DA383F;
+$color-primary-dark: #B7363B;
+$color-black:        #2C2C2C;
+$color-white:        #FFFFFF;
 
 /********************
   Fonts
 ********************/
 
 // Base:
-$base-ff:       helvetica, sans-serif;
-$base-fz:       1em;
-$base-fw:       400;
-$base-lh:       1.4;
+$base-ff:            'Kreon';
+$base-fz:            1em;
+$base-fw:            300;
+$base-lh:            1.6;
 
 // Heading:
-$heading-ff:    helvetica, sans-serif;
-$heading-fz:    1.5em;
-$heading-fw:    700;
-$heading-lh:    1.2;
+$heading-ff:         'Raleway';
+$heading-fz:         2em;
+$heading-fw:         600;
+$heading-lh:         1;
 
 // Subheading:
-$subheading-ff: helvetica, sans-serif;
-$subheading-fz: 1.5em;
-$subheading-fw: 400;
-$subheading-lh: 1.2;
-
-// Form:
-$form-ff:       helvetica, sans-serif;
-$form-fz:       1em;
-$form-fw:       700;
-$form-lh:       1;
+$subheading-ff:      'Raleway';
+$subheading-fz:      1.5em;
+$subheading-fw:      400;
+$subheading-lh:      1.3;
 
 /********************
   Spacing
 ********************/
 
-$spacing-unit:  1.5rem; // 24px
+$spacing-unit:       2.1875rem; // 35px
 
 /********************
   Mixins
 ********************/
 
 // Prefixer:
-$prefixes:      webkit, moz, o;
+$prefixes:           webkit, moz, o;
 
 @mixin prefix($property, $value) {
   @each $prefix in $prefixes {
