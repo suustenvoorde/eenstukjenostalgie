@@ -1,1 +1,79 @@
-// Import fonts here:
+/********************
+  Kreon
+********************/
+
+// Kreon Light:
+@font-face {
+  src: url(../fonts/kreon_light.ttf);
+  font-family: 'Kreon';
+  font-weight: 300;
+  font-style: normal;
+}
+
+// Kreon Regular:
+@font-face {
+  src: url(../fonts/kreon_regular.ttf);
+  font-family: 'Kreon';
+  font-weight: 400;
+  font-style: normal;
+}
+
+// Kreon Bold:
+@font-face {
+  src: url(../fonts/kreon_bold.ttf);
+  font-family: 'Kreon';
+  font-weight: 700;
+  font-style: normal;
+}
+
+/********************
+  Raleway
+********************/
+
+// Raleway Regular:
+@font-face {
+  src: url(../fonts/raleway_regular.ttf);
+  font-family: 'Raleway';
+  font-weight: 400;
+  font-style: normal;
+}
+
+// Raleway Italic:
+@font-face {
+  src: url(../fonts/raleway_italic.ttf);
+  font-family: 'Raleway';
+  font-weight: 400;
+  font-style: italic;
+}
+
+// Raleway SemiBold:
+@font-face {
+  src: url(../fonts/raleway_semibold.ttf);
+  font-family: 'Raleway';
+  font-weight: 600;
+  font-style: normal;
+}
+
+// Raleway SemiBold Italic:
+@font-face {
+  src: url(../fonts/raleway_semibolditalic.ttf);
+  font-family: 'Raleway';
+  font-weight: 600;
+  font-style: italic;
+}
+
+// Raleway Bold:
+@font-face {
+  src: url(../fonts/raleway_bold.ttf);
+  font-family: 'Raleway';
+  font-weight: 700;
+  font-style: normal;
+}
+
+// Raleway Bold Italic:
+@font-face {
+  src: url(../fonts/raleway_bolditalic.ttf);
+  font-family: 'Raleway';
+  font-weight: 700;
+  font-style: italic;
+}
