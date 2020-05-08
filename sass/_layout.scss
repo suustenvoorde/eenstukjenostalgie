@@ -34,6 +34,10 @@ h2 {
   line-height: $subheading-lh;
 }
 
+/********************
+  Action button
+********************/
+
 .action-btn {
   @include prefix(display, flex);
   @include prefix(flex-wrap, nowrap);
@@ -48,7 +52,7 @@ h2 {
   font-size: 1.25em;
   font-weight: $heading-fw;
   text-align: left;
-  line-height: 1.3;
+  line-height: $subheading-lh;
   cursor: pointer;
 
   & > svg {
@@ -79,63 +83,82 @@ h2 {
 }
 
 /********************
+  Inputs
+********************/
+
+input,
+select {
+  display: block;
+  min-height: #{2 * $spacing-unit};
+  padding: 1.5625rem $spacing-unit;
+  border: 0;
+  border-radius: 1.25rem;
+  color: $color-white;
+  background-color: $color-primary-dark;
+  font-family: $base-ff;
+  font-size: 1.25em;
+  font-weight: $base-fw;
+  line-height: 1;
+}
+
+/********************
   Image detail
 ********************/
 
-.detail {
-  position: fixed;
-  z-index: 10000;
-  left: 0;
-  top: 0;
-  display: none;
-  @include prefix(justify-content, center);
-  @include prefix(align-items, center);
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,.8);
-  cursor: pointer;
-
-  &.show {
-    @include prefix(display, flex);
-  }
-
-  & > div {
-    position: relative;
-    display: block;
-    width: min-content;
-    max-width: calc(100vw - #{2 * $spacing-unit});
-    height: auto;
-    max-height: 100%;
-    padding: $spacing-unit;
-    border-radius: .625rem;
-    background-color: $color-white;
-
-    & img {
-      width: auto;
-      max-width: calc(100vw - #{4 * $spacing-unit});
-      margin-bottom: $spacing-unit;
-    }
-  }
-}
-
-.popupCloseButton {
-  position: absolute;
-  top: -1.5625rem;
-  right: -1.5625rem;
-  @include prefix(display, flex);
-  @include prefix(justify-content, center);
-  @include prefix(align-items, center);
-  width: 3.125rem;
-  height: 3.125rem;
-  border-radius: 50%;
-	color: $color-white;
-  background-color: $color-primary;
-  font-size: 1.5rem;
-  line-height: 1;
-  cursor: pointer;
-
-  &:hover,
-  &:focus {
-    background-color: $color-black;
-  }
-}
+// .detail {
+//   position: fixed;
+//   z-index: 10000;
+//   left: 0;
+//   top: 0;
+//   display: none;
+//   @include prefix(justify-content, center);
+//   @include prefix(align-items, center);
+//   width: 100%;
+//   height: 100%;
+//   background-color: rgba(0,0,0,.8);
+//   cursor: pointer;
+//
+//   &.show {
+//     @include prefix(display, flex);
+//   }
+//
+//   & > div {
+//     position: relative;
+//     display: block;
+//     width: min-content;
+//     max-width: calc(100vw - #{2 * $spacing-unit});
+//     height: auto;
+//     max-height: 100%;
+//     padding: $spacing-unit;
+//     border-radius: .625rem;
+//     background-color: $color-white;
+//
+//     & img {
+//       width: auto;
+//       max-width: calc(100vw - #{4 * $spacing-unit});
+//       margin-bottom: $spacing-unit;
+//     }
+//   }
+// }
+//
+// .popupCloseButton {
+//   position: absolute;
+//   top: -1.5625rem;
+//   right: -1.5625rem;
+//   @include prefix(display, flex);
+//   @include prefix(justify-content, center);
+//   @include prefix(align-items, center);
+//   width: 3.125rem;
+//   height: 3.125rem;
+//   border-radius: 50%;
+// 	color: $color-white;
+//   background-color: $color-primary;
+//   font-size: 1.5rem;
+//   line-height: 1;
+//   cursor: pointer;
+//
+//   &:hover,
+//   &:focus {
+//     background-color: $color-black;
+//   }
+// }
