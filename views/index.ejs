@@ -1,5 +1,5 @@
 <%- include('partials/head.ejs') %>
-<body class="new-story">
+<body>
 	<div id='map'></div>
 
 	<div class="radiusSelect">
@@ -14,6 +14,28 @@
 		</select>
 	</div>
 
+	<main class="instructions">
+		<nav class="pager">
+			<ol class="steps">
+				<li><a href="#slideone">1</a></li>
+				<li><a class="active" href="#slidetwo">2</a></li>
+				<li><a href="#slidethree"><%- include('../public/images/icons/finish.svg') %></a></li>
+			</ol>
+		</nav>
+
+		<section id="slideone">
+			Slide one
+		</section>
+
+		<section id="slidetwo">
+			Slide two
+		</section>
+
+		<section id="slidethree">
+			Slide three
+		</section>
+	</main>
+
 	<div class="meta-data">
 		<nav></nav>
 		<div class="slideone">
@@ -22,7 +44,7 @@
 				<p> Ben jij benieuwd hoe jouw straat er vroeger uit zag? Of zou je graag terug blikken op hoe de wijk er ook alweer uit zag? Start met zoeken en laat de herinneringen naar boven komen...</p>
 				<p>Dit project is ontwikkeld door <a href="https://devriesdesigns.nl/" target="_blank">Max de Vries</a> en <a href="https://sisuus.amsterdam/" target="_blank">Suus ten Voorde</a> in samenwerking met <a href="https://adamlink.nl/" target="_blank">Adamnet</a> en de <a href="https://www.oba.nl/" target="_blank">Openbare Bibliotheek Amsterdam</a>.</p>
 			</div>
-			<button class="action-btn action-btn--white next-to-two">
+			<button class="action-btn action-btn--black next-to-two">
 				<span>Ga door naar stap 1</span>
 				<%- include('../public/images/icons/arrow-right.svg') %>
 			</button>
@@ -75,74 +97,4 @@
 			</form>
 		</div>
 	</div>
-
-	<script>
-		if('querySelector' in document && 'querySelectorAll' in document && 'addEventListener' in window) {
-			var figures = document.querySelectorAll(".meta-data > div");
-			var buttons = document.querySelectorAll("button");
-			var slideIndex = 1;
-
-			//create dot navigation
-			for(var i = 0; i < figures.length; i++) {
-				var nav = document.querySelector('nav');
-				var dot = document.createElement('button');
-				nav.appendChild(dot);
-			}
-			var dots = document.querySelectorAll('nav button');
-			dots[0].classList.add("activeSlider")
-
-			//prev next buttons function
-			function showDivs(n) {
-				var i;
-				if (n > figures.length){
-					slideIndex = 1
-				}
-				if (n < 1) {
-					slideIndex = figures.length
-				}
-				for (i = 0; i < figures.length; i++) {
-					 figures[i].style.display = "none";
-				}
-				figures[slideIndex-1].style.display = "flex";
-			}
-
-			showDivs(slideIndex);
-
-			function plusDivs(n) {
-				showDivs(slideIndex += n);
-				for (i = 0; i < dots.length; i++) {
-					dots[i].classList.remove("activeSlider");
-				}
-				dots[slideIndex-1].classList.add("activeSlider");
-
-			}
-
-			//dot navigation
-			function specificDivs(n) {
-				showDivs(slideIndex = n);
-				for (i = 0; i < dots.length; i++) {
-					dots[i].classList.remove("activeSlider");
-				}
-				dots[slideIndex-1].classList.add("activeSlider");
-			}
-
-			dots.forEach(function(el, index){
-				el.addEventListener('click', function(){
-					specificDivs(index + 1)
-				})
-			})
-
-			var nexttotwo = document.querySelector(".next-to-two");
-			var nexttothree = document.querySelector(".next-to-three");
-
-			nexttotwo.addEventListener('click', function(){
-				specificDivs(1 + 1)
-			})
-
-			nexttothree.addEventListener('click', function(){
-				specificDivs(2 + 1)
-			})
-		}
-
-	</script>
 <%- include('partials/foot.ejs') %>
