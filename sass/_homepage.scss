@@ -1,3 +1,7 @@
+/********************
+  Map
+********************/
+
 /* Leaflet map */
 #map {
   position: absolute;
@@ -17,240 +21,84 @@
   }
 }
 
-/* Slider meta-data */
-.meta-data {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  background-color: rgba(255,255,255,.8);
-  padding: 2.5vw;
-    @include largeScreen() {
-      width: 35vw;
-      height: 100vh;
-    }
-
-    > div {
-
-      @media screen and (min-width: 40em){
-        box-sizing: border-box;
-      }
-
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      min-width: 30vw;
-
-      &::after {
-        content: "";
-        width: 30vw;
-        height: 2px;
-        background-color: black;
-        position: absolute;
-        margin-top: 15px;
-      }
-    }
-
-    // nav button {
-    //   cursor: pointer;
-    //   display: inline-block;
-    //   width: 20px;
-    //   height: 30px;
-    //   border-radius: 50%;
-    //   z-index: 10;
-    // }
-
-    .activeSlider {
-      background-color: $color-primary;
-    }
-}
-
-/* Styling slides */
-.meta-data > div {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 5vh - 3.125rem);
-  justify-content: space-between;
-
-  h1 {
-    margin-bottom: 5vh;
-    margin-top: 7.5vh;
-  }
-
-  p {
-    margin-bottom: 2.5vh;
-  }
-}
-
-/* Searchbar */
-form {
-  input {
-    display: inline-block;
-    width: calc(100% - 6.5rem);
-    max-width: 20rem;
-    margin: $spacing-unit 0;
-    border: .1875rem solid $color-black;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    outline: 0;
-    color: $color-black;
-    background-color: $color-white;
-    font-weight: $base-fw;
-
-    &:focus {
-      border-color: $color-primary;
-    }
-  }
-}
-
-.search {
-  // button {
-  //   display: inline-block;
-  //   width: 5rem;
-  //   border: .1875rem solid $color-black;
-  //   border-top-left-radius: 0;
-  //   border-bottom-left-radius: 0;
-  //   margin-left: -.25rem;
-  //   cursor: pointer;
-  //
-  //   &:hover,
-  //   &:focus {
-  //     border-color: $color-primary;
-  //   }
-  // }
-}
-
-/* Autocomplete */
-.autocomplete {
-  display: block;
-  width: calc(100% - $spacing-unit);
-  height: 15vh;
-  overflow: scroll;
-
-  ul {
-    display: block;
-    width: 100%;
-    padding: 0;
-  }
-
-  li {
-    display: block;
-
-    a {
-      display: block;
-      padding: 1rem;
-      border-bottom: .1875rem solid $color-black;
-      color: $color-black;
-      text-decoration: none;
-
-      &:hover,
-      &:active,
-      &:focus,
-      &.autocomplete-active {
-        color: $color-primary;
-        border-color: $color-primary;
-      }
-    }
-  }
-}
-
-/* Radius select */
-.radiusSelect {
-  position: absolute;
-  top: 10vh;
-  left: 50vw;
-  overflow: hidden;
-  width: max-content;
-  padding-right: 25px;
-  border-radius: .625rem;
-  margin-bottom: 5%;
-  background: url(/images/icons/arrow-down.svg) no-repeat 90% 50%;
-  background-size: auto 30%;
-  background-color: $color-black;
-
-  &:hover,
-  &:active,
-  &:focus {
-    background-color: $color-primary;
-  }
-
-  select {
-    width: 100%;
-    border: none;
-    background-color: transparent;
-    font-weight: $base-fw;
-  }
-}
-
 /********************
-  Slider
+  Instructions
 ********************/
 
-#slider {
-  position: absolute;
-  left: 5%;
-	top: 4vh;
-  display: block;
-  width: $spacing-unit;
-	height: 92vh;
-  border-radius: $spacing-unit;
-}
-
-.noUi-background {
-  background: $color-black;
-}
-
-.noUi-vertical {
-  width: 2rem;
-
-  .noUi-handle {
-    position: relative;
-    z-index: 1;
-    left: -1rem;
-    top: -2rem;
-    width: 3.5rem;
-    height: 3.5rem;
-    border: .3rem solid $color-primary;
-	  border-radius: 50%;
-	  background-color: $color-white;
-	  cursor: ns-resize;
-  }
-}
-
-.noUi-base,
-.noUi-handle {
-  @include prefix(transform, translate3d(0,0,0));
-}
-
-.noUi-base {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-}
-
-.noUi-connect {
-  background-color: $color-primary;
-}
-
-.noUi-origin {
-  position: absolute;
+.instructions {
+  position: fixed;
   left: 0;
   top: 0;
-  right: 0;
   bottom: 0;
-  border-radius: $spacing-unit;
-}
+  display: block;
+  width: 30rem;
+  padding: $spacing-unit;
+  padding-top: 0;
+  box-shadow: 0 0 0 .625rem rgba(44,44,44,.3);
+  background-color: $color-primary;
 
-.animate {
-  @include prefix(transition, top 1s);
-}
+  & .pager {
+    & .steps {
+      position: relative;
+      @include prefix(display, flex);
+      @include prefix(flex-wrap, nowrap);
+      @include prefix(justify-content, space-between);
+      @include prefix(align-items, center);
+      list-style-type: none;
 
-.noUi-tooltip {
-  position: absolute;
-  left: .3rem;
-  top: .9rem;
-	height: 1rem;
+      &::before {
+        position: absolute;
+        z-index: -1;
+        left: 0;
+        top: calc((100% - .625rem) / 2);
+        right: 0;
+        display: block;
+        height: .625rem;
+        margin: 0 #{$spacing-unit};
+        margin-top: 0;
+        border-radius: .3125rem;
+        background-color: $color-primary-dark;
+        content: '';
+      }
+
+      & a {
+        @include prefix(display, flex);
+        @include prefix(justify-content, center);
+        @include prefix(align-items, center);
+        width: $spacing-unit;
+        height: $spacing-unit;
+        padding: .46875rem;
+        border-radius: 50%;
+        margin: #{.5 * $spacing-unit};
+        color: $color-white;
+        background-color: $color-black;
+        font-family: $base-ff;
+        font-size: 1.25em;
+        font-weight: 700;
+        text-align: center;
+        text-decoration: none;
+        line-height: 1;
+
+        & > svg {
+          display: block;
+          width: 80%;
+          height: auto;
+          fill: $color-white;
+        }
+
+        &.active {
+          width: #{2 * $spacing-unit};
+          height: #{2 * $spacing-unit};
+          padding: .9375rem;
+          color: $color-black;
+          background-color: $color-white;
+          font-size: 2.5em;
+
+          & > svg {
+            fill: $color-black;
+          }
+        }
+      }
+    }
+  }
 }
