@@ -189,8 +189,8 @@ select {
   position: absolute;
   z-index: 0;
   top: 0;
-  left: 0;
-  width: 100vw;
+  right: 0;
+  width: calc(100vw - 30rem);
   height: 100vh; }
   #map .leaflet-interactive {
     fill: #DA383F;
@@ -208,7 +208,7 @@ select {
   bottom: 0;
   display: block;
   width: 30rem;
-  padding: 2.1875rem;
+  padding: 3.28125rem;
   padding-top: 0;
   box-shadow: 0 0 0 0.625rem rgba(44, 44, 44, 0.3);
   background-color: #DA383F; }

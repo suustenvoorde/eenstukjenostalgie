@@ -7,8 +7,8 @@
   position: absolute;
   z-index: 0;
   top: 0;
-  left: 0;
-  width: 100vw;
+  right: 0;
+  width: calc(100vw - 30rem);
   height: 100vh;
 
   .leaflet-interactive {
@@ -32,7 +32,7 @@
   bottom: 0;
   display: block;
   width: 30rem;
-  padding: $spacing-unit;
+  padding: #{1.5 * $spacing-unit};
   padding-top: 0;
   box-shadow: 0 0 0 .625rem rgba(44,44,44,.3);
   background-color: $color-primary;
