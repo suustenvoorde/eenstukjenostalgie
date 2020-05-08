@@ -53,14 +53,14 @@
       }
     }
 
-    nav button {
-      cursor: pointer;
-      display: inline-block;
-      width: 20px;
-      height: 30px;
-      border-radius: 50%;
-      z-index: 10;
-    }
+    // nav button {
+    //   cursor: pointer;
+    //   display: inline-block;
+    //   width: 20px;
+    //   height: 30px;
+    //   border-radius: 50%;
+    //   z-index: 10;
+    // }
 
     .activeSlider {
       background-color: $color-primary;
@@ -106,20 +106,20 @@ form {
 }
 
 .search {
-  button {
-    display: inline-block;
-    width: 5rem;
-    border: .1875rem solid $color-black;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    margin-left: -.25rem;
-    cursor: pointer;
-
-    &:hover,
-    &:focus {
-      border-color: $color-primary;
-    }
-  }
+  // button {
+  //   display: inline-block;
+  //   width: 5rem;
+  //   border: .1875rem solid $color-black;
+  //   border-top-left-radius: 0;
+  //   border-bottom-left-radius: 0;
+  //   margin-left: -.25rem;
+  //   cursor: pointer;
+  //
+  //   &:hover,
+  //   &:focus {
+  //     border-color: $color-primary;
+  //   }
+  // }
 }
 
 /* Autocomplete */
@@ -253,5 +253,4 @@ form {
   left: .3rem;
   top: .9rem;
 	height: 1rem;
-	font-weight: $form-fw;
 }

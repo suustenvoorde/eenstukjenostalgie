@@ -1,4 +1,64 @@
 /********************
+  Kreon
+********************/
+@font-face {
+  src: url(../fonts/kreon_light.ttf);
+  font-family: 'Kreon';
+  font-weight: 300;
+  font-style: normal; }
+
+@font-face {
+  src: url(../fonts/kreon_regular.ttf);
+  font-family: 'Kreon';
+  font-weight: 400;
+  font-style: normal; }
+
+@font-face {
+  src: url(../fonts/kreon_bold.ttf);
+  font-family: 'Kreon';
+  font-weight: 700;
+  font-style: normal; }
+
+/********************
+  Raleway
+********************/
+@font-face {
+  src: url(../fonts/raleway_regular.ttf);
+  font-family: 'Raleway';
+  font-weight: 400;
+  font-style: normal; }
+
+@font-face {
+  src: url(../fonts/raleway_italic.ttf);
+  font-family: 'Raleway';
+  font-weight: 400;
+  font-style: italic; }
+
+@font-face {
+  src: url(../fonts/raleway_semibold.ttf);
+  font-family: 'Raleway';
+  font-weight: 600;
+  font-style: normal; }
+
+@font-face {
+  src: url(../fonts/raleway_semibolditalic.ttf);
+  font-family: 'Raleway';
+  font-weight: 600;
+  font-style: italic; }
+
+@font-face {
+  src: url(../fonts/raleway_bold.ttf);
+  font-family: 'Raleway';
+  font-weight: 700;
+  font-style: normal; }
+
+@font-face {
+  src: url(../fonts/raleway_bolditalic.ttf);
+  font-family: 'Raleway';
+  font-weight: 700;
+  font-style: italic; }
+
+/********************
   Colors
 ********************/
 /********************
@@ -26,72 +86,76 @@
   line-height: inherit; }
 
 body {
-  color: #000000;
-  font-family: helvetica, sans-serif;
+  color: #2C2C2C;
+  font-family: "Kreon";
   font-size: 1em;
-  font-weight: 400;
-  line-height: 1.4; }
+  font-weight: 300;
+  line-height: 1.6; }
 
 h1 {
-  font-size: 1.5em;
-  font-weight: 700;
-  line-height: 1.2; }
+  font-family: "Raleway";
+  font-size: 2em;
+  font-weight: 600;
+  line-height: 1; }
 
 h2 {
+  font-family: "Raleway";
   font-size: 1.5em;
   font-weight: 400;
-  line-height: 1.2; }
+  line-height: 1.3; }
 
-button,
-input,
-select {
+.action-btn {
   display: -webkit-flex;
   display: -moz-flex;
   display: -o-flex;
   display: flex;
-  -webkit-justify-content: center;
-  -moz-justify-content: center;
-  -o-justify-content: center;
-  justify-content: center;
+  -webkit-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-justify-content: space-between;
+  -moz-justify-content: space-between;
+  -o-justify-content: space-between;
+  justify-content: space-between;
   -webkit-align-items: center;
   -moz-align-items: center;
   -o-align-items: center;
   align-items: center;
-  height: 3.125rem;
-  padding: 0 1rem;
+  min-height: 4.375rem;
+  padding: 1.5625rem 2.1875rem;
   border: 0;
-  border-radius: .625rem;
-  color: #FFFFFF;
-  background-color: #000000;
-  font-size: 1em;
-  font-weight: 700;
-  line-height: 1;
-  width: 100%;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -o-appearance: none;
-  appearance: none; }
-
-button,
-select {
+  border-radius: 4.375rem;
+  box-shadow: 0 0 0 0.3125rem rgba(44, 44, 44, 0.2);
+  font-family: "Raleway";
+  font-size: 1.25em;
+  font-weight: 600;
+  text-align: left;
+  line-height: 1.3;
   cursor: pointer; }
-
-select > option {
-  color: #000000; }
-
-button:hover,
-button:focus,
-select:hover,
-select:focus {
-  background-color: #DA121A; }
-
-button.action-btn {
-  background-color: #DA121A; }
-  button.action-btn:focus, button.action-btn:hover {
-    background-color: #000000; }
-
-a {
-  color: black; }
+  .action-btn > svg {
+    -webkit-flex: 0 0 auto;
+    -moz-flex: 0 0 auto;
+    -o-flex: 0 0 auto;
+    flex: 0 0 auto;
+    display: block;
+    width: auto;
+    height: 1rem;
+    margin-left: 1.09375rem; }
+  .action-btn--primary {
+    color: #FFFFFF;
+    background-color: #DA383F; }
+    .action-btn--primary > svg {
+      fill: #FFFFFF; }
+  .action-btn--black {
+    color: #FFFFFF;
+    background-color: #2C2C2C; }
+    .action-btn--black > svg {
+      fill: #FFFFFF; }
+  .action-btn--white {
+    color: #2C2C2C;
+    background-color: #FFFFFF; }
+    .action-btn--white > svg {
+      fill: #2C2C2C; }
 
 /********************
   Image detail
@@ -123,16 +187,16 @@ a {
     position: relative;
     display: block;
     width: min-content;
-    max-width: calc(100vw - 3rem);
+    max-width: calc(100vw - 4.375rem);
     height: auto;
     max-height: 100%;
-    padding: 1.5rem;
+    padding: 2.1875rem;
     border-radius: .625rem;
     background-color: #FFFFFF; }
     .detail > div img {
       width: auto;
-      max-width: calc(100vw - 6rem);
-      margin-bottom: 1.5rem; }
+      max-width: calc(100vw - 8.75rem);
+      margin-bottom: 2.1875rem; }
 
 .popupCloseButton {
   position: absolute;
@@ -154,12 +218,12 @@ a {
   height: 3.125rem;
   border-radius: 50%;
   color: #FFFFFF;
-  background-color: #DA121A;
+  background-color: #DA383F;
   font-size: 1.5rem;
   line-height: 1;
   cursor: pointer; }
   .popupCloseButton:hover, .popupCloseButton:focus {
-    background-color: #000000; }
+    background-color: #2C2C2C; }
 
 /* Leaflet map */
 #map {
@@ -170,8 +234,8 @@ a {
   width: 100vw;
   height: 100vh; }
   #map .leaflet-interactive {
-    fill: #DA121A;
-    stroke: #DA121A; }
+    fill: #DA383F;
+    stroke: #DA383F; }
   #map .leaflet-control-attribution {
     display: none; }
 
@@ -201,15 +265,8 @@ a {
       background-color: black;
       position: absolute;
       margin-top: 15px; }
-  .meta-data nav button {
-    cursor: pointer;
-    display: inline-block;
-    width: 20px;
-    height: 30px;
-    border-radius: 50%;
-    z-index: 10; }
   .meta-data .activeSlider {
-    background-color: #DA121A; }
+    background-color: #DA383F; }
 
 /* Styling slides */
 .meta-data > div {
@@ -228,27 +285,16 @@ form input {
   display: inline-block;
   width: calc(100% - 6.5rem);
   max-width: 20rem;
-  margin: 1.5rem 0;
-  border: 0.1875rem solid #000000;
+  margin: 2.1875rem 0;
+  border: 0.1875rem solid #2C2C2C;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   outline: 0;
-  color: #000000;
+  color: #2C2C2C;
   background-color: #FFFFFF;
-  font-weight: 400; }
+  font-weight: 300; }
   form input:focus {
-    border-color: #DA121A; }
-
-.search button {
-  display: inline-block;
-  width: 5rem;
-  border: 0.1875rem solid #000000;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  margin-left: -.25rem;
-  cursor: pointer; }
-  .search button:hover, .search button:focus {
-    border-color: #DA121A; }
+    border-color: #DA383F; }
 
 /* Autocomplete */
 .autocomplete {
@@ -265,12 +311,12 @@ form input {
     .autocomplete li a {
       display: block;
       padding: 1rem;
-      border-bottom: 0.1875rem solid #000000;
-      color: #000000;
+      border-bottom: 0.1875rem solid #2C2C2C;
+      color: #2C2C2C;
       text-decoration: none; }
       .autocomplete li a:hover, .autocomplete li a:active, .autocomplete li a:focus, .autocomplete li a.autocomplete-active {
-        color: #DA121A;
-        border-color: #DA121A; }
+        color: #DA383F;
+        border-color: #DA383F; }
 
 /* Radius select */
 .radiusSelect {
@@ -284,14 +330,14 @@ form input {
   margin-bottom: 5%;
   background: url(/images/icons/arrow-down.svg) no-repeat 90% 50%;
   background-size: auto 30%;
-  background-color: #000000; }
+  background-color: #2C2C2C; }
   .radiusSelect:hover, .radiusSelect:active, .radiusSelect:focus {
-    background-color: #DA121A; }
+    background-color: #DA383F; }
   .radiusSelect select {
     width: 100%;
     border: none;
     background-color: transparent;
-    font-weight: 400; }
+    font-weight: 300; }
 
 /********************
   Slider
@@ -301,12 +347,12 @@ form input {
   left: 5%;
   top: 4vh;
   display: block;
-  width: 1.5rem;
+  width: 2.1875rem;
   height: 92vh;
-  border-radius: 1.5rem; }
+  border-radius: 2.1875rem; }
 
 .noUi-background {
-  background: #000000; }
+  background: #2C2C2C; }
 
 .noUi-vertical {
   width: 2rem; }
@@ -317,7 +363,7 @@ form input {
     top: -2rem;
     width: 3.5rem;
     height: 3.5rem;
-    border: 0.3rem solid #DA121A;
+    border: 0.3rem solid #DA383F;
     border-radius: 50%;
     background-color: #FFFFFF;
     cursor: ns-resize; }
@@ -336,7 +382,7 @@ form input {
   height: 100%; }
 
 .noUi-connect {
-  background-color: #DA121A; }
+  background-color: #DA383F; }
 
 .noUi-origin {
   position: absolute;
@@ -344,7 +390,7 @@ form input {
   top: 0;
   right: 0;
   bottom: 0;
-  border-radius: 1.5rem; }
+  border-radius: 2.1875rem; }
 
 .animate {
   -webkit-transition: top 1s;
@@ -356,8 +402,7 @@ form input {
   position: absolute;
   left: .3rem;
   top: .9rem;
-  height: 1rem;
-  font-weight: 700; }
+  height: 1rem; }
 
 .create-story {
   /********************
@@ -410,7 +455,7 @@ form input {
       top: 0;
       width: 4.5rem;
       height: 4.5rem;
-      padding: 1.5rem;
+      padding: 2.1875rem;
       background-color: rgba(255, 255, 255, 0.8);
       text-decoration: none; }
       .create-story .map-visualisation .back svg {
@@ -419,7 +464,7 @@ form input {
       .create-story .map-visualisation .back:hover svg,
       .create-story .map-visualisation .back:active svg,
       .create-story .map-visualisation .back:focus svg {
-        fill: #DA121A; }
+        fill: #DA383F; }
   .create-story .table-of-contents {
     -webkit-flex: 0 0 10vw;
     -moz-flex: 0 0 10vw;
@@ -443,7 +488,7 @@ form input {
       padding: 1rem;
       border: 0;
       border-radius: 0;
-      background-color: #DA121A; }
+      background-color: #DA383F; }
       @media all and (min-width: 50em) {
         .create-story .table-of-contents button {
           display: none; } }
@@ -467,7 +512,7 @@ form input {
       display: block;
       overflow: scroll;
       height: calc(100vh - 4rem);
-      background-color: #DA121A;
+      background-color: #DA383F;
       list-style: none;
       clear: both;
       -webkit-transform: translateX(-4rem);
@@ -497,7 +542,7 @@ form input {
           min-height: 100vh;
           height: inherit;
           padding-bottom: 5%;
-          background-color: #DA121A;
+          background-color: #DA383F;
           content: ''; } }
       .create-story .table-of-contents ol li a {
         display: -webkit-flex;
@@ -515,9 +560,9 @@ form input {
             -moz-justify-content: flex-start;
             -o-justify-content: flex-start;
             justify-content: flex-start;
-            color: #000000; } }
+            color: #2C2C2C; } }
         .create-story .table-of-contents ol li a:hover, .create-story .table-of-contents ol li a:active, .create-story .table-of-contents ol li a:focus {
-          color: #DA121A; }
+          color: #DA383F; }
       .create-story .table-of-contents ol li h2 {
         width: 50%;
         padding: .25rem 0;
@@ -531,10 +576,10 @@ form input {
         transition: 1s; }
         @media all and (min-width: 50em) {
           .create-story .table-of-contents ol li h2 {
-            color: #000000; } }
+            color: #2C2C2C; } }
         .create-story .table-of-contents ol li h2.active-year {
           font-size: 1.25em;
-          font-weight: 700;
+          font-weight: 600;
           text-decoration: none; }
           @media all and (min-width: 50em) {
             .create-story .table-of-contents ol li h2.active-year {
@@ -544,7 +589,7 @@ form input {
               margin-left: 50%;
               color: #FFFFFF;
               font-size: 1.75em;
-              font-weight: 700;
+              font-weight: 600;
               text-align: center;
               text-decoration: none; } }
     .create-story .table-of-contents .first {
@@ -606,7 +651,7 @@ form input {
       opacity: 1;
       border-radius: .3125rem;
       margin-bottom: 10%;
-      color: #000000;
+      color: #2C2C2C;
       background-color: #FFFFFF;
       break-inside: avoid; }
       .create-story .data ul li label {
@@ -623,7 +668,7 @@ form input {
         margin-top: 5%; }
         .create-story .data ul li div a:hover, .create-story .data ul li div a:focus {
           padding-bottom: 1%;
-          border-bottom: 0.125rem solid #000000;
+          border-bottom: 0.125rem solid #2C2C2C;
           outline: 0; }
         .create-story .data ul li div a svg {
           width: 75%;
@@ -711,7 +756,7 @@ form input {
     overflow-x: scroll;
     width: 100%;
     height: 20vh;
-    background-color: #DA121A;
+    background-color: #DA383F;
     box-shadow: 0.0625rem 0.0625rem 0 0.25rem rgba(0, 0, 0, 0.1);
     -webkit-transform: translateY(20vh);
     -moz-transform: translateY(20vh);
@@ -728,12 +773,12 @@ form input {
       width: .625rem; }
     .create-story .selected-images::-webkit-scrollbar-track {
       opacity: .5;
-      background: #DA121A; }
+      background: #DA383F; }
     .create-story .selected-images::-webkit-scrollbar-thumb {
       border-radius: .625rem;
       background: #FFFFFF; }
       .create-story .selected-images::-webkit-scrollbar-thumb:hover {
-        background: #000000; }
+        background: #2C2C2C; }
     .create-story .selected-images a {
       cursor: zoom-in;
       -webkit-transition: all 0.3s ease-in-out;
@@ -778,9 +823,9 @@ form input {
       width: 2rem;
       height: 2rem;
       padding: .25%;
-      border: 0.1875rem solid #DA121A;
+      border: 0.1875rem solid #DA383F;
       border-radius: 50%;
-      color: #000000;
+      color: #2C2C2C;
       background-color: #FFFFFF;
       text-align: center;
       -webkit-transform: translateY(35vh);
@@ -814,9 +859,9 @@ form input {
     display: block;
     width: 5rem;
     height: 5rem;
-    padding: 1.5rem; }
+    padding: 2.1875rem; }
     .my-story nav > a:hover, .my-story nav > a:active, .my-story nav > a:focus {
-      background-color: #000000; }
+      background-color: #2C2C2C; }
     .my-story nav > a img {
       width: 100%;
       height: auto; }
@@ -837,12 +882,12 @@ form input {
     padding: 0;
     padding-top: 5rem;
     margin: 0;
-    background-color: #DA121A; }
+    background-color: #DA383F; }
     .my-story nav .register-years > li {
       display: block;
       width: 5rem; }
       .my-story nav .register-years > li:hover, .my-story nav .register-years > li:focus, .my-story nav .register-years > li.active-menu {
-        background-color: #000000; }
+        background-color: #2C2C2C; }
       .my-story nav .register-years > li > a {
         display: -webkit-flex;
         display: -moz-flex;
@@ -876,7 +921,7 @@ form input {
     height: 5rem;
     padding: 0;
     margin: 0;
-    background-color: #DA121A; }
+    background-color: #DA383F; }
     .my-story nav .register-chapters.show-chapter {
       z-index: 1000;
       display: -webkit-flex;
@@ -892,7 +937,7 @@ form input {
         -o-justify-content: flex-start;
         justify-content: flex-start;
         margin-left: 2rem;
-        color: #DA121A; }
+        color: #DA383F; }
       .my-story nav .register-chapters > li > button {
         -webkit-justify-content: flex-start;
         -moz-justify-content: flex-start;
@@ -901,7 +946,7 @@ form input {
         margin-left: 2rem; }
   .my-story .personal-data {
     display: block;
-    margin: 1.5rem 5%; }
+    margin: 2.1875rem 5%; }
   .my-story main {
     width: calc(100% - 5rem);
     margin-left: 5rem;
@@ -913,7 +958,7 @@ form input {
       bottom: 0;
       width: 5rem;
       height: 5rem;
-      padding: 1.5rem;
+      padding: 2.1875rem;
       border-radius: 0; }
       @media all and (min-width: 50em) {
         .my-story main .action-btn {
@@ -925,7 +970,7 @@ form input {
           height: 3.125rem;
           padding: 0 1rem;
           border-radius: .625rem;
-          margin: 1.5rem; } }
+          margin: 2.1875rem; } }
       .my-story main .action-btn > svg {
         height: 100%; }
         @media all and (min-width: 50em) {
@@ -952,7 +997,7 @@ form input {
     align-items: center;
     width: 100%;
     height: 100%;
-    padding: 1.5rem;
+    padding: 2.1875rem;
     background-color: rgba(0, 0, 0, 0.8); }
     .my-story .modal-overlay.show {
       display: -webkit-flex;
@@ -964,11 +1009,11 @@ form input {
     display: block;
     width: 100%;
     max-width: 40rem;
-    padding: 1.5rem;
+    padding: 2.1875rem;
     border-radius: .625rem;
     background-color: #FFFFFF; }
     .my-story .modal p {
-      margin: 3rem 0;
+      margin: 4.375rem 0;
       font-size: 1.25em; }
   .my-story .modal-close-btn {
     position: absolute;
@@ -990,12 +1035,12 @@ form input {
     height: 3.125rem;
     border-radius: 50%;
     color: #FFFFFF;
-    background-color: #DA121A;
+    background-color: #DA383F;
     font-size: 1.5rem;
     line-height: 1;
     cursor: pointer; }
     .my-story .modal-close-btn:hover, .my-story .modal-close-btn:focus {
-      background-color: #000000; }
+      background-color: #2C2C2C; }
     .my-story .modal-close-btn > svg {
       width: 100%;
       height: auto;
@@ -1016,10 +1061,10 @@ form input {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
       outline: 0;
-      color: #000000;
+      color: #2C2C2C;
       background-color: #f2f2f2;
       font-size: 1.25em;
-      font-weight: 400; }
+      font-weight: 300; }
       .my-story .copy-link input:hover, .my-story .copy-link input:focus {
         background-color: rgba(0, 0, 0, 0.15); }
     .my-story .copy-link button {
@@ -1039,7 +1084,7 @@ form input {
     background-color: #FFFFFF; }
   .my-story img.crosses {
     width: 4rem;
-    margin-bottom: 1.5rem; }
+    margin-bottom: 2.1875rem; }
   .my-story h2 {
     width: 100%; }
   .my-story main ul {
@@ -1055,7 +1100,7 @@ form input {
       opacity: 1;
       border-radius: 5px;
       margin-bottom: 10%;
-      color: #000000;
+      color: #2C2C2C;
       background-color: #FFFFFF;
       break-inside: avoid; }
       .my-story main ul li div p {
@@ -1073,7 +1118,7 @@ form input {
           background-size: .9375rem .9375rem;
           content: ''; }
         .my-story main ul li div p:active, .my-story main ul li div p:focus {
-          border: 0.0625rem solid #000000;
+          border: 0.0625rem solid #2C2C2C;
           outline: none; }
           .my-story main ul li div p:active::after, .my-story main ul li div p:focus::after {
             background-image: none; }
@@ -1084,7 +1129,7 @@ form input {
         margin-top: 5%; }
         .my-story main ul li div a:hover, .my-story main ul li div a:focus {
           padding-bottom: 1%;
-          border-bottom: 0.125rem solid #000000;
+          border-bottom: 0.125rem solid #2C2C2C;
           outline: 0; }
         .my-story main ul li div a img {
           width: 75%; }
