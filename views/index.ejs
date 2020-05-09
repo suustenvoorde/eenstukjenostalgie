@@ -31,10 +31,6 @@
 			<p>
 				Dit project is ontwikkeld door <strong>Max de Vries</strong> en <strong>Suus ten Voorde</strong> in samenwerking met <strong>Adamnet</strong> en de <strong>Openbare Bibliotheek Amsterdam.</strong>
 			</p>
-			<a class="action-btn action-btn--black slide-link" href="#slidetwo" role="button">
-				<span>Verder naar stap 2</span>
-				<%- include('../public/images/icons/arrow-right.svg') %>
-			</a>
 		</section>
 
 		<section id="slidetwo" class="slide">
@@ -67,11 +63,6 @@
 					</ul>
 				<% } %>
 			</div>
-
-			<a class="action-btn action-btn--black slide-link" href="#slidethree" role="button">
-				<span>Naar laatste stap</span>
-				<%- include('../public/images/icons/arrow-right.svg') %>
-			</a>
 		</section>
 
 		<section id="slidethree" class="slide">
@@ -81,38 +72,46 @@
 				Denk bijvoorbeeld aan beelden tijdens de Tweede Wereldoorlog. Kies dan als beginjaar 1940 en eindjaar 1945.
 			</p>
 
-			<% var now = new Date(Date.now()).getFullYear(); %>
+			<form action="" method="post">
+				<% var now = new Date(Date.now()).getFullYear(); %>
 
-			<h2>Beginjaar (vanaf 1900)</h2>
-			<select class="startyear">
-				<% var i = 1900; %>
-				<% while (i < now+1) { %>
-					<% if (i == 1970) { %>
-						<option value="<%- i %>" selected><%= i %></option>
-					<% } else { %>
-						<option value="<%- i %>"><%= i %></option>
-					<% } %>
-					<% i++; %>
-				<% } %>
-			</select>
-
-			<h2>Eindjaar</h2>
-			<select class="endyear">
-				<% var i = 1900; %>
-				<% while (i < now+1) { %>
-					<% if (i == 1980) { %>
-						<option value="<%- i %>" selected><%= i %></option>
-					<% } else { %>
-						<option value="<%- i %>"><%= i %></option>
-					<% } %>
-					<% i++; %>
-				<% } %>
-			</select>
-
-			<a class="action-btn action-btn--black slide-link" href="#slidethree" role="button">
-				<span>Zoek herinneringen</span>
-				<%- include('../public/images/icons/arrow-right.svg') %>
-			</a>
+				<ul class="year-selection">
+					<li>
+						<h2>Beginjaar:</h2>
+						<small>(Vanaf 1900)</small>
+						<select class="startyear">
+							<% var i = 1900; %>
+							<% while (i < now+1) { %>
+								<% if (i == 1970) { %>
+									<option value="<%- i %>" selected><%= i %></option>
+								<% } else { %>
+									<option value="<%- i %>"><%= i %></option>
+								<% } %>
+								<% i++; %>
+							<% } %>
+						</select>
+					</li>
+					<li>
+						<h2>Eindjaar:</h2>
+						<select class="endyear">
+							<% var i = 1900; %>
+							<% while (i < now+1) { %>
+								<% if (i == 1980) { %>
+									<option value="<%- i %>" selected><%= i %></option>
+								<% } else { %>
+									<option value="<%- i %>"><%= i %></option>
+								<% } %>
+								<% i++; %>
+							<% } %>
+						</select>
+					</li>
+				</ul>
+			</form>
 		</section>
+
+		<a class="action-btn action-btn--black slide-link" href="#slidetwo" role="button">
+			<span>Naar stap 2</span>
+			<%- include('../public/images/icons/arrow-right.svg') %>
+		</a>
 	</main>
 <%- include('partials/foot.ejs') %>

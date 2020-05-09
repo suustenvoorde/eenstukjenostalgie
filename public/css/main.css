@@ -104,6 +104,12 @@ h2 {
   font-weight: 400;
   line-height: 1.3; }
 
+small {
+  font-family: "Kreon";
+  font-size: 0.75em;
+  font-weight: 300;
+  line-height: 1.6; }
+
 /********************
   Action button
 ********************/
@@ -297,18 +303,20 @@ select {
           fill: #2C2C2C; }
   .instructions .slide {
     display: none;
-    width: 100%; }
+    width: 100%;
+    min-height: calc(100% - 16.40625rem); }
     .instructions .slide.active {
       display: block; }
-    .instructions .slide h1,
-    .instructions .slide .action-btn {
+    .instructions .slide > h1 {
       margin: 2.1875rem 0; }
-    .instructions .slide h2 {
+    .instructions .slide > h2 {
       margin: 1.09375rem 0; }
-    .instructions .slide p {
+    .instructions .slide > p {
       margin-top: 1.09375rem;
       margin-bottom: 2.1875rem;
       color: #2C2C2C; }
+  .instructions .action-btn {
+    margin-top: 2.1875rem; }
 
 /********************
   Searchbar
@@ -329,7 +337,7 @@ select {
     -o-flex: 1 0 auto;
     flex: 1 0 auto;
     display: block;
-    border-radius: 1.25rem 0 0 1.25rem;
+    border-radius: .625rem 0 0 .625rem;
     outline: 0;
     color: #FFFFFF;
     background-color: #B7363B; }
@@ -345,7 +353,7 @@ select {
     height: 4.375rem;
     padding: 1.5625rem;
     border: 0;
-    border-radius: 0 1.25rem 1.25rem 0;
+    border-radius: 0 .625rem .625rem 0;
     outline: 0;
     background-color: #2C2C2C;
     cursor: pointer; }
@@ -391,6 +399,64 @@ select {
     .autocomplete-items a > strong {
       color: #FFFFFF;
       font-weight: 400; }
+
+/********************
+  Year selection
+********************/
+.year-selection {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -o-flex;
+  display: flex;
+  -webkit-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-justify-content: space-between;
+  -moz-justify-content: space-between;
+  -o-justify-content: space-between;
+  justify-content: space-between;
+  width: 100%;
+  list-style-type: none; }
+  .year-selection > li {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -o-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: space-between;
+    -moz-justify-content: space-between;
+    -o-justify-content: space-between;
+    justify-content: space-between; }
+    .year-selection > li small {
+      display: block;
+      width: 100%;
+      color: #2C2C2C; }
+    .year-selection > li select {
+      display: block;
+      height: 4.375rem;
+      padding: 1.5625rem 2.1875rem;
+      padding-right: 4.375rem;
+      border: 0;
+      border-radius: .625rem;
+      margin-top: 1.09375rem;
+      color: #FFFFFF;
+      background-color: #B7363B;
+      background-image: url(../images/icons/select.svg);
+      background-position: calc(100% - 2.1875rem) 50%;
+      background-repeat: no-repeat;
+      background-size: 1rem auto;
+      font-family: "Raleway";
+      font-size: 1.25em;
+      font-weight: 600;
+      line-height: 1;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -o-appearance: none;
+      appearance: none; }
 
 .create-story {
   /********************
