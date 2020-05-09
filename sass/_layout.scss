@@ -39,7 +39,7 @@ h2 {
 ********************/
 
 .action-btn {
-  @include prefix(display, flex);
+  @include prefix(display, inline-flex);
   @include prefix(flex-wrap, nowrap);
   @include prefix(justify-content, space-between);
   @include prefix(align-items, center);

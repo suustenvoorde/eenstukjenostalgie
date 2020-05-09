@@ -17,84 +17,102 @@
 	<main class="instructions">
 		<nav class="pager">
 			<ol class="steps">
-				<li><a href="#slideone">1</a></li>
-				<li><a class="active" href="#slidetwo">2</a></li>
-				<li><a href="#slidethree"><%- include('../public/images/icons/finish.svg') %></a></li>
+				<li><a class="slide-link active" href="#slideone">1</a></li>
+				<li><a class="slide-link" href="#slidetwo">2</a></li>
+				<li><a class="slide-link" href="#slidethree"><%- include('../public/images/icons/finish.svg') %></a></li>
 			</ol>
 		</nav>
 
-		<section id="slideone">
-			Slide one
+		<section id="slideone" class="slide active">
+			<h1>Ga op zoek naar foto's uit het verleden in twee stappen.</h1>
+			<p>
+				 Ben jij benieuwd hoe jouw straat er vroeger uit zag? Of zou je graag terug blikken op hoe de wijk er ook alweer uit zag? Start met zoeken en laat de herinneringen naar boven komen...
+			</p>
+			<p>
+				Dit project is ontwikkeld door <strong>Max de Vries</strong> en <strong>Suus ten Voorde</strong> in samenwerking met <strong>Adamnet</strong> en de <strong>Openbare Bibliotheek Amsterdam.</strong>
+			</p>
+			<a class="action-btn action-btn--black slide-link" href="#slidetwo" role="button">
+				<span>Verder naar stap 2</span>
+				<%- include('../public/images/icons/arrow-right.svg') %>
+			</a>
 		</section>
 
-		<section id="slidetwo">
-			Slide two
+		<section id="slidetwo" class="slide">
+			<h1>Kies een locatie</h1>
+			<h2>Verplaats de cirkel om een gebied te selecteren...</h2>
+			<p>
+				Denk bijvoorbeeld aan een wijk waar je hebt gewoond, een bekende plek in de stad of het park waar je veel te vinden was.
+			</p>
+			<h2>...of ga op zoek naar een straat.</h2>
+			<p>
+				Denk bijvoorbeeld aan een woonadres, de straat van jouw school of een straat van een vriend of vriendin.
+			</p>
+
+			<form class="searchbar" action="/search-location" method="post">
+				<input type="text" name="searchLocation" placeholder="Zoek jouw straat" value="" autocomplete="off">
+				<button type="submit">
+					<%- include('../public/images/icons/search.svg') %>
+				</button>
+			</form>
+
+			<div class="autocomplete">
+				<% if (data !== null && data !== undefined) { %>
+					<ul id="autocomplete-list" class="autocomplete-items">
+						<% data.forEach((street, i) => { %>
+							<li>
+								<label for="<%- street.street.value %>"><%= street.name.value %></label>
+								<input id="<%- street.street.value %>" type="radio" name="wkt" value="<%- street.wkt.value %>">
+							</li>
+						<% }); %>
+					</ul>
+				<% } %>
+			</div>
+
+			<a class="action-btn action-btn--black slide-link" href="#slidethree" role="button">
+				<span>Naar laatste stap</span>
+				<%- include('../public/images/icons/arrow-right.svg') %>
+			</a>
 		</section>
 
-		<section id="slidethree">
-			Slide three
+		<section id="slidethree" class="slide">
+			<h1>Kies een periode</h1>
+			<h2>Selecteer een beginjaar en een eindjaar.</h2>
+			<p>
+				Denk bijvoorbeeld aan beelden tijdens de Tweede Wereldoorlog. Kies dan als beginjaar 1940 en eindjaar 1945.
+			</p>
+
+			<h2>Beginjaar (vanaf 1900)</h2>
+			<select class="startyear">
+				<% var i = 1900; %>
+				<% var now = new Date(Date.now()).getFullYear(); %>
+				<% while (i < now+1) { %>
+					<% if (i == 1970) { %>
+						<option value="<%- i %>" selected><%= i %></option>
+					<% } else { %>
+						<option value="<%- i %>"><%= i %></option>
+					<% } %>
+					<% i++; %>
+				<% } %>
+			</select>
+
+			<h2>Eindjaar</h2>
+			<select class="endyear">
+				<% var i = 1900; %>
+				<% var now = new Date(Date.now()).getFullYear(); %>
+				<% while (i < now+1) { %>
+					<% if (i == 1980) { %>
+						<option value="<%- i %>" selected><%= i %></option>
+					<% } else { %>
+						<option value="<%- i %>"><%= i %></option>
+					<% } %>
+					<% i++; %>
+				<% } %>
+			</select>
+
+			<a class="action-btn action-btn--black slide-link" href="#slidethree" role="button">
+				<span>Zoek herinneringen</span>
+				<%- include('../public/images/icons/arrow-right.svg') %>
+			</a>
 		</section>
 	</main>
-
-	<div class="meta-data">
-		<nav></nav>
-		<div class="slideone">
-			<div>
-				<h1>Ga op zoek naar foto’s uit het verleden in twee stappen.</h1>
-				<p> Ben jij benieuwd hoe jouw straat er vroeger uit zag? Of zou je graag terug blikken op hoe de wijk er ook alweer uit zag? Start met zoeken en laat de herinneringen naar boven komen...</p>
-				<p>Dit project is ontwikkeld door <a href="https://devriesdesigns.nl/" target="_blank">Max de Vries</a> en <a href="https://sisuus.amsterdam/" target="_blank">Suus ten Voorde</a> in samenwerking met <a href="https://adamlink.nl/" target="_blank">Adamnet</a> en de <a href="https://www.oba.nl/" target="_blank">Openbare Bibliotheek Amsterdam</a>.</p>
-			</div>
-			<button class="action-btn action-btn--black next-to-two">
-				<span>Ga door naar stap 1</span>
-				<%- include('../public/images/icons/arrow-right.svg') %>
-			</button>
-		</div>
-		<div class="slidetwo">
-			<div>
-				<h1>Kies een locatie</h1>
-				<h2>Verplaats de cirkel om een gebied te selecteren...</h2>
-				<p>Denk bijvoorbeeld aan een wijk waar je hebt gewoond, een bekende plek in de stad of het park waar je veel te vinden was. </p>
-				<h2>...of ga op zoek naar een straat.</h2>
-				<p>Denk bijvoorbeeld aan een woonadres, de straat van jouw school of een straat van een vriend of vriendin.</p>
-				<form class="search" action="/search-location" method="post">
-					<input type="text" name="searchLocation" placeholder="Zoek jouw straat" value="" autocomplete="off">
-					<button type="submit">Zoek</button>
-				</form>
-
-				<div class="autocomplete">
-					<% if (data !== null && data !== undefined) { %>
-						<ul id="autocomplete-list" class="autocomplete-items">
-							<% data.forEach(street => { %>
-								<li>
-									<input id="<%- street.street.value %>" type="radio" name="wkt" value="<%- street.wkt.value %>">
-									<label for="<%- street.street.value %>"><%= street.name.value %></label>
-								</li>
-							<% }); %>
-						</ul>
-					<% } %>
-				</div>
-			</div>
-			<button class="next-to-three">Ga door naar stap 2</button>
-		</div>
-		<div class="slidethree">
-			<div>
-				<h1>Kies een periode</h1>
-				<h2>Selecteer een beginjaar en een eindjaar</h2>
-				<p>Denk bijvoorbeeld aan beelden tijdens de Tweede Wereldoorlog. Kies dan als beginjaar 1940 en eindjaar 1945.</p>
-				<h2>Beginjaar</h2>
-				<form class="timestamp-min search">
-					<input type="number" name="timestamp-min" min="1000" max ="2020" step="1" placeholder="1970" value="1970" autocomplete="off">
-					<button type="submit">Zoek</button>
-				</form>
-				<h2>Eindjaar</h2>
-				<form class="timestamp-max search">
-					<input type="number" name="timestamp-max" min="1000" max ="2020" step="1" placeholder="1980" value="1980" autocomplete="off">
-					<button type="submit">Zoek</button>
-				</form>
-			</div>
-			<form class="submit-location-and-timestamp" action="/create-story" method="post">
-				<button type="submit">Zoek herinneringen</button>
-			</form>
-		</div>
-	</div>
 <%- include('partials/foot.ejs') %>

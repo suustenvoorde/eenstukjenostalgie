@@ -4,12 +4,12 @@
 
 /* Leaflet map */
 #map {
-  position: absolute;
+  position: fixed;
   z-index: 0;
   top: 0;
   right: 0;
-  width: calc(100vw - 30rem);
-  height: 100vh;
+  bottom: 0;
+  width: calc(100% - 30rem);
 
   .leaflet-interactive {
     fill: $color-primary;
@@ -31,10 +31,13 @@
   top: 0;
   bottom: 0;
   display: block;
+  overflow-y: scroll;
   width: 30rem;
   padding: #{1.5 * $spacing-unit};
   padding-top: 0;
+  padding-bottom: #{.5 * $spacing-unit};
   box-shadow: 0 0 0 .625rem rgba(44,44,44,.3);
+  color: $color-white;
   background-color: $color-primary;
 
   & .pager {
@@ -44,6 +47,8 @@
       @include prefix(flex-wrap, nowrap);
       @include prefix(justify-content, space-between);
       @include prefix(align-items, center);
+      margin-top: $spacing-unit;
+      margin-bottom: #{1.5 * $spacing-unit};
       list-style-type: none;
 
       &::before {
@@ -54,7 +59,6 @@
         right: 0;
         display: block;
         height: .625rem;
-        margin: 0 #{$spacing-unit};
         margin-top: 0;
         border-radius: .3125rem;
         background-color: $color-primary-dark;
@@ -69,7 +73,6 @@
         height: $spacing-unit;
         padding: .46875rem;
         border-radius: 50%;
-        margin: #{.5 * $spacing-unit};
         color: $color-white;
         background-color: $color-black;
         font-family: $base-ff;
@@ -78,6 +81,8 @@
         text-align: center;
         text-decoration: none;
         line-height: 1;
+        @include prefix(transform, scale(1,1));
+        @include prefix(transition, transform .3s ease);
 
         & > svg {
           display: block;
@@ -87,18 +92,130 @@
         }
 
         &.active {
-          width: #{2 * $spacing-unit};
-          height: #{2 * $spacing-unit};
-          padding: .9375rem;
           color: $color-black;
           background-color: $color-white;
-          font-size: 2.5em;
+          @include prefix(transform, scale(2,2));
 
           & > svg {
             fill: $color-black;
           }
         }
       }
+    }
+  }
+
+  & .slide {
+    display: none;
+    width: 100%;
+
+    &.active {
+      display: block;
+    }
+
+    & h1,
+    & .action-btn {
+      margin: $spacing-unit 0;
+    }
+
+    & h2 {
+      margin: #{.5 * $spacing-unit} 0;
+    }
+
+    & p {
+      margin-top: #{.5 * $spacing-unit};
+      margin-bottom: $spacing-unit;
+      color: $color-black;
+    }
+  }
+}
+
+/********************
+  Searchbar
+********************/
+
+.searchbar {
+  @include prefix(display, flex);
+  @include prefix(flex-wrap, nowrap);
+  height: #{2 * $spacing-unit};
+
+  & > input[type='text'] {
+    @include prefix(flex, 1 0 auto);
+    display: block;
+    border-radius: 1.25rem 0 0 1.25rem;
+    outline: 0;
+    color: $color-white;
+    background-color: $color-primary-dark;
+
+    &::placeholder {
+      color: #CCC;
+    }
+  }
+
+  & > button[type='submit'] {
+    @include prefix(flex, 0 0 auto);
+    display: block;
+    width: #{2 * $spacing-unit};
+    height: #{2 * $spacing-unit};
+    padding: 1.5625rem;
+    border: 0;
+    border-radius: 0 1.25rem 1.25rem 0;
+    outline: 0;
+    background-color: $color-black;
+    cursor: pointer;
+
+    & > svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      fill: $color-white;
+    }
+  }
+}
+
+/********************
+  Autocomplete
+********************/
+
+.autocomplete-items {
+  list-style-type: none;
+
+  & a {
+    position: relative;
+    display: inline-block;
+    padding: #{.5 * $spacing-unit};
+    padding-left: calc(1rem + #{1.5 * $spacing-unit});
+    color: #CCC;
+    font-family: $base-ff;
+    font-size: $base-fz;
+    font-weight: $base-fw;
+    line-height: $subheading-lh;
+    text-decoration: none;
+
+    &::before {
+      position: absolute;
+      left: 0;
+      display: block;
+      width: 1rem;
+      height: 1rem;
+      margin-left: $spacing-unit;
+      margin-right: #{.5 * $spacing-unit};
+      background-image: url(../images/icons/search.svg);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 100% auto;
+      content: '';
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $color-black;
+      & > strong { color: $color-black; }
+    }
+
+    & > strong {
+      color: $color-white;
+      font-weight: 400;
     }
   }
 }
