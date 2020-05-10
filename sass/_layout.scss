@@ -51,10 +51,11 @@ small {
   @include prefix(justify-content, space-between);
   @include prefix(align-items, center);
   min-height: #{2 * $spacing-unit};
-  padding: 1.5625rem $spacing-unit;
-  border: 0;
+  padding: 1.5625rem #{1.5 * $spacing-unit};
+  border: .3125rem solid $color-black;
   border-radius: #{2 * $spacing-unit};
-  box-shadow: 0 0 0 .3125rem rgba(44,44,44,.2);
+  color: $color-black;
+  background-color: transparent;
   font-family: $subheading-ff;
   font-size: 1.25em;
   font-weight: $heading-fw;
@@ -62,6 +63,7 @@ small {
   text-decoration: none;
   line-height: $subheading-lh;
   cursor: pointer;
+  @include prefix(transition, all .3s ease);
 
   & > svg {
     @include prefix(flex, 0 0 auto);
@@ -69,24 +71,46 @@ small {
     width: auto;
     height: 1rem;
     margin-left: #{.5 * $spacing-unit};
+    fill: $color-black;
+    @include prefix(transform, translateX(0));
+    @include prefix(transition, all .3s ease);
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $color-white;
+    background-color: $color-black;
+    & > svg {
+      fill: $color-white;
+      @include prefix(transform, translateX(.625rem));
+    }
   }
 
   &--primary {
-    color: $color-white;
-    background-color: $color-primary;
-    & > svg { fill: $color-white; }
-  }
+    border-color: $color-primary;
+    color: $color-primary;
+    & > svg { fill: $color-primary; }
 
-  &--black {
-    color: $color-white;
-    background-color: $color-black;
-    & > svg { fill: $color-white; }
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: $color-primary;
+    }
   }
 
   &--white {
-    color: $color-black;
-    background-color: $color-white;
-    & > svg { fill: $color-black; }
+    border-color: $color-white;
+    color: $color-white;
+    & > svg { fill: $color-white; }
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $color-black;
+      background-color: $color-white;
+      & > svg { fill: $color-black; }
+    }
   }
 }
 
