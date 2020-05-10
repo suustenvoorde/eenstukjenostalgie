@@ -15,7 +15,7 @@ module.exports = {
     currentStep.classList.add('active');
   },
   changeBtn: function (href) {
-    this.instructionBtn.textContent = href == 'slidetwo'
+    this.instructionBtn.children[0].textContent = href == 'slidetwo'
       ? 'Naar laatste stap' : href == 'slidethree'
       ? 'Zoek herinneringen'
       : 'Naar stap 2';
