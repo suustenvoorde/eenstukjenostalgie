@@ -246,6 +246,20 @@ small {
     background-color: #943337; }
 
 /********************
+  Title
+********************/
+.title {
+  position: absolute;
+  top: 0;
+  left: 30rem;
+  display: block;
+  margin: 2.1875rem;
+  color: #2C2C2C;
+  font-weight: 700; }
+  .title > strong {
+    color: #DA383F; }
+
+/********************
   Instructions
 ********************/
 .instructions {

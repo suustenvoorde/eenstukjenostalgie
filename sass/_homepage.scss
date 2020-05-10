@@ -54,6 +54,24 @@
 }
 
 /********************
+  Title
+********************/
+
+.title {
+  position: absolute;
+  top: 0;
+  left: 30rem;
+  display: block;
+  margin: $spacing-unit;
+  color: $color-black;
+  font-weight: 700;
+
+  & > strong {
+    color: $color-primary;
+  }
+}
+
+/********************
   Instructions
 ********************/
 
