@@ -21,6 +21,39 @@
 }
 
 /********************
+  Radius select
+********************/
+
+.radius-select {
+  position: absolute;
+  display: block;
+  height: $spacing-unit;
+  padding: .59375rem #{.5 * $spacing-unit};
+  padding-right: $spacing-unit;
+  border: 0;
+  border-radius: .625rem;
+  outline: 0;
+  box-shadow: 0 0 0 .3125rem rgba(44,44,44,.2);
+  color: $color-white;
+  background-color: $color-primary-dark;
+  background-image: url(../images/icons/select.svg);
+  background-position: calc(100% - #{.5 * $spacing-unit}) 50%;
+  background-repeat: no-repeat;
+  background-size: auto .75rem;
+  font-family: $heading-ff;
+  font-size: 1em;
+  font-weight: $heading-fw;
+  line-height: 1;
+  @include prefix(appearance, none);
+  @include prefix(transition, all .3s ease);
+
+  &:hover,
+  &:focus {
+    background-color: #943337;
+  }
+}
+
+/********************
   Instructions
 ********************/
 

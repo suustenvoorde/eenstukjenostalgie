@@ -115,25 +115,6 @@ small {
 }
 
 /********************
-  Inputs
-********************/
-
-input,
-select {
-  display: block;
-  min-height: #{2 * $spacing-unit};
-  padding: 1.5625rem $spacing-unit;
-  border: 0;
-  border-radius: 1.25rem;
-  color: $color-white;
-  background-color: $color-primary-dark;
-  font-family: $base-ff;
-  font-size: 1.25em;
-  font-weight: $base-fw;
-  line-height: 1;
-}
-
-/********************
   Image detail
 ********************/
 

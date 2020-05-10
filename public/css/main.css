@@ -193,23 +193,6 @@ small {
         fill: #2C2C2C; }
 
 /********************
-  Inputs
-********************/
-input,
-select {
-  display: block;
-  min-height: 4.375rem;
-  padding: 1.5625rem 2.1875rem;
-  border: 0;
-  border-radius: 1.25rem;
-  color: #FFFFFF;
-  background-color: #B7363B;
-  font-family: "Kreon";
-  font-size: 1.25em;
-  font-weight: 300;
-  line-height: 1; }
-
-/********************
   Image detail
 ********************/
 /********************
@@ -227,6 +210,40 @@ select {
     stroke: #B7363B; }
   #map .leaflet-control-attribution {
     display: none; }
+
+/********************
+  Radius select
+********************/
+.radius-select {
+  position: absolute;
+  display: block;
+  height: 2.1875rem;
+  padding: 0.59375rem 1.09375rem;
+  padding-right: 2.1875rem;
+  border: 0;
+  border-radius: .625rem;
+  outline: 0;
+  box-shadow: 0 0 0 0.3125rem rgba(44, 44, 44, 0.2);
+  color: #FFFFFF;
+  background-color: #B7363B;
+  background-image: url(../images/icons/select.svg);
+  background-position: calc(100% - 1.09375rem) 50%;
+  background-repeat: no-repeat;
+  background-size: auto .75rem;
+  font-family: "Raleway";
+  font-size: 1em;
+  font-weight: 600;
+  line-height: 1;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease; }
+  .radius-select:hover, .radius-select:focus {
+    background-color: #943337; }
 
 /********************
   Instructions
