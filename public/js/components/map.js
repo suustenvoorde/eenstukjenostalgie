@@ -21,6 +21,10 @@ module.exports = {
 	centerLatLng: [ 52.370216, 4.895168 ],
 	startPos: { x: 0, y: 0 },
 	currentPos: { x: 0, y: 0 },
+	dragRadiusSelect: function (point) {
+		this.radiusSelect.style.left = 'calc(30rem + ' + (point.x + 35) + 'px)';
+		this.radiusSelect.style.top = (point.y - 70) + 'px';
+	},
 	init: async function () {
 		// Set the original view of the map:
 		this.map.setView(this.centerLatLng, 14);
@@ -47,6 +51,18 @@ module.exports = {
 		var centerPoint = this.map.latLngToLayerPoint(this.centerLatLng);
 		this.radiusSelect.style.left = 'calc(30rem + ' + (centerPoint.x + 35) + 'px)';
 		this.radiusSelect.style.top = (centerPoint.y - 70) + 'px';
+
+		// Event when you drag the map:
+		this.map.on('drag', (e) => {
+			this.dragRadiusSelect({
+				x: centerPoint.x + e.sourceTarget._newPos.x,
+				y: centerPoint.y + e.sourceTarget._newPos.y
+			});
+		});
+
+		// Event when you zoom:
+
+		// Event when you move the circle:
 
 		// Initialize circle events:
 		// this.changeRadius();

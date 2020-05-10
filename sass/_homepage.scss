@@ -45,7 +45,7 @@
   font-weight: $heading-fw;
   line-height: 1;
   @include prefix(appearance, none);
-  @include prefix(transition, all .3s ease);
+  @include prefix(transition, background-color .3s ease);
 
   &:hover,
   &:focus {
