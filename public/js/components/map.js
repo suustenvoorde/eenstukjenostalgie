@@ -3,95 +3,91 @@ var circleToPolygon = require('./circletopolygon.js');
 var toWKT = require('./towkt.js');
 var search = require('./search.js');
 
-// Delete leaflet logo
-// document.getElementsByClassName( 'leaflet-control-attribution' )[0].style.display = 'none';
-
 // Set global wkt variable:
 var inputCircle;
 
 module.exports = {
-	searchbar: document.querySelector('[name="searchLocation"]'),
-	selectRadius: document.getElementById('radius-selected'),
+	searchbar: document.querySelector('.searchbar'),
+	radiusSelect: document.querySelector('.radius-select'),
 	mapboxAccessToken: 'pk.eyJ1IjoibWF4ZGV2cmllczk1IiwiYSI6ImNqZWZydWkyNjF3NXoyd28zcXFqdDJvbjEifQ.Dl3DvuFEqHVAxfajg0ESWg',
 	map: L.map('map', {
 		zoomControl: false
 	}),
-	circle: L.circle({
-		color: '#DA121A',
-		fillColor: '#DA121A',
-		fillOpacity: 0.4,
-		radius: 500/2
-	}),
-	polygon: L.polygon({
-		color: '#DA121A'
-	}),
-	geoJSON: L.geoJSON(),
-	centerPoint: [
-		52.370216,
-		4.895168
-	],
+	circle: L.circle(),
+	// polygon: L.polygon({
+	// 	color: '#DA121A'
+	// }),
+	// geoJSON: L.geoJSON(),
+	centerLatLng: [ 52.370216, 4.895168 ],
 	startPos: { x: 0, y: 0 },
 	currentPos: { x: 0, y: 0 },
 	init: async function () {
 		// Set the original view of the map:
-		this.map.setView(this.centerPoint, 14);
+		this.map.setView(this.centerLatLng, 14);
 
+		// Give the map the correct style:
 		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + this.mapboxAccessToken, {
 			minZoom: 11,
 			maxZoom: 20,
 			id: 'mapbox.light'
 		}).addTo(this.map);
 
+		// Add zoom control to bottomright of the map:
 		L.control.zoom({
 			position: 'bottomright'
 		}).addTo(this.map);
 
-		// Initialize the circle:
+		// Add the circle to the map
 		this.circle
-			.setLatLng(this.centerPoint)
-			.setRadius(250)
+			.setLatLng(this.centerLatLng)
+			.setRadius(this.radiusSelect.value / 2)
 			.addTo(this.map);
 
+		// Add radiusSelect to cirlce:
+		var centerPoint = this.map.latLngToLayerPoint(this.centerLatLng);
+		this.radiusSelect.style.left = 'calc(30rem + ' + (centerPoint.x + 35) + 'px)';
+		this.radiusSelect.style.top = (centerPoint.y - 70) + 'px';
+
 		// Initialize circle events:
-		this.changeRadius();
+		// this.changeRadius();
 
 		// Create the polygon, with the centerPoint as coords:
-		this.createPolygon(this.centerPoint);
+		// this.createPolygon(this.centerPoint);
 
 		// Get all the streets:
-		var allStreets = await this.getAllStreets();
+		// var allStreets = await this.getAllStreets();
 
 		// Map the street names from allStreets for search:
-		var streetNames = allStreets.map(street => street.properties.name);
+		// var streetNames = allStreets.map(street => street.properties.name);
 
 		// Initialize the autocomplete search:
-		search.init(this.searchbar, streetNames);
+		// search.init(this.searchbar, streetNames);
 
 		// Add the streets data to geoJSON:
-		this.geoJSON.addData(allStreets);
+		// this.geoJSON.addData(allStreets);
 
 		// Dragging the circle:
-		var draggable = new L.Draggable(this.circle._path);
-		draggable.enable();
-
-		this.startPos.x = this.circle._point.x;
-		this.startPos.y = this.circle._point.y;
-
-		// Calculate the new center:
-		draggable.on('drag', (e) => {
-			this.currentPos.x = e.sourceTarget._newPos.x;
-			this.currentPos.y = e.sourceTarget._newPos.y;
-			this.moveCircle();
-		});
-
-		this.map.on('zoom', (e) => {
-			var newZoomLevel = Number(e.sourceTarget._animateToZoom);
-			var layerPoint = this.map.latLngToLayerPoint(this.centerPoint);
-			this.map.setView(this.centerPoint, newZoomLevel);
-			this.startPos.x = layerPoint.x - this.currentPos.x;
-			this.startPos.y = layerPoint.y - this.currentPos.y;
-			this.moveCircle();
-		});
+		// var draggable = new L.Draggable(this.circle._path);
+		// draggable.enable();
+		//
+		// this.startPos.x = this.circle._point.x;
+		// this.startPos.y = this.circle._point.y;
+		//
+		// // Calculate the new center:
+		// draggable.on('drag', (e) => {
+		// 	this.currentPos.x = e.sourceTarget._newPos.x;
+		// 	this.currentPos.y = e.sourceTarget._newPos.y;
+		// 	this.moveCircle();
+		// });
+		//
+		// this.map.on('zoom', (e) => {
+		// 	var newZoomLevel = Number(e.sourceTarget._animateToZoom);
+		// 	var layerPoint = this.map.latLngToLayerPoint(this.centerPoint);
+		// 	this.map.setView(this.centerPoint, newZoomLevel);
+		// 	this.startPos.x = layerPoint.x - this.currentPos.x;
+		// 	this.startPos.y = layerPoint.y - this.currentPos.y;
+		// 	this.moveCircle();
+		// });
 	},
 	getAllStreets: async function () {
 		return fetch('/js/streets.json')
