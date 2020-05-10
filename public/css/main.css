@@ -131,17 +131,22 @@ small {
   -o-align-items: center;
   align-items: center;
   min-height: 4.375rem;
-  padding: 1.5625rem 2.1875rem;
-  border: 0;
+  padding: 1.5625rem 3.28125rem;
+  border: 0.3125rem solid #2C2C2C;
   border-radius: 4.375rem;
-  box-shadow: 0 0 0 0.3125rem rgba(44, 44, 44, 0.2);
+  color: #2C2C2C;
+  background-color: transparent;
   font-family: "Raleway";
   font-size: 1.25em;
   font-weight: 600;
   text-align: left;
   text-decoration: none;
   line-height: 1.3;
-  cursor: pointer; }
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease; }
   .action-btn > svg {
     -webkit-flex: 0 0 auto;
     -moz-flex: 0 0 auto;
@@ -150,22 +155,42 @@ small {
     display: block;
     width: auto;
     height: 1rem;
-    margin-left: 1.09375rem; }
-  .action-btn--primary {
-    color: #FFFFFF;
-    background-color: #DA383F; }
-    .action-btn--primary > svg {
-      fill: #FFFFFF; }
-  .action-btn--black {
+    margin-left: 1.09375rem;
+    fill: #2C2C2C;
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease; }
+  .action-btn:hover, .action-btn:active, .action-btn:focus {
     color: #FFFFFF;
     background-color: #2C2C2C; }
-    .action-btn--black > svg {
-      fill: #FFFFFF; }
+    .action-btn:hover > svg, .action-btn:active > svg, .action-btn:focus > svg {
+      fill: #FFFFFF;
+      -webkit-transform: translateX(0.625rem);
+      -moz-transform: translateX(0.625rem);
+      -o-transform: translateX(0.625rem);
+      transform: translateX(0.625rem); }
+  .action-btn--primary {
+    border-color: #DA383F;
+    color: #DA383F; }
+    .action-btn--primary > svg {
+      fill: #DA383F; }
+    .action-btn--primary:hover, .action-btn--primary:active, .action-btn--primary:focus {
+      background-color: #DA383F; }
   .action-btn--white {
-    color: #2C2C2C;
-    background-color: #FFFFFF; }
+    border-color: #FFFFFF;
+    color: #FFFFFF; }
     .action-btn--white > svg {
-      fill: #2C2C2C; }
+      fill: #FFFFFF; }
+    .action-btn--white:hover, .action-btn--white:active, .action-btn--white:focus {
+      color: #2C2C2C;
+      background-color: #FFFFFF; }
+      .action-btn--white:hover > svg, .action-btn--white:active > svg, .action-btn--white:focus > svg {
+        fill: #2C2C2C; }
 
 /********************
   Inputs
@@ -190,7 +215,6 @@ select {
 /********************
   Map
 ********************/
-/* Leaflet map */
 #map {
   position: fixed;
   z-index: 0;
@@ -200,7 +224,7 @@ select {
   width: calc(100% - 30rem); }
   #map .leaflet-interactive {
     fill: #DA383F;
-    stroke: #DA383F; }
+    stroke: #B7363B; }
   #map .leaflet-control-attribution {
     display: none; }
 
@@ -301,6 +325,11 @@ select {
         transform: scale(2, 2); }
         .instructions .pager .steps a.active > svg {
           fill: #2C2C2C; }
+      .instructions .pager .steps a:not(.active):hover, .instructions .pager .steps a:not(.active):active, .instructions .pager .steps a:not(.active):focus {
+        -webkit-transform: scale(1.2, 1.2);
+        -moz-transform: scale(1.2, 1.2);
+        -o-transform: scale(1.2, 1.2);
+        transform: scale(1.2, 1.2); }
   .instructions .slide {
     display: none;
     width: 100%;
@@ -330,19 +359,27 @@ select {
   -moz-flex-wrap: nowrap;
   -o-flex-wrap: nowrap;
   flex-wrap: nowrap;
-  height: 4.375rem; }
+  height: 4.375rem;
+  border-radius: .625rem; }
   .searchbar > input[type='text'] {
     -webkit-flex: 1 0 auto;
     -moz-flex: 1 0 auto;
     -o-flex: 1 0 auto;
     flex: 1 0 auto;
     display: block;
+    padding-right: 0;
     border-radius: .625rem 0 0 .625rem;
     outline: 0;
     color: #FFFFFF;
-    background-color: #B7363B; }
+    background-color: #B7363B;
+    -webkit-transition: background-color 0.3s ease;
+    -moz-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease; }
     .searchbar > input[type='text']::placeholder {
       color: #CCC; }
+    .searchbar > input[type='text']:hover, .searchbar > input[type='text']:focus {
+      background-color: rgba(44, 44, 44, 0.4); }
   .searchbar > button[type='submit'] {
     -webkit-flex: 0 0 auto;
     -moz-flex: 0 0 auto;
@@ -355,13 +392,32 @@ select {
     border: 0;
     border-radius: 0 .625rem .625rem 0;
     outline: 0;
-    background-color: #2C2C2C;
-    cursor: pointer; }
+    background-color: #B7363B;
+    cursor: pointer;
+    -webkit-transition: background-color 0.3s ease;
+    -moz-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease; }
     .searchbar > button[type='submit'] > svg {
       display: block;
       width: 100%;
       height: auto;
-      fill: #FFFFFF; }
+      fill: #FFFFFF;
+      -webkit-transform: scale(1, 1);
+      -moz-transform: scale(1, 1);
+      -o-transform: scale(1, 1);
+      transform: scale(1, 1);
+      -webkit-transition: transform 0.3s ease;
+      -moz-transition: transform 0.3s ease;
+      -o-transition: transform 0.3s ease;
+      transition: transform 0.3s ease; }
+    .searchbar > button[type='submit']:hover, .searchbar > button[type='submit']:focus {
+      background-color: rgba(44, 44, 44, 0.4); }
+      .searchbar > button[type='submit']:hover > svg, .searchbar > button[type='submit']:focus > svg {
+        -webkit-transform: scale(1.4, 1.4);
+        -moz-transform: scale(1.4, 1.4);
+        -o-transform: scale(1.4, 1.4);
+        transform: scale(1.4, 1.4); }
 
 /********************
   Autocomplete
@@ -442,6 +498,7 @@ select {
       padding-right: 4.375rem;
       border: 0;
       border-radius: .625rem;
+      outline: 0;
       margin-top: 1.09375rem;
       color: #FFFFFF;
       background-color: #B7363B;
@@ -456,7 +513,13 @@ select {
       -webkit-appearance: none;
       -moz-appearance: none;
       -o-appearance: none;
-      appearance: none; }
+      appearance: none;
+      -webkit-transition: background-color 0.3s ease;
+      -moz-transition: background-color 0.3s ease;
+      -o-transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease; }
+      .year-selection > li select:hover, .year-selection > li select:focus {
+        background-color: rgba(44, 44, 44, 0.4); }
 
 .create-story {
   /********************

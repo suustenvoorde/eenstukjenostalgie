@@ -2,7 +2,6 @@
   Map
 ********************/
 
-/* Leaflet map */
 #map {
   position: fixed;
   z-index: 0;
@@ -13,7 +12,7 @@
 
   .leaflet-interactive {
     fill: $color-primary;
-    stroke: $color-primary;
+    stroke: $color-primary-dark;
   }
 
   .leaflet-control-attribution {
@@ -100,6 +99,12 @@
             fill: $color-black;
           }
         }
+
+        &:not(.active):hover,
+        &:not(.active):active,
+        &:not(.active):focus {
+          @include prefix(transform, scale(1.2,1.2));
+        }
       }
     }
   }
@@ -141,17 +146,25 @@
   @include prefix(display, flex);
   @include prefix(flex-wrap, nowrap);
   height: #{2 * $spacing-unit};
+  border-radius: .625rem;
 
   & > input[type='text'] {
     @include prefix(flex, 1 0 auto);
     display: block;
+    padding-right: 0;
     border-radius: .625rem 0 0 .625rem;
     outline: 0;
     color: $color-white;
     background-color: $color-primary-dark;
+    @include prefix(transition, background-color .3s ease);
 
     &::placeholder {
       color: #CCC;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: rgba(44,44,44,.4);
     }
   }
 
@@ -164,14 +177,23 @@
     border: 0;
     border-radius: 0 .625rem .625rem 0;
     outline: 0;
-    background-color: $color-black;
+    background-color: $color-primary-dark;
     cursor: pointer;
+    @include prefix(transition, background-color .3s ease);
 
     & > svg {
       display: block;
       width: 100%;
       height: auto;
       fill: $color-white;
+      @include prefix(transform, scale(1,1));
+      @include prefix(transition, transform .3s ease);
+    }
+
+    &:hover,
+    &:focus {
+      background-color: rgba(44,44,44,.4);
+      & > svg { @include prefix(transform, scale(1.4,1.4)); }
     }
   }
 }
@@ -253,6 +275,7 @@
       padding-right: #{2 * $spacing-unit};
       border: 0;
       border-radius: .625rem;
+      outline: 0;
       margin-top: #{.5 * $spacing-unit};
       color: $color-white;
       background-color: $color-primary-dark;
@@ -265,6 +288,12 @@
       font-weight: $heading-fw;
       line-height: 1;
       @include prefix(appearance, none);
+      @include prefix(transition, background-color .3s ease);
+
+      &:hover,
+      &:focus {
+        background-color: rgba(44,44,44,.4);
+      }
     }
   }
 }
