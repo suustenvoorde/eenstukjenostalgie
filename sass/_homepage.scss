@@ -202,11 +202,17 @@
   & > input[type='text'] {
     @include prefix(flex, 1 0 auto);
     display: block;
+    padding: 1.5625rem #{$spacing-unit};
     padding-right: 0;
+    border: 0;
     border-radius: .625rem 0 0 .625rem;
     outline: 0;
     color: $color-white;
     background-color: $color-primary-dark;
+    font-family: $base-ff;
+    font-size: 1.25em;
+    font-weight: $base-fw;
+    line-height: 1;
     @include prefix(transition, background-color .3s ease);
 
     &::placeholder {

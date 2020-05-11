@@ -398,11 +398,17 @@ small {
     -o-flex: 1 0 auto;
     flex: 1 0 auto;
     display: block;
+    padding: 1.5625rem 2.1875rem;
     padding-right: 0;
+    border: 0;
     border-radius: .625rem 0 0 .625rem;
     outline: 0;
     color: #FFFFFF;
     background-color: #B7363B;
+    font-family: "Kreon";
+    font-size: 1.25em;
+    font-weight: 300;
+    line-height: 1;
     -webkit-transition: background-color 0.3s ease;
     -moz-transition: background-color 0.3s ease;
     -o-transition: background-color 0.3s ease;
