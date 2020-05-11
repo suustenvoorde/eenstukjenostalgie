@@ -23,6 +23,7 @@ module.exports = {
 	startPos: { x: 0, y: 0 },
 	currentPos: { x: 0, y: 0 },
 	distance: { x: 0, y: 0 },
+	mapSize: { x: 0, y: 0 },
 	moveRadiusSelect: function (point) {
 		this.radiusSelect.style.left = (this.mapElem.offsetLeft + point.x) + 'px';
 		this.radiusSelect.style.top = (this.mapElem.offsetTop + point.y) + 'px';
@@ -58,8 +59,10 @@ module.exports = {
 
 		// On map drag:
 		this.map.on('drag', (e) => {
-			this.currentPos.x = this.startPos.x + e.sourceTarget._newPos.x - this.distance.x;
-			this.currentPos.y = this.startPos.y + e.sourceTarget._newPos.y - this.distance.y;
+			// console.log(this.mapSize);
+			// console.log(e.sourceTarget._newPos);
+			this.currentPos.x = this.startPos.x + e.sourceTarget._newPos.x - this.distance.x - this.mapSize.x;
+			this.currentPos.y = this.startPos.y + e.sourceTarget._newPos.y - this.distance.y - this.mapSize.y;
 			this.moveRadiusSelect(this.currentPos);
 		});
 
@@ -79,11 +82,27 @@ module.exports = {
 
 			this.map.setView(this.centerLatLng, newZoomLevel);
 
-			this.startPos.x = originCenterPoint.x;
-			this.startPos.y = originCenterPoint.y;
+			this.startPos.x = originCenterPoint.x + this.mapSize.x;
+			this.startPos.y = originCenterPoint.y + this.mapSize.y;
 
 			this.distance.x = originCenterPoint.x - newCenterPoint.x;
 			this.distance.y = originCenterPoint.y - newCenterPoint.y;
+
+			this.moveRadiusSelect(this.startPos);
+		});
+
+		// On resize:
+		this.map.on('resize', (e) => {
+			var size = {
+				x: (e.newSize.x - e.oldSize.x) / 2,
+				y: (e.newSize.y - e.oldSize.y) / 2
+			};
+
+			this.startPos.x += size.x;
+			this.startPos.y += size.y;
+
+			this.mapSize.x += size.x;
+			this.mapSize.y += size.y;
 
 			this.moveRadiusSelect(this.startPos);
 		});
