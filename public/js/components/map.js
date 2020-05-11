@@ -7,6 +7,7 @@ var search = require('./search.js');
 var inputCircle;
 
 module.exports = {
+	mapElem: document.getElementById('map'),
 	searchbar: document.querySelector('.searchbar'),
 	radiusSelect: document.querySelector('.radius-select'),
 	mapboxAccessToken: 'pk.eyJ1IjoibWF4ZGV2cmllczk1IiwiYSI6ImNqZWZydWkyNjF3NXoyd28zcXFqdDJvbjEifQ.Dl3DvuFEqHVAxfajg0ESWg',
@@ -21,9 +22,10 @@ module.exports = {
 	centerLatLng: [ 52.370216, 4.895168 ],
 	startPos: { x: 0, y: 0 },
 	currentPos: { x: 0, y: 0 },
-	dragRadiusSelect: function (point) {
-		this.radiusSelect.style.left = 'calc(30rem + ' + (point.x + 35) + 'px)';
-		this.radiusSelect.style.top = (point.y - 70) + 'px';
+	distance: { x: 0, y: 0 },
+	moveRadiusSelect: function (point) {
+		this.radiusSelect.style.left = (this.mapElem.offsetLeft + point.x) + 'px';
+		this.radiusSelect.style.top = (this.mapElem.offsetTop + point.y) + 'px';
 	},
 	init: async function () {
 		// Set the original view of the map:
@@ -47,20 +49,44 @@ module.exports = {
 			.setRadius(this.radiusSelect.value / 2)
 			.addTo(this.map);
 
-		// Add radiusSelect to cirlce:
-		var centerPoint = this.map.latLngToLayerPoint(this.centerLatLng);
-		this.radiusSelect.style.left = 'calc(30rem + ' + (centerPoint.x + 35) + 'px)';
-		this.radiusSelect.style.top = (centerPoint.y - 70) + 'px';
+		// Add start and current position:
+		this.startPos.x = this.circle._point.x;
+		this.startPos.y = this.circle._point.y;
+		this.moveRadiusSelect(this.startPos);
 
-		// Event when you drag the map:
+		var originCenterPoint = this.map.latLngToLayerPoint(this.centerLatLng);
+
+		// On map drag:
 		this.map.on('drag', (e) => {
-			this.dragRadiusSelect({
-				x: centerPoint.x + e.sourceTarget._newPos.x,
-				y: centerPoint.y + e.sourceTarget._newPos.y
-			});
+			this.currentPos.x = this.startPos.x + e.sourceTarget._newPos.x - this.distance.x;
+			this.currentPos.y = this.startPos.y + e.sourceTarget._newPos.y - this.distance.y;
+			this.moveRadiusSelect(this.currentPos);
 		});
 
-		// Event when you zoom:
+		// On dragend:
+		this.map.on('dragend', (e) => {
+			this.startPos.x = this.currentPos.x;
+			this.startPos.y = this.currentPos.y;
+
+			this.distance.x = e.sourceTarget._newPos.x;
+			this.distance.y = e.sourceTarget._newPos.y;
+		});
+
+		// On zoomend:
+		this.map.on('zoomend', (e) => {
+			var newZoomLevel = Number(e.sourceTarget._animateToZoom);
+			var newCenterPoint = this.map.latLngToLayerPoint(this.centerLatLng);
+
+			this.map.setView(this.centerLatLng, newZoomLevel);
+
+			this.startPos.x = originCenterPoint.x;
+			this.startPos.y = originCenterPoint.y;
+
+			this.distance.x = originCenterPoint.x - newCenterPoint.x;
+			this.distance.y = originCenterPoint.y - newCenterPoint.y;
+
+			this.moveRadiusSelect(this.startPos);
+		});
 
 		// Event when you move the circle:
 
