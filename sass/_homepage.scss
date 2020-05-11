@@ -1,355 +1,357 @@
-/********************
-  Map
-********************/
+  /********************
+    Map
+  ********************/
 
-#map {
-  position: fixed;
-  z-index: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: calc(100% - 30rem);
+.home {
+  #map {
+    position: fixed;
+    z-index: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: calc(100% - 30rem);
 
-  .leaflet-interactive {
-    fill: $color-primary;
-    stroke: $color-primary-dark;
-  }
+    .leaflet-interactive {
+      fill: $color-primary;
+      stroke: $color-primary-dark;
+    }
 
-  .leaflet-control-attribution {
-    display: none;
-  }
-}
-
-/********************
-  Radius select
-********************/
-
-.radius-select {
-  position: absolute;
-  display: block;
-  height: $spacing-unit;
-  padding: .59375rem #{.5 * $spacing-unit};
-  padding-right: $spacing-unit;
-  border: 0;
-  border-radius: .625rem;
-  outline: 0;
-  box-shadow: 0 0 0 .3125rem rgba(44,44,44,.2);
-  color: $color-white;
-  background-color: $color-primary-dark;
-  background-image: url(../images/icons/select.svg);
-  background-position: calc(100% - #{.5 * $spacing-unit}) 50%;
-  background-repeat: no-repeat;
-  background-size: auto .75rem;
-  font-family: $heading-ff;
-  font-size: 1em;
-  font-weight: $heading-fw;
-  line-height: 1;
-  @include prefix(appearance, none);
-  @include prefix(transition, background-color .3s ease);
-
-  &:hover,
-  &:focus {
-    background-color: #943337;
-  }
-}
-
-/********************
-  Title
-********************/
-
-.title {
-  position: absolute;
-  top: 0;
-  left: 30rem;
-  display: block;
-  margin: $spacing-unit;
-  color: $color-black;
-  font-weight: 700;
-
-  & > strong {
-    color: $color-primary;
-  }
-}
-
-/********************
-  Instructions
-********************/
-
-.instructions {
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  display: block;
-  overflow-y: scroll;
-  width: 30rem;
-  padding: #{1.5 * $spacing-unit};
-  padding-top: 0;
-  padding-bottom: #{.5 * $spacing-unit};
-  box-shadow: 0 0 0 .625rem rgba(44,44,44,.3);
-  color: $color-white;
-  background-color: $color-primary;
-
-  & .pager {
-    & .steps {
-      position: relative;
-      @include prefix(display, flex);
-      @include prefix(flex-wrap, nowrap);
-      @include prefix(justify-content, space-between);
-      @include prefix(align-items, center);
-      margin-top: $spacing-unit;
-      margin-bottom: #{1.5 * $spacing-unit};
-      list-style-type: none;
-
-      &::before {
-        position: absolute;
-        z-index: -1;
-        left: 0;
-        top: calc((100% - .625rem) / 2);
-        right: 0;
-        display: block;
-        height: .625rem;
-        margin-top: 0;
-        border-radius: .3125rem;
-        background-color: $color-primary-dark;
-        content: '';
-      }
-
-      & a {
-        @include prefix(display, flex);
-        @include prefix(justify-content, center);
-        @include prefix(align-items, center);
-        width: $spacing-unit;
-        height: $spacing-unit;
-        padding: .46875rem;
-        border-radius: 50%;
-        color: $color-white;
-        background-color: $color-black;
-        font-family: $base-ff;
-        font-size: 1.25em;
-        font-weight: 700;
-        text-align: center;
-        text-decoration: none;
-        line-height: 1;
-        @include prefix(transform, scale(1,1));
-        @include prefix(transition, transform .3s ease);
-
-        & > svg {
-          display: block;
-          width: 80%;
-          height: auto;
-          fill: $color-white;
-        }
-
-        &.active {
-          color: $color-black;
-          background-color: $color-white;
-          @include prefix(transform, scale(2,2));
-
-          & > svg {
-            fill: $color-black;
-          }
-        }
-
-        &:not(.active):hover,
-        &:not(.active):active,
-        &:not(.active):focus {
-          @include prefix(transform, scale(1.2,1.2));
-        }
-      }
+    .leaflet-control-attribution {
+      display: none;
     }
   }
 
-  & .slide {
-    display: none;
-    width: 100%;
-    min-height: calc(100% - #{7.5 * $spacing-unit});
+  /********************
+    Radius select
+  ********************/
 
-    &.active {
-      display: block;
-    }
-
-    & > h1 {
-      margin: $spacing-unit 0;
-    }
-
-    & > h2 {
-      margin: #{.5 * $spacing-unit} 0;
-    }
-
-    & > p {
-      margin-top: #{.5 * $spacing-unit};
-      margin-bottom: $spacing-unit;
-      color: $color-black;
-    }
-  }
-
-  & .action-btn {
-    margin-top: $spacing-unit;
-  }
-}
-
-/********************
-  Searchbar
-********************/
-
-.searchbar {
-  @include prefix(display, flex);
-  @include prefix(flex-wrap, nowrap);
-  height: #{2 * $spacing-unit};
-  border-radius: .625rem;
-
-  & > input[type='text'] {
-    @include prefix(flex, 1 0 auto);
+  .radius-select {
+    position: absolute;
     display: block;
-    padding: 1.5625rem #{$spacing-unit};
-    padding-right: 0;
+    height: $spacing-unit;
+    padding: .59375rem #{.5 * $spacing-unit};
+    padding-right: $spacing-unit;
     border: 0;
-    border-radius: .625rem 0 0 .625rem;
+    border-radius: .625rem;
     outline: 0;
+    box-shadow: 0 0 0 .3125rem rgba(44,44,44,.2);
     color: $color-white;
     background-color: $color-primary-dark;
-    font-family: $base-ff;
-    font-size: 1.25em;
-    font-weight: $base-fw;
+    background-image: url(../images/icons/select.svg);
+    background-position: calc(100% - #{.5 * $spacing-unit}) 50%;
+    background-repeat: no-repeat;
+    background-size: auto .75rem;
+    font-family: $heading-ff;
+    font-size: 1em;
+    font-weight: $heading-fw;
     line-height: 1;
+    @include prefix(appearance, none);
     @include prefix(transition, background-color .3s ease);
-
-    &::placeholder {
-      color: #CCC;
-    }
 
     &:hover,
     &:focus {
-      background-color: rgba(44,44,44,.4);
+      background-color: #943337;
     }
   }
 
-  & > button[type='submit'] {
-    @include prefix(flex, 0 0 auto);
+  /********************
+    Title
+  ********************/
+
+  .title {
+    position: absolute;
+    top: 0;
+    left: 30rem;
     display: block;
-    width: #{2 * $spacing-unit};
-    height: #{2 * $spacing-unit};
-    padding: 1.5625rem;
-    border: 0;
-    border-radius: 0 .625rem .625rem 0;
-    outline: 0;
-    background-color: $color-primary-dark;
-    cursor: pointer;
-    @include prefix(transition, background-color .3s ease);
-
-    & > svg {
-      display: block;
-      width: 100%;
-      height: auto;
-      fill: $color-white;
-      @include prefix(transform, scale(1,1));
-      @include prefix(transition, transform .3s ease);
-    }
-
-    &:hover,
-    &:focus {
-      background-color: rgba(44,44,44,.4);
-      & > svg { @include prefix(transform, scale(1.4,1.4)); }
-    }
-  }
-}
-
-/********************
-  Autocomplete
-********************/
-
-.autocomplete-items {
-  list-style-type: none;
-
-  & a {
-    position: relative;
-    display: inline-block;
-    padding: #{.5 * $spacing-unit};
-    padding-left: calc(1rem + #{1.5 * $spacing-unit});
-    color: #CCC;
-    font-family: $base-ff;
-    font-size: $base-fz;
-    font-weight: $base-fw;
-    line-height: $subheading-lh;
-    text-decoration: none;
-
-    &::before {
-      position: absolute;
-      left: 0;
-      display: block;
-      width: 1rem;
-      height: 1rem;
-      margin-left: $spacing-unit;
-      margin-right: #{.5 * $spacing-unit};
-      background-image: url(../images/icons/search.svg);
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: 100% auto;
-      content: '';
-    }
-
-    &:hover,
-    &:active,
-    &:focus {
-      color: $color-black;
-      & > strong { color: $color-black; }
-    }
+    margin: $spacing-unit;
+    color: $color-black;
+    font-weight: 700;
 
     & > strong {
-      color: $color-white;
-      font-weight: 400;
+      color: $color-primary;
     }
   }
-}
 
-/********************
-  Year selection
-********************/
+  /********************
+    Instructions
+  ********************/
 
-.year-selection {
-  @include prefix(display, flex);
-  @include prefix(flex-wrap, nowrap);
-  @include prefix(justify-content, space-between);
-  width: 100%;
-  list-style-type: none;
+  .instructions {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    display: block;
+    overflow-y: scroll;
+    width: 30rem;
+    padding: #{1.5 * $spacing-unit};
+    padding-top: 0;
+    padding-bottom: #{.5 * $spacing-unit};
+    box-shadow: 0 0 0 .625rem rgba(44,44,44,.3);
+    color: $color-white;
+    background-color: $color-primary;
 
-  & > li {
-    @include prefix(display, flex);
-    @include prefix(flex-direction, column);
-    @include prefix(justify-content, space-between);
+    & .pager {
+      & .steps {
+        position: relative;
+        @include prefix(display, flex);
+        @include prefix(flex-wrap, nowrap);
+        @include prefix(justify-content, space-between);
+        @include prefix(align-items, center);
+        margin-top: $spacing-unit;
+        margin-bottom: #{1.5 * $spacing-unit};
+        list-style-type: none;
 
-    & small {
-      display: block;
-      width: 100%;
-      color: $color-black;
+        &::before {
+          position: absolute;
+          z-index: -1;
+          left: 0;
+          top: calc((100% - .625rem) / 2);
+          right: 0;
+          display: block;
+          height: .625rem;
+          margin-top: 0;
+          border-radius: .3125rem;
+          background-color: $color-primary-dark;
+          content: '';
+        }
+
+        & a {
+          @include prefix(display, flex);
+          @include prefix(justify-content, center);
+          @include prefix(align-items, center);
+          width: $spacing-unit;
+          height: $spacing-unit;
+          padding: .46875rem;
+          border-radius: 50%;
+          color: $color-white;
+          background-color: $color-black;
+          font-family: $base-ff;
+          font-size: 1.25em;
+          font-weight: 700;
+          text-align: center;
+          text-decoration: none;
+          line-height: 1;
+          @include prefix(transform, scale(1,1));
+          @include prefix(transition, transform .3s ease);
+
+          & > svg {
+            display: block;
+            width: 80%;
+            height: auto;
+            fill: $color-white;
+          }
+
+          &.active {
+            color: $color-black;
+            background-color: $color-white;
+            @include prefix(transform, scale(2,2));
+
+            & > svg {
+              fill: $color-black;
+            }
+          }
+
+          &:not(.active):hover,
+          &:not(.active):active,
+          &:not(.active):focus {
+            @include prefix(transform, scale(1.2,1.2));
+          }
+        }
+      }
     }
 
-    & select {
+    & .slide {
+      display: none;
+      width: 100%;
+      min-height: calc(100% - #{7.5 * $spacing-unit});
+
+      &.active {
+        display: block;
+      }
+
+      & > h1 {
+        margin: $spacing-unit 0;
+      }
+
+      & > h2 {
+        margin: #{.5 * $spacing-unit} 0;
+      }
+
+      & > p {
+        margin-top: #{.5 * $spacing-unit};
+        margin-bottom: $spacing-unit;
+        color: $color-black;
+      }
+    }
+
+    & .action-btn {
+      margin-top: $spacing-unit;
+    }
+  }
+
+  /********************
+    Searchbar
+  ********************/
+
+  .searchbar {
+    @include prefix(display, flex);
+    @include prefix(flex-wrap, nowrap);
+    height: #{2 * $spacing-unit};
+    border-radius: .625rem;
+
+    & > input[type='text'] {
+      @include prefix(flex, 1 0 auto);
       display: block;
-      height: #{2 * $spacing-unit};
-      padding: 1.5625rem $spacing-unit;
-      padding-right: #{2 * $spacing-unit};
+      padding: 1.5625rem #{$spacing-unit};
+      padding-right: 0;
       border: 0;
-      border-radius: .625rem;
+      border-radius: .625rem 0 0 .625rem;
       outline: 0;
-      margin-top: #{.5 * $spacing-unit};
       color: $color-white;
       background-color: $color-primary-dark;
-      background-image: url(../images/icons/select.svg);
-      background-position: calc(100% - #{$spacing-unit}) 50%;
-      background-repeat: no-repeat;
-      background-size: 1rem auto;
-      font-family: $heading-ff;
+      font-family: $base-ff;
       font-size: 1.25em;
-      font-weight: $heading-fw;
+      font-weight: $base-fw;
       line-height: 1;
-      @include prefix(appearance, none);
       @include prefix(transition, background-color .3s ease);
+
+      &::placeholder {
+        color: #CCC;
+      }
 
       &:hover,
       &:focus {
         background-color: rgba(44,44,44,.4);
+      }
+    }
+
+    & > button[type='submit'] {
+      @include prefix(flex, 0 0 auto);
+      display: block;
+      width: #{2 * $spacing-unit};
+      height: #{2 * $spacing-unit};
+      padding: 1.5625rem;
+      border: 0;
+      border-radius: 0 .625rem .625rem 0;
+      outline: 0;
+      background-color: $color-primary-dark;
+      cursor: pointer;
+      @include prefix(transition, background-color .3s ease);
+
+      & > svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        fill: $color-white;
+        @include prefix(transform, scale(1,1));
+        @include prefix(transition, transform .3s ease);
+      }
+
+      &:hover,
+      &:focus {
+        background-color: rgba(44,44,44,.4);
+        & > svg { @include prefix(transform, scale(1.4,1.4)); }
+      }
+    }
+  }
+
+  /********************
+    Autocomplete
+  ********************/
+
+  .autocomplete-items {
+    list-style-type: none;
+
+    & a {
+      position: relative;
+      display: inline-block;
+      padding: #{.5 * $spacing-unit};
+      padding-left: calc(1rem + #{1.5 * $spacing-unit});
+      color: #CCC;
+      font-family: $base-ff;
+      font-size: $base-fz;
+      font-weight: $base-fw;
+      line-height: $subheading-lh;
+      text-decoration: none;
+
+      &::before {
+        position: absolute;
+        left: 0;
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        margin-left: $spacing-unit;
+        margin-right: #{.5 * $spacing-unit};
+        background-image: url(../images/icons/search.svg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        content: '';
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: $color-black;
+        & > strong { color: $color-black; }
+      }
+
+      & > strong {
+        color: $color-white;
+        font-weight: 400;
+      }
+    }
+  }
+
+  /********************
+    Year selection
+  ********************/
+
+  .year-selection {
+    @include prefix(display, flex);
+    @include prefix(flex-wrap, nowrap);
+    @include prefix(justify-content, space-between);
+    width: 100%;
+    list-style-type: none;
+
+    & > li {
+      @include prefix(display, flex);
+      @include prefix(flex-direction, column);
+      @include prefix(justify-content, space-between);
+
+      & small {
+        display: block;
+        width: 100%;
+        color: $color-black;
+      }
+
+      & select {
+        display: block;
+        height: #{2 * $spacing-unit};
+        padding: 1.5625rem $spacing-unit;
+        padding-right: #{2 * $spacing-unit};
+        border: 0;
+        border-radius: .625rem;
+        outline: 0;
+        margin-top: #{.5 * $spacing-unit};
+        color: $color-white;
+        background-color: $color-primary-dark;
+        background-image: url(../images/icons/select.svg);
+        background-position: calc(100% - #{$spacing-unit}) 50%;
+        background-repeat: no-repeat;
+        background-size: 1rem auto;
+        font-family: $heading-ff;
+        font-size: 1.25em;
+        font-weight: $heading-fw;
+        line-height: 1;
+        @include prefix(appearance, none);
+        @include prefix(transition, background-color .3s ease);
+
+        &:hover,
+        &:focus {
+          background-color: rgba(44,44,44,.4);
+        }
       }
     }
   }
