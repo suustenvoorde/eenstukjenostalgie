@@ -2,11 +2,8 @@ var express = require('express');
 var router = express.Router();
 var controller = require('../controllers/controller.js');
 
-// GET home page:
-router.get('/', controller.homePage);
-
 // GET new story page:
-router.get('/new-story', controller.newStoryPage);
+router.get('/', controller.homepage);
 
 // POST search location page:
 router.post('/search-location', controller.searchLocationPage);

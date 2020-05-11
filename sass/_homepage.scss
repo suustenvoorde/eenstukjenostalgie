@@ -1,191 +1,358 @@
+  /********************
+    Map
+  ********************/
+
 .home {
-  & section:first-of-type,
-  & section:last-of-type {
-    width: 90%;
-    margin-left: 5%;
-    @include largeScreen() {
-      float: left;
-      width: 55%;
-    }
-  }
-
-  & aside {
+  #map {
+    position: fixed;
+    z-index: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: $color-primary;
-    @include largeScreen() {
-      position: fixed;
-      display: inline-block;
-      float: right;
-      width: 35%;
-      margin-left: 5%;
+    right: 0;
+    bottom: 0;
+    width: calc(100% - 30rem);
+
+    .leaflet-interactive {
+      fill: $color-primary;
+      stroke: $color-primary-dark;
     }
 
-    & h2 {
-      width: 80%;
-      margin-left: 10%;
-      margin-top: 30%;
-      color: $color-white;
-      text-align: center;
+    .leaflet-control-attribution {
+      display: none;
     }
   }
 
-  & section:first-of-type {
-    & h1 {
-      width: 80%;
-      margin-top: 20vh;
-      font-size: 4em;
-      font-weight: bolder;
+  /********************
+    Radius select
+  ********************/
 
-      & span {
-        color: $color-primary;
-        font-size: 140%;
+  .radius-select {
+    position: absolute;
+    display: block;
+    height: $spacing-unit;
+    padding: .59375rem #{.5 * $spacing-unit};
+    padding-right: $spacing-unit;
+    border: 0;
+    border-radius: .625rem;
+    outline: 0;
+    box-shadow: 0 0 0 .3125rem rgba(44,44,44,.2);
+    color: $color-white;
+    background-color: $color-primary-dark;
+    background-image: url(../images/icons/select.svg);
+    background-position: calc(100% - #{.5 * $spacing-unit}) 50%;
+    background-repeat: no-repeat;
+    background-size: auto .75rem;
+    font-family: $heading-ff;
+    font-size: 1em;
+    font-weight: $heading-fw;
+    line-height: 1;
+    @include prefix(appearance, none);
+    @include prefix(transition, background-color .3s ease);
+
+    &:hover,
+    &:focus {
+      background-color: #943337;
+    }
+  }
+
+  /********************
+    Title
+  ********************/
+
+  .title {
+    position: absolute;
+    top: 0;
+    left: 30rem;
+    display: block;
+    margin: $spacing-unit;
+    color: $color-black;
+    font-weight: 700;
+
+    & > strong {
+      color: $color-primary;
+    }
+  }
+
+  /********************
+    Instructions
+  ********************/
+
+  .instructions {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    display: block;
+    overflow-y: scroll;
+    width: 30rem;
+    padding: #{1.5 * $spacing-unit};
+    padding-top: 0;
+    padding-bottom: #{.5 * $spacing-unit};
+    box-shadow: 0 0 0 .625rem rgba(44,44,44,.3);
+    color: $color-white;
+    background-color: $color-primary;
+
+    & .pager {
+      & .steps {
+        position: relative;
+        @include prefix(display, flex);
+        @include prefix(flex-wrap, nowrap);
+        @include prefix(justify-content, space-between);
+        @include prefix(align-items, center);
+        margin-top: $spacing-unit;
+        margin-bottom: #{1.5 * $spacing-unit};
+        list-style-type: none;
+
+        &::before {
+          position: absolute;
+          z-index: -1;
+          left: 0;
+          top: calc((100% - .625rem) / 2);
+          right: 0;
+          display: block;
+          height: .625rem;
+          margin-top: 0;
+          border-radius: .3125rem;
+          background-color: $color-primary-dark;
+          content: '';
+        }
+
+        & a {
+          @include prefix(display, flex);
+          @include prefix(justify-content, center);
+          @include prefix(align-items, center);
+          width: $spacing-unit;
+          height: $spacing-unit;
+          padding: .46875rem;
+          border-radius: 50%;
+          color: $color-white;
+          background-color: $color-black;
+          font-family: $base-ff;
+          font-size: 1.25em;
+          font-weight: 700;
+          text-align: center;
+          text-decoration: none;
+          line-height: 1;
+          @include prefix(transform, scale(1,1));
+          @include prefix(transition, transform .3s ease);
+
+          & > svg {
+            display: block;
+            width: 80%;
+            height: auto;
+            fill: $color-white;
+          }
+
+          &.active {
+            color: $color-black;
+            background-color: $color-white;
+            @include prefix(transform, scale(2,2));
+
+            & > svg {
+              fill: $color-black;
+            }
+          }
+
+          &:not(.active):hover,
+          &:not(.active):active,
+          &:not(.active):focus {
+            @include prefix(transform, scale(1.2,1.2));
+          }
+        }
       }
     }
 
-    & p {
-      width: 50%;
-      font-size: 1.1em;
-      font-weight: light;
+    & .slide {
+      display: none;
+      width: 100%;
+      min-height: calc(100% - #{7.5 * $spacing-unit});
+
+      &.active {
+        display: block;
+      }
+
+      & > h1 {
+        margin: $spacing-unit 0;
+      }
+
+      & > h2 {
+        margin: #{.5 * $spacing-unit} 0;
+      }
+
+      & > p {
+        margin-top: #{.5 * $spacing-unit};
+        margin-bottom: $spacing-unit;
+        color: $color-black;
+      }
+    }
+
+    & .action-btn {
+      margin-top: $spacing-unit;
     }
   }
 
-  & section:last-of-type {
-    & input {
+  /********************
+    Searchbar
+  ********************/
+
+  .searchbar {
+    @include prefix(display, flex);
+    @include prefix(flex-wrap, nowrap);
+    height: #{2 * $spacing-unit};
+    border-radius: .625rem;
+
+    & > input[type='text'] {
+      @include prefix(flex, 1 0 auto);
       display: block;
-      width: 60%;
-      height: 5vh;
-      padding: 2%;
-      border: none;
-      border-radius: .625rem;
-      margin-bottom: 2%;
+      padding: 1.5625rem #{$spacing-unit};
+      padding-right: 0;
+      border: 0;
+      border-radius: .625rem 0 0 .625rem;
+      outline: 0;
       color: $color-white;
-      background-color: $color-primary;
-      text-indent: 1.875rem;
+      background-color: $color-primary-dark;
+      font-family: $base-ff;
+      font-size: 1.25em;
+      font-weight: $base-fw;
+      line-height: 1;
+      @include prefix(transition, background-color .3s ease);
 
       &::placeholder {
-        color: rgba(255,255,255,.7);
+        color: #CCC;
       }
-    }
-
-    & div.search {
-      position: relative;
-
-      & img {
-        position: absolute;
-        z-index: 1;
-        width: .9375rem !important;
-        margin-left: .625rem;
-        margin-top: .625rem;
-        color: #4F5B66;
-      }
-    }
-
-    & .stories {
-      & a {
-        display: inline-block;
-        width: 30%;
-        margin-right: 2%;
-
-        & img {
-          width: 100%;
-        }
-
-        & p {
-          margin-bottom: 2rem;
-        }
-      }
-    }
-  }
-
-  & form {
-    width: 80%;
-    padding-top: 10%;
-    margin: 0;
-    margin-left: 10%;
-
-    & div {
-      z-index: 100;
-      display: inline-block;
-      width: 70%;
-      height: 12em;
-      margin-left: 5%;
-      color: $color-white;
-      text-align: center;
-
-      & img {
-        display: block;
-        width: 30%;
-        margin-left: 35%;
-      }
-
-      & p {
-        width: 90%;
-        margin-left: 5%;
-        font-size: 1em;
-        text-align: center;
-      }
-    }
-
-    & button.slider {
-      float: left;
-      border: none;
-      margin-top: 10%;
-      background: none;
-    }
-
-    & .next {
-      float: right !important;
-    }
-
-    & input[type='radio'] {
-      opacity: 0;
-      width: 0;
-      height: 0;
-      padding: 0;
-      margin: 0;
-    }
-
-    & nav {
-      width: 4.6875rem;
-      margin-top: 10%;
-      margin-left: calc((100% - 4.6875rem) / 2);
-
-      & button {
-        display: inline-block;
-        width: 1.25rem;
-        height: 1.25rem;
-        border: 0;
-        border-radius: 50%;
-        margin-left: .3125rem;
-        background-color: rgba(255,255,255,.5);
-        cursor: pointer;
-      }
-    }
-
-    & button[type='submit'] {
-      width: 80%;
-      height: 7.5%;
-      border: none;
-      border-radius: .625rem;
-      margin-left: 10%;
-      margin-top: 10%;
-      color: $color-primary;
-      background-color: $color-white;
-      font-size: 1em;
-      font-weight: bold;
-      cursor: pointer;
 
       &:hover,
       &:focus {
-        color: $color-white;
-        background-color: $color-black;
+        background-color: rgba(44,44,44,.4);
+      }
+    }
+
+    & > button[type='submit'] {
+      @include prefix(flex, 0 0 auto);
+      display: block;
+      width: #{2 * $spacing-unit};
+      height: #{2 * $spacing-unit};
+      padding: 1.5625rem;
+      border: 0;
+      border-radius: 0 .625rem .625rem 0;
+      outline: 0;
+      background-color: $color-primary-dark;
+      cursor: pointer;
+      @include prefix(transition, background-color .3s ease);
+
+      & > svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        fill: $color-white;
+        @include prefix(transform, scale(1,1));
+        @include prefix(transition, transform .3s ease);
+      }
+
+      &:hover,
+      &:focus {
+        background-color: rgba(44,44,44,.4);
+        & > svg { @include prefix(transform, scale(1.4,1.4)); }
       }
     }
   }
 
-  & .activeSlider {
-    background-color: $color-white !important;
+  /********************
+    Autocomplete
+  ********************/
+
+  .autocomplete-items {
+    list-style-type: none;
+
+    & a {
+      position: relative;
+      display: inline-block;
+      padding: #{.5 * $spacing-unit};
+      padding-left: calc(1rem + #{1.5 * $spacing-unit});
+      color: #CCC;
+      font-family: $base-ff;
+      font-size: $base-fz;
+      font-weight: $base-fw;
+      line-height: $subheading-lh;
+      text-decoration: none;
+
+      &::before {
+        position: absolute;
+        left: 0;
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        margin-left: $spacing-unit;
+        margin-right: #{.5 * $spacing-unit};
+        background-image: url(../images/icons/search.svg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        content: '';
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: $color-black;
+        & > strong { color: $color-black; }
+      }
+
+      & > strong {
+        color: $color-white;
+        font-weight: 400;
+      }
+    }
+  }
+
+  /********************
+    Year selection
+  ********************/
+
+  .year-selection {
+    @include prefix(display, flex);
+    @include prefix(flex-wrap, nowrap);
+    @include prefix(justify-content, space-between);
+    width: 100%;
+    list-style-type: none;
+
+    & > li {
+      @include prefix(display, flex);
+      @include prefix(flex-direction, column);
+      @include prefix(justify-content, space-between);
+
+      & small {
+        display: block;
+        width: 100%;
+        color: $color-black;
+      }
+
+      & select {
+        display: block;
+        height: #{2 * $spacing-unit};
+        padding: 1.5625rem $spacing-unit;
+        padding-right: #{2 * $spacing-unit};
+        border: 0;
+        border-radius: .625rem;
+        outline: 0;
+        margin-top: #{.5 * $spacing-unit};
+        color: $color-white;
+        background-color: $color-primary-dark;
+        background-image: url(../images/icons/select.svg);
+        background-position: calc(100% - #{$spacing-unit}) 50%;
+        background-repeat: no-repeat;
+        background-size: 1rem auto;
+        font-family: $heading-ff;
+        font-size: 1.25em;
+        font-weight: $heading-fw;
+        line-height: 1;
+        @include prefix(appearance, none);
+        @include prefix(transition, background-color .3s ease);
+
+        &:hover,
+        &:focus {
+          background-color: rgba(44,44,44,.4);
+        }
+      }
+    }
   }
 }
