@@ -43,8 +43,8 @@ var sparqlqueries = {
     `;
   },
   getLocationAndTimestamp: function (data) {
-    var beginTimestamp = `${data.valMin}-01-01`;
-    var endTimestamp = `${data.valMax}-12-31`;
+    var beginTimestamp = `${data.startyear}-01-01`;
+    var endTimestamp = `${data.endyear}-12-31`;
     var wkt = data.wkt;
 
     return `
