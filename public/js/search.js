@@ -1,10 +1,7 @@
 var map = require('./map.js');
 
 (function () {
-
-  'use strict';
-
-  var search = {
+  const search = {
     currentFocus: 0,
     init: function (searchbar, data) {
       // Add the given searchbar to this object:
@@ -60,28 +57,33 @@ var map = require('./map.js');
     getAutocomplete: function (data, val) {
       // Check what data matches the search query:
       var results = data.filter(str => str.substr(0, val.length).toUpperCase() == val.toUpperCase());
-      this.setAutocomplete(results);
+      this.setAutocomplete(results, val.length);
     },
-    setAutocomplete: function (results) {
+    setAutocomplete: function (results, length) {
       var autocomplete = document.querySelector('.autocomplete');
       var ul = document.createElement('ul');
       var li = document.createElement('li');
       var a = document.createElement('a');
+      var strong = document.createElement('strong');
       var fragment = document.createDocumentFragment();
 
       ul.classList.add('autocomplete-items');
       fragment.appendChild(ul);
 
       results.forEach((result, i) => {
-        if (i < 10) {
+        if (i < 3) {
           var cloneLi = li.cloneNode(true);
           var cloneA = a.cloneNode(true);
+          var cloneStrong = strong.cloneNode(true);
 
           ul.appendChild(cloneLi);
 
-          cloneA.textContent = result;
           cloneA.href = '#';
           cloneLi.appendChild(cloneA);
+
+          cloneStrong.textContent = result.slice(0, length);
+          cloneA.appendChild(cloneStrong);
+          cloneA.appendChild(document.createTextNode(result.slice(length)));
 
           cloneLi.addEventListener('click', (e) => {
             this.searchbar.value = e.target.textContent;
@@ -118,5 +120,4 @@ var map = require('./map.js');
   };
 
   module.exports = search;
-
-})();
+}) ();

@@ -1,18 +1,19 @@
 var map = require('./map.js');
 
 (function () {
-  var newStory = {
-    form: document.querySelector('.submit-location-and-timestamp'),
-    timestampMin: document.querySelector('[name="timestamp-min"]'),
-    timestampMax: document.querySelector('[name="timestamp-max"]'),
+  const submitLocationTimestamp = {
+    form: document.querySelector('.location-timestamp'),
     init: function () {
       this.form.addEventListener('submit', (e) => {
+        var formdata = new FormData(e.target);
         var data = {
-          'valMin': this.timestampMin.value,
-          'valMax': this.timestampMax.value,
-          'wkt': map.inputCircle().wkt,
-          'coords': map.inputCircle().coords
+          wkt: map.inputCircle().wkt,
+          coords: map.inputCircle().coords
         };
+
+        for (var key of formdata.keys()) {
+          data[key] = formdata.get(key);
+        }
 
         var http = new XMLHttpRequest();
         var url = '/create-story';
@@ -31,5 +32,5 @@ var map = require('./map.js');
     }
   };
 
-  newStory.init();
-})();
+  submitLocationTimestamp.init();
+}) ();
