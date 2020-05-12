@@ -4,12 +4,9 @@
 	<% var years = Object.keys(dataFirstQuery); %>
 
 	<div class="grid">
-		<section class="map-visualisation">
-			<div id="map"></div>
-			<a class="back" href="/">
-				<img src="/images/icons/back.svg" alt="">
-			</a>
-		</section>
+		<a class="back" href="/">
+			<img src="/images/icons/back.svg" alt="">
+		</a>
 
 		<nav class="table-of-contents">
 			<button class="open">
@@ -30,19 +27,17 @@
 		</nav>
 
 		<main class="contents">
-			<h1>Selecteer de foto's die je wilt gebruiken voor jouw herinneringenboek</h1>
+			<h1>Laat je verrassen</h1>
 			<form class="data" action="/my-story/<%- id %>" method="post">
 				<% for (var year in dataFirstQuery) { %>
 					<% if (dataFirstQuery.hasOwnProperty(year)) { %>
 						<% var images = Object.values(dataFirstQuery[year])[0]; %>
 						<section id="year-<%- year %>" class="year <%- year %>">
-							<img class="crosses" src="/images/crosses.svg" alt="">
+							<img class="crosses" src="/images/crosses-amsterdam.svg" alt="">
 							<ul>
 								<% images.forEach(image => { %>
 									<li class="data-image">
-										<label>
 											<div class="content">
-												<input id="checkbox" type="checkbox" name="images" value="<%- image.img.value %>">
 												<span class="check"></span>
 												<img class="lazy" src="<%- image.img.value %>" alt="<%- image.title.value %>">
 												<p><%= image.title.value %></p>
@@ -52,8 +47,8 @@
 													 href="">
 													<%- include('../public/images/icons/zoom-in.svg') %>
 												</a>
+												<input id="checkbox" type="checkbox" name="images" value="<%- image.img.value %>">
 											</div>
-										</label>
 									</li>
 								<% }); %>
 							</ul>

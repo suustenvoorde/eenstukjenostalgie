@@ -4,11 +4,19 @@
 
   var imageDetail = {
     trigger: document.querySelectorAll('.openDetail'),
+    trigger2: document.querySelectorAll('.data-image img'),
     detail: document.querySelector('.detail'),
     init: function () {
       this.detailImg = this.detail.getElementsByTagName('img')[0];
       this.detailText = this.detail.getElementsByTagName('p')[0];
       this.detailCloseBtn = this.detail.querySelector('.popupCloseButton');
+
+      this.trigger2.forEach(elem => {
+        elem.addEventListener('click', (e) => {
+          console.log(elem)
+          this.openDetail(elem.src, elem.alt);
+        });
+      });
 
       this.trigger.forEach(elem => {
         elem.addEventListener('click', (e) => {
