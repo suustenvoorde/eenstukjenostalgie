@@ -1,60 +1,13 @@
 .create-story {
-
-  /********************
-    Layout page
-  ********************/
-
-  & .grid {
-    @include prefix(display, flex);
-    @include prefix(flex-direction, row);
-    @include prefix(flex-wrap, nowrap);
-  }
-
-  /********************
-    Map visualisation
-  ********************/
-
-  & .map-visualisation {
-    position: fixed;
-    z-index: 1;
-    left: 0;
-		top: 0;
-		display: none;
-		width: 4.5rem;
+  .back {
+    z-index: 1000000;
+    position: absolute;
+    width: 20px;
+    left: 10px;
+    top: 10px;
     @include largeScreen() {
-      display: block;
-    }
-
-    & #map {
-      width: 20vw;
-	    height: 100vh;
-
-      & .leaflet-interactive {
-        display: none;
-      }
-    }
-
-    & .back {
-      position: absolute;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 4.5rem;
-      height: 4.5rem;
-      padding: $spacing-unit;
-      background-color: rgba(255,255,255,.8);
-      text-decoration: none;
-
-      & svg {
-        width: 100%;
-        height: auto;
-      }
-
-      &:hover svg,
-      &:active svg,
-      &:focus svg {
-        fill: $color-primary;
-      }
+      position: fixed;
+      left: 30px;
     }
   }
 
@@ -63,15 +16,14 @@
   ********************/
 
   & .table-of-contents {
-    @include prefix(flex, 0 0 10vw);
     position: fixed;
     z-index: 10;
-    left: 0;
+    right: 0;
     top: 0;
     display: block;
     height: 100vh;
     @include largeScreen() {
-      left: 4.5rem;
+      left: 0;
 		  width: 15vw;
 		  height: 100%;
     }
@@ -124,9 +76,9 @@
       @include prefix(transform, translateX(-4rem));
       @include prefix(transition, all .3s ease-in-out);
       @include largeScreen() {
-        height: 100vh;
-        padding-top: 5vh;
-        background-color: rgba(255,255,255,.8);
+        height: 100%;
+        padding-top: calc(10px + 27px + 10px);
+        background-color: rgba(255,255,255,0);
         @include prefix(transform, translateX(0));
       }
 
@@ -163,27 +115,29 @@
         }
 
         & h2 {
-          width: 50%;
-          padding: .25rem 0;
           color: $color-white;
           font-size: $base-fz;
-	        text-align: center;
-          text-decoration: underline;
+          padding: .25rem 0;
+
           @include prefix(transition, 1s);
           @include largeScreen() {
             color: $color-black;
+            width: 50%;
+            text-align: center;
           }
 
           &.active-year {
-            font-size: 1.25em;
-            font-weight: $heading-fw;
-            text-decoration: none;
+            color: $color-white;
+
             @include largeScreen() {
+              font-weight: $heading-fw;
+              text-decoration: none;
               position: relative;
               z-index: 1000;
   	          width: 50%;
+              font-size: 1.25em;
+
               margin-left: 50%;
-  	          color: $color-white;
   	          font-size: 1.75em;
               font-weight: $heading-fw;
   	          text-align: center;
@@ -195,14 +149,14 @@
     }
 
     & .first {
-      @include prefix(transform, translateX(-4rem));
+      @include prefix(transform, translateX(4rem));
       @include largeScreen() {
         @include prefix(transform, translateX(0));
       }
     }
 
     & .close-menu {
-      @include prefix(transform, translateX(-4rem));
+      @include prefix(transform, translateX(4rem));
     }
 
     & .open-menu {
@@ -219,8 +173,9 @@
     top: 4rem;
     display: block;
     width: 100%;
+    margin-bottom: 22.5vh;
     @include largeScreen() {
-      left: calc(15vw + 4.5rem);
+      left: 15vw;
       top: 0;
       width: calc(100% - 15vw - 4.5rem);
     }
@@ -229,6 +184,19 @@
       display: block;
 	    width: 95%;
 	    margin: 2.5vw;
+    }
+
+    img {
+      @include largeScreen() {
+        cursor: zoom-in;
+      }
+    }
+
+    .openDetail {
+      display: none;
+      @include largeScreen() {
+        display: inline-block;
+      }
     }
   }
 
@@ -301,11 +269,11 @@
 
   & form ul li {
     & input[type='checkbox'] {
-      opacity: 0;
-      width: 0;
-	    height: 0;
-      padding: 0;
-	    margin: 0;
+      // opacity: 0;
+      // width: 0;
+	    // height: 0;
+      // padding: 0;
+	    // margin: 0;
 
       &:checked ~ .check,
       &:focus ~ .check {
@@ -330,30 +298,30 @@
 
     & div:hover .check,
     & label div input[type='checkbox']:focus + .check {
-      position: absolute;
-      left: 0;
-      top: 0;
-      display: block;
-      opacity: 1;
-	    width: 100%;
-	    height: 80%;
+      // position: absolute;
+      // left: 0;
+      // top: 0;
+      // display: block;
+      // opacity: 1;
+	    // width: 100%;
+	    // height: 80%;
     }
 
     & label div:hover .check::after,
     & input[type='checkbox']:focus ~ .check::after {
-      position: absolute;
-      left: calc((100% - 3.125rem) / 2);
-      top: calc((100% - 3.125rem) / 2);
-      display: block;
-	    width: 3.125rem;
-	    height: 3.125rem;
-	    background: url(/images/icons/unchecked.svg) no-repeat center;
-	    background-size: 3.125rem 3.125rem;
-	    content: '';
-      @include prefix(transition, transform .3s ease-in-out);
+      // position: absolute;
+      // left: calc((100% - 3.125rem) / 2);
+      // top: calc((100% - 3.125rem) / 2);
+      // display: block;
+	    // width: 3.125rem;
+	    // height: 3.125rem;
+	    // background: url(/images/icons/unchecked.svg) no-repeat center;
+	    // background-size: 3.125rem 3.125rem;
+	    // content: '';
+      // @include prefix(transition, transform .3s ease-in-out);
     }
 
-    & input[type='checkbox']:checked ~ .check::after {
+    input[type='checkbox']:checked ~ .check::after {
       position: absolute;
       left: calc((100% - 3.125rem) / 2);
       top: calc((100% - 3.125rem) / 2);
@@ -424,6 +392,7 @@
       height: 15vh;
 	    margin-top: 1.5vh;
       margin-right: 2%;
+      cursor: zoom-in;
 
       &:last-of-type {
         padding-right: 2%;
@@ -435,12 +404,23 @@
     @include prefix(transform, translateY(0) !important);
   }
 
+  .next-page {
+    button {
+      background-color: white;
+
+      &.show-selected-images {
+        display: block !important;
+      }
+    }
+  }
+
   & .next-page .submit-chapter {
     position: fixed;
     z-index: 11;
     right: 2vw;
 	  bottom: 22vh;
 	  width: 50vw;
+    display: none;
     @include prefix(transform, translateY(30vh));
     @include largeScreen() {
       width: 15vw;
@@ -464,5 +444,74 @@
         bottom: 27.5vh;
       }
     }
+  }
+}
+
+
+/********************
+  Image detail
+********************/
+
+.detail {
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  display: none;
+  @include prefix(justify-content, center);
+  @include prefix(align-items, center);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.8);
+  cursor: pointer;
+
+  &.show {
+    display: none;
+    @include largeScreen() {
+      @include prefix(display, flex);
+    }
+  }
+
+  & > div {
+    position: relative;
+    display: block;
+    height: 90vh;
+    width: max-content;
+    padding: .5rem;
+    border-radius: .625rem;
+    background-color: $color-white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & img {
+      height: calc(90vh - 1rem);
+    }
+
+    p {
+      display: none;
+    }
+  }
+}
+
+.popupCloseButton {
+  position: absolute;
+  top: -1.5625rem;
+  right: -1.5625rem;
+  @include prefix(display, flex);
+  @include prefix(justify-content, center);
+  @include prefix(align-items, center);
+  width: 3.125rem;
+  height: 3.125rem;
+  border-radius: 50%;
+	color: $color-white;
+  background-color: $color-primary;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background-color: $color-black;
   }
 }
