@@ -191,7 +191,19 @@
       & > p {
         margin-top: #{.5 * $spacing-unit};
         margin-bottom: $spacing-unit;
-        color: $color-black;
+        color: #000;
+
+        & > a {
+          color: #000;
+          font-weight: 700;
+          text-decoration: none;
+
+          &:hover,
+          &:active,
+          &:focus {
+            color: $color-white;
+          }
+        }
       }
     }
 
