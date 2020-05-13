@@ -127,7 +127,7 @@ small {
   min-height: #{2 * $spacing-unit};
   padding: 1.8125rem #{1.5 * $spacing-unit};
   color: $color-white;
-  background-color: $color-primary-dark;
+  background-color: $color-black;
   font-family: $heading-ff;
   font-size: .75 * $base-fz;
   font-weight: 400;
@@ -141,7 +141,7 @@ small {
     &:hover,
     &:active,
     &:focus {
-      color: $color-black;
+      color: $color-primary;
     }
   }
 }

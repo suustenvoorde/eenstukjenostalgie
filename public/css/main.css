@@ -204,7 +204,7 @@ small {
   min-height: 4.375rem;
   padding: 1.8125rem 3.28125rem;
   color: #FFFFFF;
-  background-color: #B7363B;
+  background-color: #2C2C2C;
   font-family: "Raleway";
   font-size: 0.75em;
   font-weight: 400;
@@ -214,7 +214,7 @@ small {
     font-weight: 700;
     text-decoration: none; }
     .site-footer a:hover, .site-footer a:active, .site-footer a:focus {
-      color: #2C2C2C; }
+      color: #DA383F; }
 
 .home {
   /********************
