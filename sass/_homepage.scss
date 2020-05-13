@@ -323,6 +323,12 @@
         color: $color-white;
         font-weight: 400;
       }
+
+      &.autocomplete-active {
+        color: $color-black;
+
+        & > strong { color: $color-black; }
+      }
     }
   }
 

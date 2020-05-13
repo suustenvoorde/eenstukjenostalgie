@@ -22,32 +22,39 @@ var map = require('./map.js');
         if (list) list = list.querySelectorAll('li');
 
         switch (e.keyCode) {
+          // Key down:
           case 40:
             this.currentFocus++;
             this.addActive(list);
             break;
+          // Key up:
           case 38:
             this.currentFocus--;
             this.addActive(list);
             break;
           case 13:
+            // Key enter:
             e.preventDefault();
             if (this.currentFocus > -1) {
               if (list) list[this.currentFocus].children[0].click();
             }
+            break;
         }
       });
 
       // Event for clicking search button:
-      this.searchbar.parentNode.addEventListener('submit', (e) => {
-        var val = this.searchbar.value;
-        this.getAutocomplete(data, val);
 
-        var results = data.filter(str => str.toUpperCase() == val.toUpperCase());
-        if (results.length) map.selectedStreet(results[0]);
+      // Build it so that when you click on it, it takes the first search result or returns false if no search results:
 
-        e.preventDefault();
-      });
+      // this.searchbar.parentNode.addEventListener('submit', (e) => {
+      //   var val = this.searchbar.querySelector('input').value;
+      //   this.getAutocomplete(data, val);
+      //
+      //   var results = data.filter(str => str.toUpperCase() == val.toUpperCase());
+      //   if (results.length) map.selectedStreet(results[0]);
+      //
+      //   e.preventDefault();
+      // });
 
       // Event listener when clicking the document:
       document.addEventListener('click', (e) => {
@@ -85,8 +92,8 @@ var map = require('./map.js');
           cloneA.appendChild(cloneStrong);
           cloneA.appendChild(document.createTextNode(result.slice(length)));
 
-          cloneLi.addEventListener('click', (e) => {
-            this.searchbar.value = e.target.textContent;
+          cloneA.addEventListener('click', (e) => {
+            this.searchbar.querySelector('input').value = e.target.textContent;
             this.closeList();
             map.selectedStreet(e.target.textContent);
             e.preventDefault();
@@ -98,9 +105,11 @@ var map = require('./map.js');
     addActive: function (list) {
       if (!list) return false;
       this.removeActive(list);
+
       if (this.currentFocus >= list.length) this.currentFocus = 0;
       if (this.currentFocus < 0) this.currentFocus = (list.length - 1);
-      this.searchbar.value = list[this.currentFocus].children[0].textContent;
+
+      this.searchbar.querySelector('input').value = list[this.currentFocus].children[0].textContent;
       list[this.currentFocus].children[0].classList.add('autocomplete-active');
     },
     removeActive: function (list) {
