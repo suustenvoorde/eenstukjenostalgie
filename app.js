@@ -11,6 +11,10 @@ var session = require('express-session')({
 // Setup .env file:
 require('dotenv').config({ path: 'vars.env' });
 
+// Testing database:
+var database = require('./controllers/database.js');
+database.open();
+
 // view engine setup:
 app.set('views', 'views');
 app.set('view engine', 'ejs');
