@@ -66,11 +66,11 @@ small {
   &::after {
     position: absolute;
     z-index: 11;
-    left: calc((100% - #{2 * $spacing-unit}) / 2);
-    top: calc((100% - #{2 * $spacing-unit}) / 2);
+    left: calc((100% - #{1.5 * $spacing-unit}) / 2);
+    top: calc((90% - #{1.5 * $spacing-unit}) / 2);
     display: block;
-    width: #{2 * $spacing-unit};
-    height: #{2 * $spacing-unit};
+    width: #{1.5 * $spacing-unit};
+    height: #{1.5 * $spacing-unit};
     border: .625rem solid transparent;
     border-top-color: $color-black;
     border-radius: 50%;
