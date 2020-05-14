@@ -12,7 +12,8 @@ var map = require('./map.js');
         this.closeList();
         if (!e.target.value) return false;
         this.currentFocus = -1;
-        this.getAutocomplete(data, e.target.value);
+        var results = this.getAutocomplete(data, e.target.value);
+        this.setAutocomplete(results, e.target.value.length);
       });
 
       // Event listener for keyboard functions:
@@ -32,29 +33,26 @@ var map = require('./map.js');
             this.currentFocus--;
             this.addActive(list);
             break;
-          case 13:
-            // Key enter:
-            e.preventDefault();
-            if (this.currentFocus > -1) {
-              if (list) list[this.currentFocus].children[0].click();
-            }
-            break;
         }
       });
 
-      // Event for clicking search button:
+      // Event for submitting the form:
+      this.searchbar.addEventListener('submit', (e) => {
+        var value = new FormData(e.target).get('searchLocation');
 
-      // Build it so that when you click on it, it takes the first search result or returns false if no search results:
+        // Return if value is empty:
+        if (!value) return;
 
-      // this.searchbar.parentNode.addEventListener('submit', (e) => {
-      //   var val = this.searchbar.querySelector('input').value;
-      //   this.getAutocomplete(data, val);
-      //
-      //   var results = data.filter(str => str.toUpperCase() == val.toUpperCase());
-      //   if (results.length) map.selectedStreet(results[0]);
-      //
-      //   e.preventDefault();
-      // });
+        // Get the search results for current value:
+        var results = this.getAutocomplete(data, value);
+
+        // Add first search result to the map:
+        map.selectedStreet(results[0]);
+
+        // Show first search result as searchbar value:
+        this.searchbar.querySelector('input').value = results[0];
+        e.preventDefault();
+      });
 
       // Event listener when clicking the document:
       document.addEventListener('click', (e) => {
@@ -63,8 +61,7 @@ var map = require('./map.js');
     },
     getAutocomplete: function (data, val) {
       // Check what data matches the search query:
-      var results = data.filter(str => str.substr(0, val.length).toUpperCase() == val.toUpperCase());
-      this.setAutocomplete(results, val.length);
+      return data.filter(str => str.substr(0, val.length).toUpperCase() == val.toUpperCase());
     },
     setAutocomplete: function (results, length) {
       var autocomplete = document.querySelector('.autocomplete');
