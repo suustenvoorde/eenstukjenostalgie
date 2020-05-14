@@ -3,4 +3,5 @@ node_modules
 *.DS_Store
 dist
 public/dist/bundle.js
+public/css/main.css
 functions

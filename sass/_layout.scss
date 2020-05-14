@@ -23,16 +23,22 @@ body {
 
 h1 {
   font-family: $heading-ff;
-  font-size: $heading-fz;
+  font-size: #{.85 * $heading-fz};
   font-weight: $heading-fw;
   line-height: $heading-lh;
+  @include largeScreen() {
+    font-size: $heading-fz;
+  }
 }
 
 h2 {
   font-family: $subheading-ff;
-  font-size: $subheading-fz;
+  font-size: #{.85 * $subheading-fz};
   font-weight: $subheading-fw;
   line-height: $subheading-lh;
+  @include largeScreen() {
+    font-size: $subheading-fz;
+  }
 }
 
 small {
@@ -106,9 +112,9 @@ small {
   @include prefix(flex-wrap, nowrap);
   @include prefix(justify-content, space-between);
   @include prefix(align-items, center);
-  min-height: #{2 * $spacing-unit};
-  padding: 1.5625rem #{1.5 * $spacing-unit};
-  border: .3125rem solid $color-black;
+  min-height: 3.125rem;
+  padding: .9375rem $spacing-unit;
+  border: .1875rem solid $color-black;
   border-radius: #{2 * $spacing-unit};
   color: $color-black;
   background-color: transparent;
@@ -120,6 +126,11 @@ small {
   line-height: $subheading-lh;
   cursor: pointer;
   @include prefix(transition, all .3s ease);
+  @include largeScreen() {
+    min-height: #{2 * $spacing-unit};
+    padding: 1.5625rem #{1.5 * $spacing-unit};
+    border: .3125rem solid $color-black;
+  }
 
   & > svg {
     @include prefix(flex, 0 0 auto);
@@ -177,16 +188,20 @@ small {
 .site-footer {
   position: absolute;
   z-index: 10;
+  bottom: 0;
   display: block;
   width: 100%;
   min-height: #{2 * $spacing-unit};
   padding: 1.8125rem #{1.5 * $spacing-unit};
   color: $color-white;
-  background-color: $color-black;
+  background-color: $color-primary-dark;
   font-family: $heading-ff;
   font-size: .75 * $base-fz;
   font-weight: 400;
   line-height: $subheading-lh;
+  @include largeScreen() {
+    background-color: $color-black;
+  }
 
   & a {
     color: $color-white;

@@ -18,8 +18,12 @@
     right: 0;
     bottom: 0;
     display: block;
-    width: calc(100% - 30rem);
-    height: 100vh;
+    width: 100%;
+    height: 25vh;
+    @include largeScreen() {
+      width: calc(100% - 30rem);
+      height: 100vh;
+    }
 
     .leaflet-interactive {
       fill: $color-primary;
@@ -72,12 +76,16 @@
 
   .title {
     position: absolute;
+    left: 0;
     top: 0;
-    left: 30rem;
     display: block;
     margin: $spacing-unit;
+    margin-right: calc(6.5rem + #{2 * $spacing-unit});
     color: $color-black;
     font-weight: 700;
+    @include largeScreen() {
+      left: 30rem;
+    }
 
     & > strong {
       color: $color-primary;
@@ -92,16 +100,30 @@
     z-index: 1;
     display: block;
     overflow-y: scroll;
-    width: 30rem;
-    height: calc(100vh - #{2 * $spacing-unit});
-    padding: #{1.5 * $spacing-unit};
-    padding-top: 0;
-    padding-bottom: #{.5 * $spacing-unit};
+    width: 100%;
+    height: 75vh;
+    padding: 0 $spacing-unit;
+    padding-bottom: #{3.5 * $spacing-unit};
+    margin-top: 25vh;
     box-shadow: 0 0 0 .625rem rgba(44,44,44,.3);
     color: $color-white;
     background-color: $color-primary;
+    @include largeScreen() {
+      width: 30rem;
+      height: 100vh;
+      padding: 0 #{1.5 * $spacing-unit};
+      padding-bottom: #{2.5 * $spacing-unit};
+      margin-top: 0;
+    }
 
     & .pager {
+      width: 100%;
+      max-width: 20rem;
+      margin: 0 auto;
+      @include largeScreen() {
+        max-width: none;
+      }
+
       & .steps {
         position: relative;
         @include prefix(display, flex);
@@ -109,8 +131,11 @@
         @include prefix(justify-content, space-between);
         @include prefix(align-items, center);
         margin-top: $spacing-unit;
-        margin-bottom: #{1.5 * $spacing-unit};
+        margin-bottom: $spacing-unit;
         list-style-type: none;
+        @include largeScreen() {
+          margin-bottom: #{1.5 * $spacing-unit};
+        }
 
         &::before {
           position: absolute;
@@ -119,31 +144,40 @@
           top: calc((100% - .625rem) / 2);
           right: 0;
           display: block;
-          height: .625rem;
+          height: .3125rem;
           margin-top: 0;
           border-radius: .3125rem;
           background-color: $color-primary-dark;
           content: '';
+          @include largeScreen() {
+            height: .625rem;
+          }
         }
 
         & a {
           @include prefix(display, flex);
           @include prefix(justify-content, center);
           @include prefix(align-items, center);
-          width: $spacing-unit;
-          height: $spacing-unit;
-          padding: .46875rem;
+          width: 1.5625rem;
+          height: 1.5625rem;
+          padding: .28125rem;
           border-radius: 50%;
           color: $color-white;
           background-color: $color-black;
           font-family: $base-ff;
-          font-size: 1.25em;
+          font-size: 1em;
           font-weight: 700;
           text-align: center;
           text-decoration: none;
           line-height: 1;
           @include prefix(transform, scale(1,1));
           @include prefix(transition, transform .3s ease);
+          @include largeScreen() {
+            width: $spacing-unit;
+            height: $spacing-unit;
+            padding: .46875rem;
+            font-size: 1.25em;
+          }
 
           & > svg {
             display: block;
@@ -173,29 +207,41 @@
 
     & .slide {
       display: none;
+      @include prefix(flex-direction, column);
+      @include prefix(justify-content, space-between);
+      @include prefix(align-items, flex-start);
       width: 100%;
-      min-height: calc(100% - #{7.5 * $spacing-unit});
+      min-height: calc(100% - #{4.5 * $spacing-unit});
 
       &.active {
-        display: block;
+        @include prefix(display, flex);
       }
 
-      & > h1 {
-        margin: $spacing-unit 0;
+      & article h1 {
+        margin-bottom: $spacing-unit;
       }
 
-      & > h2 {
-        margin: #{.5 * $spacing-unit} 0;
-      }
-
-      & > p {
+      & article p {
         margin-top: #{.5 * $spacing-unit};
         margin-bottom: $spacing-unit;
-        color: $color-black;
+        color: #000;
+
+        & > a {
+          color: inherit;
+          font-weight: 700;
+          text-decoration: none;
+
+          &:hover,
+          &:active,
+          &:focus {
+            color: $color-white;
+          }
+        }
       }
     }
 
     & .action-btn {
+      margin: #{.5 * $spacing-unit} 0;
       margin-top: $spacing-unit;
     }
   }
@@ -207,7 +253,9 @@
   .searchbar {
     @include prefix(display, flex);
     @include prefix(flex-wrap, nowrap);
+    width: 100%;
     height: #{2 * $spacing-unit};
+    margin-top: $spacing-unit;
     border-radius: .625rem;
 
     & > input[type='text'] {
@@ -311,6 +359,12 @@
         color: $color-white;
         font-weight: 400;
       }
+
+      &.autocomplete-active {
+        color: $color-black;
+
+        & > strong { color: $color-black; }
+      }
     }
   }
 
@@ -320,15 +374,20 @@
 
   .year-selection {
     @include prefix(display, flex);
-    @include prefix(flex-wrap, nowrap);
+    @include prefix(flex-wrap, wrap);
     @include prefix(justify-content, space-between);
     width: 100%;
+    max-width: 25rem;
     list-style-type: none;
+    @include largeScreen() {
+      max-width: none;
+    }
 
     & > li {
       @include prefix(display, flex);
       @include prefix(flex-direction, column);
       @include prefix(justify-content, space-between);
+      margin: #{.25 * $spacing-unit} 0;
 
       & small {
         display: block;
