@@ -1,4 +1,5 @@
 var map = require('./map.js');
+var loader = require('./loader.js');
 
 (function () {
   const submitLocationTimestamp = {
@@ -17,6 +18,9 @@ var map = require('./map.js');
 
         var http = new XMLHttpRequest();
         var url = '/create-story';
+
+        // Show the loader
+        loader.show();
 
         http.open('post', url, true);
         http.setRequestHeader('Content-type', 'application/json');
