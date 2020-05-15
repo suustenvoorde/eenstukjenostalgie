@@ -11,7 +11,7 @@
   background-color: $color-primary;
   @include smallScreen() {
     width: 30rem;
-    height: calc(100vh - 1.25rem);
+    height: 100vh;
     padding: 0 #{1.5 * $spacing-unit};
     padding-bottom: #{2.5 * $spacing-unit};
     margin-top: 0;
