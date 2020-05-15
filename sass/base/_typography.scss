@@ -1,0 +1,43 @@
+* {
+  font-family: $base-ff;
+  font-size: $base-fz;
+  font-weight: $base-fw;
+  line-height: $base-lh;
+}
+
+h1 {
+  font-family: $heading-ff;
+  font-size: #{.85 * $heading-fz};
+  font-weight: $heading-fw;
+  line-height: $heading-lh;
+  @include smallScreen() {
+    font-size: $heading-fz;
+  }
+}
+
+h2 {
+  font-family: $subheading-ff;
+  font-size: #{.85 * $subheading-fz};
+  font-weight: $subheading-fw;
+  line-height: $subheading-lh;
+  @include smallScreen() {
+    font-size: $subheading-fz;
+  }
+}
+
+small {
+  font-family: $base-ff;
+  font-size: .75 * $base-fz;
+  font-weight: $base-fw;
+  line-height: $base-lh;
+}
+
+.title {
+  color: $color-black;
+  font-weight: 700;
+
+  & > strong {
+    color: $color-primary;
+    font-weight: 700;
+  }
+}
