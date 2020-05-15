@@ -20,7 +20,7 @@
     display: block;
     width: 100%;
     height: 25vh;
-    @include largeScreen() {
+    @include smallScreen() {
       width: calc(100% - 30rem);
       height: 100vh;
     }
@@ -83,7 +83,7 @@
     margin-right: calc(6.5rem + #{2 * $spacing-unit});
     color: $color-black;
     font-weight: 700;
-    @include largeScreen() {
+    @include smallScreen() {
       left: 30rem;
     }
 
@@ -107,7 +107,7 @@
     box-shadow: 0 0 0 .625rem rgba(44,44,44,.3);
     color: $color-white;
     background-color: $color-primary;
-    @include largeScreen() {
+    @include smallScreen() {
       width: 30rem;
       height: 100vh;
       padding: 0 #{1.5 * $spacing-unit};
@@ -119,7 +119,7 @@
       width: 100%;
       max-width: 20rem;
       margin: 0 auto;
-      @include largeScreen() {
+      @include smallScreen() {
         max-width: none;
       }
 
@@ -132,7 +132,7 @@
         margin-top: $spacing-unit;
         margin-bottom: $spacing-unit;
         list-style-type: none;
-        @include largeScreen() {
+        @include smallScreen() {
           margin-bottom: #{1.5 * $spacing-unit};
         }
 
@@ -148,7 +148,7 @@
           border-radius: .3125rem;
           background-color: $color-primary-dark;
           content: '';
-          @include largeScreen() {
+          @include smallScreen() {
             height: .625rem;
           }
         }
@@ -171,7 +171,7 @@
           line-height: 1;
           @include prefix(transform, scale(1,1));
           @include prefix(transition, transform .3s ease);
-          @include largeScreen() {
+          @include smallScreen() {
             width: $spacing-unit;
             height: $spacing-unit;
             padding: .46875rem;
@@ -378,7 +378,7 @@
     width: 100%;
     max-width: 25rem;
     list-style-type: none;
-    @include largeScreen() {
+    @include smallScreen() {
       max-width: none;
     }
 
