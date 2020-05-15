@@ -121,7 +121,8 @@ small {
   color: #2C2C2C;
   font-weight: 700; }
   .title > strong {
-    color: #DA383F; }
+    color: #DA383F;
+    font-weight: 700; }
 
 .instructions {
   z-index: 1;
