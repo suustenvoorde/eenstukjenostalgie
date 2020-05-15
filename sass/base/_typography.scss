@@ -37,7 +37,12 @@ small {
   font-weight: 700;
 
   & > strong {
+    font-family: $subheading-ff;
     color: $color-primary;
     font-weight: 700;
   }
+}
+
+.action-btn span {
+  font-family: $subheading-ff;
 }
