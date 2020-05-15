@@ -14,12 +14,15 @@ const database = {
   },
   addItem: async function (item) {
     return await this.collection.insertOne(item)
+      .then(result => console.log('item added'))
+      .catch(err => console.log(err));
+  },
+  getItem: async function (id) {
+    return await this.collection.findOne()
       .then(result => {
-        console.log('item added');
+        return result;
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(err => console.log(err));
   }
 };
 
