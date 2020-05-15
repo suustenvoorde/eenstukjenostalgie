@@ -24,8 +24,8 @@ const chapters = {
         title: photo.title.value,
         year: photo.start.value.slice(0,4),
         street: {
-          label: photo.streetLabel.value,
           uri: photo.street.value,
+          label: photo.streetLabel.value,
           distanceFromCenter: nearestPoint.properties.dist * 1000
         }
       };
@@ -34,38 +34,26 @@ const chapters = {
     // Filter photos with year <= current year:
     photos = photos.filter(photo => photo.year <= formdata.endyear);
 
-    // Get the unique streets:
-    var streets = photos.map(photo => photo.street.label);
-    var uniqueStreets = this.removeDuplicates(streets);
-
     // Create the data object:
     var data = {};
 
-    // Add the years to the data:
     photos.forEach(photo => {
+      // Add the year to the data:
       var year = photo.year;
       if (!data[year]) data[year] = [];
-    });
 
-    // Add unique streets to the data:
-    uniqueStreets.forEach(label => {
-      for (var year in data) {
-        if (data.hasOwnProperty(year)) {
-          data[year].push({
-            label: label,
-            photos: []
-          });
-        }
+      // Add the street to the data:
+      if (!Object.values(data[year]).find(street => street.uri == photo.street.uri)) {
+        data[year].push({
+          uri: photo.street.uri,
+          label: photo.street.label,
+          distanceFromCenter: photo.street.distanceFromCenter,
+          photos: []
+        });
       }
-    });
 
-    // Add photos to correct year and street:
-    photos.forEach(photo => {
-      var year = photo.year;
-      var street = data[year].find(street => street.label == photo.street.label);
-
-      street.uri = photo.street.uri;
-      street.distanceFromCenter = photo.street.distanceFromCenter;
+      // Add the photos to the data:
+      var street = data[year].find(street => street.uri == photo.street.uri);
       street.photos.push({
         url: photo.url,
         title: photo.title
@@ -84,13 +72,6 @@ const chapters = {
       .then(res => res.json())
       .then(data => data.results.bindings)
       .catch(err => console.log(err));
-  },
-  removeDuplicates: function (arr) {
-    var unique = [];
-    arr.forEach(item => {
-      if (!unique.includes(item)) unique.push(item);
-    });
-    return unique;
   }
 };
 
