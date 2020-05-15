@@ -8,7 +8,7 @@ var sparqlqueries = {
     return encodeURIComponent(query);
   },
   getLocationBySearch: function (val) {
-    return `
+    const query = `
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       PREFIX hg: <http://rdf.histograph.io/>
       PREFIX geo: <http://www.opengis.net/ont/geosparql#>
@@ -19,9 +19,10 @@ var sparqlqueries = {
         FILTER (REGEX (?street, "${val}"))
       }
     `;
+    return this.url(query);
   },
   getStreetWkts: function (wkt) {
-    return `
+    const query = `
       PREFIX dct: <http://purl.org/dc/terms/>
       PREFIX foaf: <http://xmlns.com/foaf/0.1/>
       PREFIX void: <http://rdfs.org/ns/void#>
@@ -41,13 +42,14 @@ var sparqlqueries = {
         FILTER(bif:GeometryType(?streetGeo)!='POLYGON' && bif:st_intersects(?streetGeo, ?circle))
       }
     `;
+    return this.url(query);
   },
   getLocationAndTimestamp: function (data) {
-    var beginTimestamp = `${data.startyear}-01-01`;
-    var endTimestamp = `${data.endyear}-12-31`;
-    var wkt = data.wkt;
+    const beginTimestamp = `${data.startyear}-01-01`;
+    const endTimestamp = `${data.endyear}-12-31`;
+    const wkt = data.wkt
 
-    return `
+    const query = `
       PREFIX dct: <http://purl.org/dc/terms/>
       PREFIX foaf: <http://xmlns.com/foaf/0.1/>
       PREFIX void: <http://rdfs.org/ns/void#>
@@ -82,6 +84,7 @@ var sparqlqueries = {
       }
       ORDER BY ?start
     `;
+    return this.url(query);
   }
 };
 
