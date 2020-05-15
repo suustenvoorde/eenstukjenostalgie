@@ -80,54 +80,54 @@
 				</a>
 			</section>
 
-			<% var now = new Date(Date.now()).getFullYear(); %>
-			<form class="location-timestamp">
-				<section id="slidethree" class="slide">
-					<article>
-						<h1>Kies een periode</h1>
-						<h2>Selecteer een beginjaar en een eindjaar.</h2>
-						<p>
-							Denk bijvoorbeeld aan beelden tijdens de Tweede Wereldoorlog. Kies dan als beginjaar 1940 en eindjaar 1945.
-						</p>
-						<ul class="year-selection">
-							<li>
-								<h2>Beginjaar:</h2>
-								<small>(Vanaf 1900)</small>
-								<select class="startyear" name="startyear">
-									<% var i = 1900; %>
-									<% while (i < now+1) { %>
-										<% if (i == 1970) { %>
-											<option value="<%- i %>" selected><%= i %></option>
-										<% } else { %>
-											<option value="<%- i %>"><%= i %></option>
+			<section id="slidethree" class="slide">
+				<% var now = new Date(Date.now()).getFullYear(); %>
+				<form class="location-timestamp">
+						<article>
+							<h1>Kies een periode</h1>
+							<h2>Selecteer een beginjaar en een eindjaar.</h2>
+							<p>
+								Denk bijvoorbeeld aan beelden tijdens de Tweede Wereldoorlog. Kies dan als beginjaar 1940 en eindjaar 1945.
+							</p>
+							<ul class="year-selection">
+								<li>
+									<h2>Beginjaar:</h2>
+									<small>(Vanaf 1900)</small>
+									<select class="startyear" name="startyear">
+										<% var i = 1900; %>
+										<% while (i < now+1) { %>
+											<% if (i == 1970) { %>
+												<option value="<%- i %>" selected><%= i %></option>
+											<% } else { %>
+												<option value="<%- i %>"><%= i %></option>
+											<% } %>
+											<% i++; %>
 										<% } %>
-										<% i++; %>
-									<% } %>
-								</select>
-							</li>
-							<li>
-								<h2>Eindjaar:</h2>
-								<select class="endyear" name="endyear">
-									<% var i = 1900; %>
-									<% while (i < now+1) { %>
-										<% if (i == 1980) { %>
-											<option value="<%- i %>" selected><%= i %></option>
-										<% } else { %>
-											<option value="<%- i %>"><%= i %></option>
+									</select>
+								</li>
+								<li>
+									<h2>Eindjaar:</h2>
+									<select class="endyear" name="endyear">
+										<% var i = 1900; %>
+										<% while (i < now+1) { %>
+											<% if (i == 1980) { %>
+												<option value="<%- i %>" selected><%= i %></option>
+											<% } else { %>
+												<option value="<%- i %>"><%= i %></option>
+											<% } %>
+											<% i++; %>
 										<% } %>
-										<% i++; %>
-									<% } %>
-								</select>
-							</li>
-						</ul>
-					</article>
+									</select>
+								</li>
+							</ul>
+						</article>
 
-					<button class="action-btn action-btn--white" type="submit">
-						<span>Zoek herinneringen</span>
-						<%- include('../public/images/icons/arrow-right.svg') %>
-					</button>
+						<button class="action-btn action-btn--white" type="submit">
+							<span>Zoek herinneringen</span>
+							<%- include('../public/images/icons/arrow-right.svg') %>
+						</button>
+					</form>
 				</section>
-			</form>
 		</main>
 	</div>
 <%- include('partials/foot.ejs') %>

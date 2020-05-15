@@ -281,6 +281,11 @@ small {
   .instructions .action-btn {
     margin: 1.09375rem 0;
     margin-top: 2.1875rem; }
+  .instructions .location-timestamp {
+    height: calc(100vh - .625rem - .6rem - 5.46875rem - 9.84375rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; }
 
 #map {
   position: absolute;
