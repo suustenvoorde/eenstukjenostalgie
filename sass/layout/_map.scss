@@ -1,0 +1,58 @@
+#map {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  height: 25vh;
+  @include smallScreen() {
+    width: calc(100% - 30rem);
+    height: 100vh;
+  }
+
+  .leaflet-interactive {
+    fill: $color-primary;
+    stroke: $color-primary-dark;
+  }
+
+  .leaflet-control-attribution {
+    display: none;
+  }
+}
+
+/********************
+  Radius select
+********************/
+
+.radius-select {
+  position: absolute;
+  right: $spacing-unit;
+  top: $spacing-unit;
+  display: block;
+  height: $spacing-unit;
+  padding: .59375rem #{.5 * $spacing-unit};
+  padding-right: $spacing-unit;
+  border: 0;
+  border-radius: .625rem;
+  outline: 0;
+  box-shadow: 0 0 0 .3125rem rgba(44,44,44,.2);
+  color: $color-white;
+  background-color: $color-primary-dark;
+  background-image: url(../images/icons/select.svg);
+  background-position: calc(100% - #{.5 * $spacing-unit}) 50%;
+  background-repeat: no-repeat;
+  background-size: auto .75rem;
+  font-family: $heading-ff;
+  font-size: 1em;
+  font-weight: $heading-fw;
+  line-height: 1;
+  @include prefix(appearance, none);
+  @include prefix(transition, background-color .3s ease);
+
+  &:hover,
+  &:focus {
+    background-color: #943337;
+  }
+}

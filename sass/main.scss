@@ -13,16 +13,20 @@
 
 // 3. Layout-related sections
 @import
+  'layout/instructions',
+  'layout/map',
   'layout/footer';
 
 // 4. Components
 @import
   'components/action-button',
-  'components/loader';
-
-@import 'homepage';
-@import 'create-story';
+  'components/loader',
+  'components/street-selection',
+  'components/year-selection';
 
 // 5. Page-specific styles
+@import
+  'pages/home';
+
 // 6. Themes
 // 7. Vendors
