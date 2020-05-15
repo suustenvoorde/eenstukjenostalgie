@@ -112,7 +112,7 @@
     @include prefix(justify-content, space-between);
     @include prefix(align-items, flex-start);
     width: 100%;
-    min-height: calc(100% - #{4.5 * $spacing-unit});
+    min-height: 70vh;
 
     &.active {
       @include prefix(display, flex);
@@ -147,7 +147,7 @@
   }
 
   .location-timestamp {
-    height: calc(100vh - .625rem - .6rem - #{2.5 * $spacing-unit} - #{4.5 * $spacing-unit});
+    min-height: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
