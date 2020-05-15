@@ -53,6 +53,7 @@ exports.getCreateStoryPage = async function (req, res, next) {
         photos: result.photos,
         id: result.id
       });
+      database.close();
     })
     .catch(err => console.log(err));
 }
