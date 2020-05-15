@@ -1,16 +1,14 @@
 /********************
   Colors
 ********************/
-
 $color-primary:      #DA383F;
 $color-primary-dark: #B7363B;
 $color-black:        #2C2C2C;
 $color-white:        #FFFFFF;
 
 /********************
-  Fonts
+  Font styles
 ********************/
-
 // Base:
 $base-ff:            'Kreon';
 $base-fz:            1em;
@@ -29,33 +27,18 @@ $subheading-fz:      1.5em;
 $subheading-fw:      400;
 $subheading-lh:      1.3;
 
+
 /********************
   Spacing
 ********************/
-
 $spacing-unit:       2.1875rem; // 35px
 
+
 /********************
-  Mixins
+  Breakpoints
 ********************/
-
-// Prefixer:
-$prefixes:           webkit, moz, o;
-
-@mixin prefix($property, $value) {
-  @each $prefix in $prefixes {
-    @if $property == 'display' {
-      #{$property}: #{'-' + $prefix + '-' + $value};
-    } @else {
-      #{'-' + $prefix + '-' + $property}: $value;
-    }
-  }
-  #{$property}: $value;
-}
-
-// Media queries:
-@mixin largeScreen {
-  @media all and (min-width: 40em) {
-    @content;
-  }
-}
+$breakpoints: (
+  'small': 48em, /* 768px */
+  'medium': 62em, /* 992px */
+  'large': 75em /* 1200px */
+);

@@ -38,7 +38,6 @@
 								<% images.forEach(image => { %>
 									<li class="data-image">
 											<div class="content">
-												<span class="check"></span>
 												<img class="lazy" src="<%- image.img.value %>" alt="<%- image.title.value %>">
 												<p><%= image.title.value %></p>
 												<a class="openDetail"
@@ -47,7 +46,6 @@
 													 href="">
 													<%- include('../public/images/icons/zoom-in.svg') %>
 												</a>
-												<input id="checkbox" type="checkbox" name="images" value="<%- image.img.value %>">
 											</div>
 									</li>
 								<% }); %>

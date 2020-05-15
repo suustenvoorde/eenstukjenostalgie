@@ -1,5 +1,39 @@
-@import 'fonts';
-@import 'base';
-@import 'layout';
-@import 'homepage';
-@import 'create-story';
+@charset 'UTF-8';
+
+// 1. Configuration and helpers
+@import
+  'abstracts/mixins',
+  'abstracts/fonts',
+  'abstracts/variables';
+
+// 2. Base stuff
+@import
+  'base/reset',
+  'base/typography';
+
+// 3. Layout-related sections
+@import
+  //general
+  'layout/footer',
+  //homepage
+  'layout/instructions',
+  'layout/map',
+  //create-story
+  'layout/contents',
+  'layout/table-of-contents';
+
+// 4. Components
+@import
+  'components/action-button',
+  'components/loader',
+  'components/street-selection',
+  'components/popup',
+  'components/year-selection';
+
+// 5. Page-specific styles
+@import
+  'pages/home',
+  'pages/create-story';
+
+// 6. Themes
+// 7. Vendors
