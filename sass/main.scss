@@ -1,5 +1,28 @@
-@import 'fonts';
-@import 'base';
-@import 'layout';
+@charset 'UTF-8';
+
+// 1. Configuration and helpers
+@import
+  'abstracts/mixins',
+  'abstracts/fonts',
+  'abstracts/variables';
+
+// 2. Base stuff
+@import
+  'base/reset',
+  'base/typography';
+
+// 3. Layout-related sections
+@import
+  'layout/footer';
+
+// 4. Components
+@import
+  'components/action-button',
+  'components/loader';
+
 @import 'homepage';
 @import 'create-story';
+
+// 5. Page-specific styles
+// 6. Themes
+// 7. Vendors
