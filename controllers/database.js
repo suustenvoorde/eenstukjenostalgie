@@ -21,9 +21,6 @@ const database = {
     return await this.collection.findOne()
       .then(result => result)
       .catch(err => console.log(err));
-  },
-  close: function () {
-    client.close();
   }
 };
 

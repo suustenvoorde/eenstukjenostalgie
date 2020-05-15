@@ -33,7 +33,7 @@ exports.postCreateStoryPage = async function (req, res, next) {
   // Create a story object:
   var story = {
     id: shortid.generate(),
-    photos: photos
+    data: photos
   };
 
   // Add story to the database:
@@ -50,10 +50,9 @@ exports.getCreateStoryPage = async function (req, res, next) {
   await database.getItem(req.params.id)
     .then(result => {
       res.render('create-story', {
-        photos: result.photos,
+        data: result.data,
         id: result.id
       });
-      database.close();
     })
     .catch(err => console.log(err));
 }
