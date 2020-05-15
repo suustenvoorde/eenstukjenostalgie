@@ -1,0 +1,38 @@
+/********************
+  Prefixer
+********************/
+
+$prefixes: webkit, moz, o;
+
+@mixin prefix($property, $value) {
+  @each $prefix in $prefixes {
+    @if $property == 'display' {
+      #{$property}: #{'-' + $prefix + '-' + $value};
+    } @else {
+      #{'-' + $prefix + '-' + $property}: $value;
+    }
+  }
+  #{$property}: $value;
+}
+
+/********************
+  Media queries
+********************/
+
+@mixin smallScreen {
+  @media all and (min-width: map-get($breakpoints, small)) {
+    @content;
+  }
+}
+
+@mixin mediumScreen {
+  @media all and (min-width: map-get($breakpoints, medium)) {
+    @content;
+  }
+}
+
+@mixin largeScreen {
+  @media all and (min-width: map-get($breakpoints, large)) {
+    @content;
+  }
+}

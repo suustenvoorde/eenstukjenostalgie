@@ -1,0 +1,121 @@
+/********************
+  Searchbar
+********************/
+
+.searchbar {
+  @include prefix(display, flex);
+  @include prefix(flex-wrap, nowrap);
+  width: 100%;
+  height: #{2 * $spacing-unit};
+  margin-top: $spacing-unit;
+  border-radius: .625rem;
+
+  & > input[type='text'] {
+    @include prefix(flex, 1 0 auto);
+    display: block;
+    padding: 1.5625rem #{$spacing-unit};
+    padding-right: 0;
+    border: 0;
+    border-radius: .625rem 0 0 .625rem;
+    outline: 0;
+    color: $color-white;
+    background-color: $color-primary-dark;
+    font-family: $base-ff;
+    font-size: 1.25em;
+    font-weight: $base-fw;
+    line-height: 1;
+    @include prefix(transition, background-color .3s ease);
+
+    &::placeholder {
+      color: #CCC;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: rgba(44,44,44,.4);
+    }
+  }
+
+  & > button[type='submit'] {
+    @include prefix(flex, 0 0 auto);
+    display: block;
+    width: #{2 * $spacing-unit};
+    height: #{2 * $spacing-unit};
+    padding: 1.5625rem;
+    border: 0;
+    border-radius: 0 .625rem .625rem 0;
+    outline: 0;
+    background-color: $color-primary-dark;
+    cursor: pointer;
+    @include prefix(transition, background-color .3s ease);
+
+    & > svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      fill: $color-white;
+      @include prefix(transform, scale(1,1));
+      @include prefix(transition, transform .3s ease);
+    }
+
+    &:hover,
+    &:focus {
+      background-color: rgba(44,44,44,.4);
+      & > svg { @include prefix(transform, scale(1.4,1.4)); }
+    }
+  }
+}
+
+/********************
+  Autocomplete
+********************/
+
+.autocomplete-items {
+  list-style-type: none;
+
+  & a {
+    position: relative;
+    display: inline-block;
+    padding: #{.5 * $spacing-unit};
+    padding-left: calc(1rem + #{1.5 * $spacing-unit});
+    color: #CCC;
+    font-family: $base-ff;
+    font-size: $base-fz;
+    font-weight: $base-fw;
+    line-height: $subheading-lh;
+    text-decoration: none;
+
+    &::before {
+      position: absolute;
+      left: 0;
+      display: block;
+      width: 1rem;
+      height: 1rem;
+      margin-left: $spacing-unit;
+      margin-right: #{.5 * $spacing-unit};
+      background-image: url(../images/icons/search.svg);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 100% auto;
+      content: '';
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $color-black;
+      & > strong { color: $color-black; }
+    }
+
+    & > strong {
+      color: $color-white;
+      font-weight: 400;
+    }
+
+    &.autocomplete-active {
+      color: $color-black;
+
+      & > strong { color: $color-black; }
+    }
+  }
+}
