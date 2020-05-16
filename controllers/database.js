@@ -18,7 +18,7 @@ const database = {
       .catch(err => console.log(err));
   },
   getItem: async function (id) {
-    return await this.collection.findOne()
+    return await this.collection.findOne({ id: id })
       .then(result => result)
       .catch(err => console.log(err));
   }
