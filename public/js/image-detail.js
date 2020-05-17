@@ -29,11 +29,6 @@
         this.closeDetail();
         e.preventDefault();
       });
-
-      this.detail.addEventListener('click', (e) => {
-        this.closeDetail();
-        e.preventDefault();
-      });
     },
     openDetail: function (img, text = '') {
       // Add image to popup:
