@@ -20,7 +20,7 @@ const chapters = {
       var nearestPoint = turf.nearestPointOnLine(line, point, { units: 'kilometers' });
 
       return {
-        url: photo.img.value.split(':').join('s:'),
+        url: photo.img.value.split(':')[0].length == 5 ? photo.img.value : photo.img.value.split(':').join('s:'),
         title: photo.title.value,
         year: photo.start.value.slice(0,4),
         street: {
