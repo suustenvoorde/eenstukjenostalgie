@@ -14,4 +14,10 @@ router.post('/create-story', controller.postCreateStoryPage);
 // GET create story page:
 router.get('/create-story/:id', controller.getCreateStoryPage);
 
+// POST photo share page:
+router.post('/share/photo', controller.postPhotoSharePage);
+
+// GET photo share page:
+router.get('/share/photo/:id', controller.getPhotoSharePage);
+
 module.exports = router;

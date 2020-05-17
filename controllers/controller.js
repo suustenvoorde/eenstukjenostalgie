@@ -56,3 +56,15 @@ exports.getCreateStoryPage = async function (req, res, next) {
     })
     .catch(err => console.log(err));
 }
+
+exports.postPhotoSharePage = function (req, res, next) {
+  var photo = req.body;
+  photo.id = shortid.generate();
+  console.log(photo);
+
+  res.redirect('/share/photo/' + photo.id);
+}
+
+exports.getPhotoSharePage = function (req, res, next) {
+  res.render('photo-share');
+}
