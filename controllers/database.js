@@ -8,7 +8,14 @@ const database = {
     client.connect(err => {
       if (err) throw err;
       this.db = client.db('eenstukjenostalgie');
+
+      // Create the stories collection:
+      this.db.createCollection('stories');
       this.stories = this.db.collection('stories');
+
+      // Create the photos collection:
+      this.db.createCollection('photos');
+      this.photos = this.db.collection('photos');
       console.log('connected to database');
     });
   },
