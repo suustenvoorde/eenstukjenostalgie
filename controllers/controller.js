@@ -37,7 +37,7 @@ exports.postCreateStoryPage = async function (req, res, next) {
   };
 
   // Add story to the database:
-  await database.addItem(story)
+  await database.addItem(database.stories, story)
     .then(result => {
       // When added, redirect:
       res.redirect('/create-story/' + story.id);
@@ -47,7 +47,7 @@ exports.postCreateStoryPage = async function (req, res, next) {
 
 exports.getCreateStoryPage = async function (req, res, next) {
   // Get the story from database using the id:
-  await database.getItem(req.params.id)
+  await database.getItem(database.stories, req.params.id)
     .then(result => {
       res.render('create-story', {
         data: result.data,
@@ -58,9 +58,12 @@ exports.getCreateStoryPage = async function (req, res, next) {
 }
 
 exports.postPhotoSharePage = function (req, res, next) {
+  // Create the photo data:
   var photo = req.body;
   photo.id = shortid.generate();
-  console.log(photo);
+
+  // Add the photo to the database:
+
 
   res.redirect('/share/photo/' + photo.id);
 }
