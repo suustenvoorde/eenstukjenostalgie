@@ -57,17 +57,27 @@ exports.getCreateStoryPage = async function (req, res, next) {
     .catch(err => console.log(err));
 }
 
-exports.postPhotoSharePage = function (req, res, next) {
+exports.postPhotoSharePage = async function (req, res, next) {
   // Create the photo data:
   var photo = req.body;
   photo.id = shortid.generate();
 
   // Add the photo to the database:
-
-
-  res.redirect('/share/photo/' + photo.id);
+  await database.addItem(database.photos, photo)
+    .then(result => {
+      res.redirect('/share/photo/' + photo.id);
+    })
+    .catch(err => console.log(err));
 }
 
-exports.getPhotoSharePage = function (req, res, next) {
-  res.render('photo-share');
+exports.getPhotoSharePage = async function (req, res, next) {
+  // Get the photo from the database:
+  await database.getItem(database.photos, req.params.id)
+    .then(result => {
+      res.render('photo-share', {
+        src: result.src,
+        alt: result.alt
+      });
+    })
+    .catch(err => console.log(err));
 }
