@@ -1,68 +1,75 @@
-<%- include('partials/head.ejs') %>
-<body class="create-story">
+<!DOCTYPE html>
+<html lang="nl">
+	<%- include('partials/head.ejs') %>
+	<body class="create-story">
+		<% var years = Object.keys(data); %>
 
-	<% var years = Object.keys(data); %>
+		<div class="grid">
+			<a class="back" href="/">
+				<img src="/images/icons/back.svg" alt="">
+			</a>
 
-	<div class="grid">
-		<a class="back" href="/">
-			<img src="/images/icons/back.svg" alt="">
-		</a>
+			<nav class="table-of-contents">
+				<button class="open">
+					<%- include('../public/images/icons/menu.svg') %>
+				</button>
+				<button class="close">
+					<%- include('../public/images/icons/close.svg') %>
+				</button>
+				<ol class="menu">
+					<% years.forEach(year => { %>
+						<li>
+							<a href="#year-<%- year %>">
+								<h2 class="year-title"><%= year %></h2>
+							</a>
+						</li>
+					<% }); %>
+				</ol>
+			</nav>
 
-		<nav class="table-of-contents">
-			<button class="open">
-				<%- include('../public/images/icons/menu.svg') %>
-			</button>
-			<button class="close">
-				<%- include('../public/images/icons/close.svg') %>
-			</button>
-			<ol class="menu">
-				<% years.forEach(year => { %>
-					<li>
-						<a href="#year-<%- year %>">
-							<h2 class="year-title"><%= year %></h2>
-						</a>
-					</li>
-				<% }); %>
-			</ol>
-		</nav>
+			<main class="contents">
+				<h1>Laat je verrassen</h1>
 
-		<main class="contents">
-			<h1>Laat je verrassen</h1>
+				<% for (var year in data) { %>
+					<% if (data.hasOwnProperty(year)) { %>
 
-			<% for (var year in data) { %>
-				<% if (data.hasOwnProperty(year)) { %>
+						<section id="year-<%- year %>" class="year <%- year %>">
+							<img class="crosses" src="/images/crosses-amsterdam.svg" alt="">
+							<% data[year].forEach(street => { %>
+								<ul>
+									<% street.photos.forEach(photo => { %>
 
-					<section id="year-<%- year %>" class="year <%- year %>">
-						<img class="crosses" src="/images/crosses-amsterdam.svg" alt="">
-						<% data[year].forEach(street => { %>
-							<ul>
-								<% street.photos.forEach(photo => { %>
+										<li class="data-image">
+											<div class="content">
+												<img class="lazy" src="<%- photo.url %>" alt="<%- photo.title %>">
+												<p><%= photo.title %></p>
+												<a class="openDetail"
+													 data-image="<%- photo.url %>"
+													 data-text="<%- photo.title %>"
+													 href="">
+													<%- include('../public/images/icons/zoom-in.svg') %>
+												</a>
+											</div>
+										</li>
 
-									<li class="data-image">
-										<div class="content">
-											<img class="lazy" src="<%- photo.url %>" alt="<%- photo.title %>">
-											<p><%= photo.title %></p>
-											<a class="openDetail"
-												 data-image="<%- photo.url %>"
-												 data-text="<%- photo.title %>"
-												 href="">
-												<%- include('../public/images/icons/zoom-in.svg') %>
-											</a>
-										</div>
-									</li>
+									<% }); %>
+								</ul>
+							<% }); %>
+						</section>
 
-								<% }); %>
-							</ul>
-						<% }); %>
-					</section>
-
+					<% } %>
 				<% } %>
-			<% } %>
-		</main>
-	</div>
-	<script src="/dist/bundle/create-story.js"></script>
+			</main>
+		</div>
+		<%- include('partials/foot.ejs') %>
 
-	<script>
+		<script src="/dist/bundle/create-story.js"></script>
+	</body>
+</html>
+
+
+
+	<!-- <script>
 		//hamburger menu mobile
 		if('querySelector' in document && 'querySelectorAll' in document && 'addEventListener' in window) {
 			var open = document.querySelector('.open');
@@ -260,5 +267,4 @@
 		var height = document.querySelector('.table-of-contents ol').offsetHeight;
 		var bar = document.querySelector('.table-of-contents ol');
 		bar.style.height = height + 100;
-	</script>
-<%- include('partials/foot.ejs') %>
+	</script> -->
