@@ -26,6 +26,4 @@ const share = {
   }
 };
 
-share.init();
-
 module.exports = share;
