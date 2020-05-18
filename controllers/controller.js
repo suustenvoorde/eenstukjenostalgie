@@ -5,10 +5,9 @@ var sparqlqueries = require('./sparql.js');
 var chapters = require('./chapters.js');
 var database = require('./database.js');
 
-exports.homepage = function (req, res, next) {
-  res.render('index', {
-    data: req.session.searchResults
-  });
+exports.homepage = async function (req, res, next) {
+  // Render the homepage:
+  res.render('index');
 }
 
 exports.searchLocationPage = function (req, res, next) {

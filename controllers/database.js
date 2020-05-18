@@ -8,6 +8,7 @@ const database = {
     client.connect(err => {
       if (err) throw err;
       this.db = client.db('eenstukjenostalgie');
+      console.log('connected to database');
 
       // Create the stories collection:
       this.db.createCollection('stories');
@@ -16,7 +17,6 @@ const database = {
       // Create the photos collection:
       this.db.createCollection('photos');
       this.photos = this.db.collection('photos');
-      console.log('connected to database');
     });
   },
   addItem: async function (collection, item) {
