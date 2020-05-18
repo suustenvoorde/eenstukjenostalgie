@@ -5,13 +5,17 @@
   top: 0;
   right: 0;
   bottom: 0;
-  display: none;
+  @include prefix(display, flex);
   @include prefix(justify-content, center);
   @include prefix(align-items, center);
+  opacity: 0;
   background-color: rgba(44,44,44,.9);
+  @include prefix(pointer-events, none);
+  @include prefix(transition, opacity 1s ease);
 
   &.show {
-    @include prefix(display, flex);
+    opacity: 1;
+    @include prefix(pointer-events, auto);
   }
 
   & .share-modal {

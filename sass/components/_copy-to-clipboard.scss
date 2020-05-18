@@ -29,6 +29,7 @@
   }
 
   & > .copy-btn {
+    position: relative;
     @include prefix(flex, 0 0 auto);
     display: block;
     opacity: 1;
@@ -60,17 +61,11 @@
 
   &.copied {
     background-color: $color-secondary;
-
-    & > input[type='text'] {
-      background-color: $color-secondary;
-    }
+    & > input[type='text'] { background-color: $color-secondary; }
 
     & > .copy-btn {
       background-color: $color-secondary;
-
-      & > svg {
-        @include prefix(animation, jump 1s ease-out);
-      }
+      & > svg { @include prefix(animation, jump .8s ease-out); }
     }
   }
 }
@@ -87,5 +82,47 @@
   100% {
     opacity: 1;
     -webkit-transform: scale(1,1) translateY(0);
+  }
+}
+@-moz-keyframes jump {
+  0% {
+    opacity: 1;
+    -moz-transform: scale(1,1) translateY(0);
+  }
+  50% {
+    opacity: .25;
+    -moz-transform: scale(1,1) translateY(-125%);
+  }
+  100% {
+    opacity: 1;
+    -moz-transform: scale(1,1) translateY(0);
+  }
+}
+@-o-keyframes jump {
+  0% {
+    opacity: 1;
+    -o-transform: scale(1,1) translateY(0);
+  }
+  50% {
+    opacity: .25;
+    -o-transform: scale(1,1) translateY(-125%);
+  }
+  100% {
+    opacity: 1;
+    -o-transform: scale(1,1) translateY(0);
+  }
+}
+@keyframes jump {
+  0% {
+    opacity: 1;
+    transform: scale(1,1) translateY(0);
+  }
+  50% {
+    opacity: .25;
+    transform: scale(1,1) translateY(-125%);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1,1) translateY(0);
   }
 }
