@@ -63,18 +63,21 @@
 		</div>
 
 		<% if (sharedPhoto) { %>
-			<div class="share-modal">
-				<article class="share">
+			<div class="share-modal__overlay show">
+				<div class="share-modal">
 					<img src="<%- sharedPhoto.src %>" alt="<%- sharedPhoto.alt %>">
-					<h2>Deel jouw foto met anderen</h2>
-					<p>
-						Kopieer deze link:
-					</p>
-					<div class="copy">
-						<input type="text" value="eenstukjenostalgie.amsterdam/photo/">
-						<button type="button"><%- include('../public/images/icons/share.svg') %></button>
-					</div>
-				</article>
+					<article class="share">
+						<h2>Deel jouw foto met anderen</h2>
+						<p>
+							Kopieer deze link:
+						</p>
+						<div class="copy-to-clipboard">
+							<input type="text" value="">
+							<button class="copy-btn" type="button"><%- include('../public/images/icons/clipboard.svg') %></button>
+						</div>
+					</article>
+					<button class="close-btn" type="button"><%- include('../public/images/icons/close.svg') %></button>
+				</div>
 			</div>
 		<% } %>
 
