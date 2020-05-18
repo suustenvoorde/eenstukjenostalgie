@@ -62,18 +62,7 @@
 							</button>
 						</form>
 
-						<div class="autocomplete">
-							<% if (data !== null && data !== undefined) { %>
-								<ul id="autocomplete-list" class="autocomplete-items">
-									<% data.forEach((street, i) => { %>
-										<li>
-											<label for="<%- street.street.value %>"><%= street.name.value %></label>
-											<input id="<%- street.street.value %>" type="radio" name="wkt" value="<%- street.wkt.value %>">
-										</li>
-									<% }); %>
-								</ul>
-							<% } %>
-						</div>
+						<div class="autocomplete"></div>
 					</article>
 
 					<a class="action-btn action-btn--white slide-link" href="#slidethree" role="button">
