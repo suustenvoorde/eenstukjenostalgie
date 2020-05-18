@@ -1,6 +1,6 @@
 var map = require('./components/map.js');
-var instructionSlides = require('./components/instructionSlides.js');
-var submitLocationTimestamp = require('./components/submitLocationTimestamp.js');
+var instructionSlides = require('./components/instruction-slides.js');
+var submitLocationTimestamp = require('./components/submit-location-timestamp.js');
 
 const main = {
   init: function () {

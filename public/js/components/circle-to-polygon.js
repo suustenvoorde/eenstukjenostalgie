@@ -1,4 +1,3 @@
-"use strict";
 function toRadians(angleInDegrees) {
   return angleInDegrees * Math.PI / 180;
 }

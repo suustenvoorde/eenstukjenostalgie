@@ -1,6 +1,6 @@
 // Require JS files:
-var circleToPolygon = require('./circletopolygon.js');
-var toWKT = require('./towkt.js');
+var circleToPolygon = require('./circle-to-polygon.js');
+var toWKT = require('./to-wkt.js');
 var search = require('./search.js');
 
 const map = {
