@@ -6,8 +6,6 @@ const submitLocationTimestamp = {
   form: document.querySelector('.location-timestamp'),
   init: function () {
     this.form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
       var formdata = new FormData(e.target);
       var data = {
         wkt: map.inputCircle.wkt,
@@ -33,6 +31,7 @@ const submitLocationTimestamp = {
         }
       }
       http.send(JSON.stringify(data));
+      e.preventDefault();
     });
   }
 };
