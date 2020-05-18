@@ -61,6 +61,23 @@
 				<% } %>
 			</main>
 		</div>
+
+		<% if (sharedPhoto) { %>
+			<div class="share-modal">
+				<article class="share">
+					<img src="<%- sharedPhoto.src %>" alt="<%- sharedPhoto.alt %>">
+					<h2>Deel jouw foto met anderen</h2>
+					<p>
+						Kopieer deze link:
+					</p>
+					<div class="copy">
+						<input type="text" value="eenstukjenostalgie.amsterdam/photo/">
+						<button type="button"><%- include('../public/images/icons/share.svg') %></button>
+					</div>
+				</article>
+			</div>
+		<% } %>
+
 		<%- include('partials/foot.ejs') %>
 
 		<script src="/dist/bundle/create-story.js"></script>
