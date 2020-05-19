@@ -1,263 +1,88 @@
-<%- include('partials/head.ejs') %>
-<body class="create-story">
+<!DOCTYPE html>
+<html lang="nl">
+	<%- include('partials/head.ejs') %>
+	<body class="create-story">
+		<% var years = Object.keys(data); %>
 
-	<% var years = Object.keys(data); %>
+		<div class="grid">
+			<a class="back" href="/">
+				<img src="/images/icons/back.svg" alt="">
+			</a>
 
-	<div class="grid">
-		<a class="back" href="/">
-			<img src="/images/icons/back.svg" alt="">
-		</a>
+			<nav class="table-of-contents">
+				<button class="open">
+					<%- include('../public/images/icons/menu.svg') %>
+				</button>
+				<button class="close">
+					<%- include('../public/images/icons/close.svg') %>
+				</button>
+				<ol class="menu">
+					<% years.forEach(year => { %>
+						<li>
+							<a href="#year-<%- year %>">
+								<h2 class="year-title"><%= year %></h2>
+							</a>
+						</li>
+					<% }); %>
+				</ol>
+			</nav>
 
-		<nav class="table-of-contents">
-			<button class="open">
-				<%- include('../public/images/icons/menu.svg') %>
-			</button>
-			<button class="close">
-				<%- include('../public/images/icons/close.svg') %>
-			</button>
-			<ol class="menu">
-				<% years.forEach(year => { %>
-					<li>
-						<a href="#year-<%- year %>">
-							<h2 class="year-title"><%= year %></h2>
-						</a>
-					</li>
-				<% }); %>
-			</ol>
-		</nav>
+			<main class="contents">
+				<h1>Laat je verrassen</h1>
 
-		<main class="contents">
-			<h1>Laat je verrassen</h1>
+				<% for (var year in data) { %>
+					<% if (data.hasOwnProperty(year)) { %>
 
-			<% for (var year in data) { %>
-				<% if (data.hasOwnProperty(year)) { %>
+						<section id="year-<%- year %>" class="year <%- year %>">
+							<img class="crosses" src="/images/crosses-amsterdam.svg" alt="">
+							<% data[year].forEach(street => { %>
+								<ul>
+									<% street.photos.forEach(photo => { %>
 
-					<section id="year-<%- year %>" class="year <%- year %>">
-						<img class="crosses" src="/images/crosses-amsterdam.svg" alt="">
-						<% data[year].forEach(street => { %>
-							<ul>
-								<% street.photos.forEach(photo => { %>
+										<li class="data-image">
+											<div class="content">
+												<img class="lazy" src="<%- photo.url %>" alt="<%- photo.title %>">
+												<p><%= photo.title %></p>
+												<a class="openDetail"
+													 data-image="<%- photo.url %>"
+													 data-text="<%- photo.title %>"
+													 href="">
+													<%- include('../public/images/icons/zoom-in.svg') %>
+												</a>
+											</div>
+										</li>
 
-									<li class="data-image">
-										<div class="content">
-											<img class="lazy" src="<%- photo.url %>" alt="<%- photo.title %>">
-											<p><%= photo.title %></p>
-											<a class="openDetail"
-												 data-image="<%- photo.url %>"
-												 data-text="<%- photo.title %>"
-												 href="">
-												<%- include('../public/images/icons/zoom-in.svg') %>
-											</a>
-										</div>
-									</li>
+									<% }); %>
+								</ul>
+							<% }); %>
+						</section>
 
-								<% }); %>
-							</ul>
-						<% }); %>
-					</section>
-
+					<% } %>
 				<% } %>
-			<% } %>
-		</main>
-	</div>
+			</main>
+		</div>
 
-	<script>
-		//hamburger menu mobile
-		if('querySelector' in document && 'querySelectorAll' in document && 'addEventListener' in window) {
-			var open = document.querySelector('.open');
-			var close = document.querySelector('.close');
-			var menu = document.querySelector('nav ol');
-			var items = document.querySelectorAll('nav ol li');
+		<% if (sharedPhoto) { %>
+			<div class="share-modal__overlay">
+				<div class="share-modal">
+					<img src="<%- sharedPhoto.src %>" alt="<%- sharedPhoto.alt %>">
+					<article class="share">
+						<h2>Deel jouw foto met anderen</h2>
+						<p>
+							Kopieer deze link:
+						</p>
+						<div class="copy-to-clipboard">
+							<input type="text" value="">
+							<button class="copy-btn" type="button"><%- include('../public/images/icons/clipboard.svg') %></button>
+						</div>
+					</article>
+					<button class="close-btn" type="button"><%- include('../public/images/icons/close.svg') %></button>
+				</div>
+			</div>
+		<% } %>
 
-			menu.classList.add('first');
+		<%- include('partials/foot.ejs') %>
 
-			open.addEventListener('click', function(){
-				menu.classList.add('open-menu');
-				menu.classList.remove('close-menu');
-
-				open.style.display = "none";
-				close.style.display = "block";
-			})
-
-			close.addEventListener('click', function(){
-				menu.classList.remove('open-menu');
-				menu.classList.add('close-menu');
-
-				close.style.display = "none";
-				open.style.display = "block";
-			})
-
-			items.forEach(function(el){
-				el.addEventListener('click', function(){
-					menu.classList.remove('open-menu');
-					menu.classList.add('close-menu');
-
-					close.style.display = "none";
-					open.style.display = "block";
-				})
-			})
-		}
-	</script>
-	<script>
-		//active state year when scrolling
-		var sections = document.querySelectorAll('section.year');
-		var main = document.querySelector('body');
-		var yearTitle = document.querySelectorAll('.year-title');
-
-		window.addEventListener('scroll', function(){
-			for (var i = 0; i < sections.length; i++) {
-				if(sections[i].offsetTop <= window.scrollY && (sections[i].offsetTop + sections[i].offsetHeight) > window.scrollY+5) {
-					yearTitle[i].classList.add('active-year');
-				} else {
-					yearTitle[i].classList.remove('active-year');
-				}
-			}
-		});
-	</script>
-	<script>
-		var checkboxes = document.querySelectorAll('input[name="images"]');
-		var selectedImages = document.querySelector('.selected-images');
-		var submitButton = document.querySelector('.submit-chapter');
-		var span = document.querySelector('.count-images');
-
-		checkboxes.forEach(item => {
-			item.addEventListener('change', (e) => {
-				var li = item.parentElement.parentElement.parentElement;
-				var ul = li.parentElement;
-
-				if (item.checked == true) {
-					//add number
-					span.innerHTML++;
-
-					//show selected-images-bar
-					selectedImages.classList.add('show-selected-images');
-					submitButton.classList.add('show-selected-images');
-					span.classList.add('show-selected-images');
-
-					//create item
-					var url = item.value;
-					var text = item.parentElement.childNodes[7].innerHTML;
-
-					var a = document.createElement('a');
-					var img = document.createElement('img');
-
-					img.src = url;
-					img.alt = text;
-
-					selectedImages.appendChild(a);
-					a.appendChild(img);
-
-					var newImages = document.querySelectorAll('.selected-images img');
-					newImages[newImages.length-1].scrollIntoView();
-
-					//add style
-					li.classList.add('hide-li');
-
-					a.addEventListener('click', function (e) {
-						e.preventDefault();
-
-						// Add image to popup:
-			      document.querySelector('.detail img').src = url;
-			      document.querySelector('.detail img').alt = text;
-			      document.querySelector('.detail p').textContent = text;
-
-			      // Show the popup:
-			      document.querySelector('.detail').classList.add('show');
-					});
-
-				} else {
-					//add number
-					span.innerHTML--;
-
-					//show li item
-					li.classList.remove('hide-li');
-
-					if (selectedImages.children.length == 1) {
-						selectedImages.classList.remove('show-selected-images');
-						submitButton.classList.remove('show-selected-images');
-						span.classList.remove('show-selected-images');
-					}
-
-					//delete selected image
-					var images = document.querySelectorAll('.selected-images a');
-					for (var i = 0; i < images.length; i++) {
-						if (item.value == images[i].children[0].src) {
-							selectedImages.removeChild(images[i]);
-						}
-					}
-				}
-			});
-		});
-
-		</script>
-
-		<script>
-		//smoothscroll
-		(function() // Code in a function to create an isolate scope
-		{
-		var speed = 500;
-		var moving_frequency = 15; // Affects performance !
-		var links = document.getElementsByTagName('a');
-		var href;
-		for(var i=0; i<links.length; i++)
-		{
-		    href = (links[i].attributes.href === undefined) ? null : links[i].attributes.href.nodeValue.toString();
-		    if(href !== null && href.length > 1 && href.substr(0, 1) == '#')
-		    {
-		        links[i].onclick = function()
-		        {
-		            var element;
-		            var href = this.attributes.href.nodeValue.toString();
-		            if(element = document.getElementById(href.substr(1)))
-		            {
-		                var hop_count = speed/moving_frequency
-		                var getScrollTopDocumentAtBegin = getScrollTopDocument();
-		                var gap = (getScrollTopElement(element) - getScrollTopDocumentAtBegin) / hop_count;
-
-		                for(var i = 1; i <= hop_count; i++)
-		                {
-		                    (function()
-		                    {
-		                        var hop_top_position = gap*i;
-		                        setTimeout(function(){  window.scrollTo(0, hop_top_position + getScrollTopDocumentAtBegin); }, moving_frequency*i);
-		                    })();
-		                }
-		            }
-
-		            return false;
-		        };
-		    }
-		}
-
-		var getScrollTopElement =  function (e)
-		{
-		    var top = 0;
-
-		    while (e.offsetParent != undefined && e.offsetParent != null)
-		    {
-		        top += e.offsetTop + (e.clientTop != null ? e.clientTop : 0);
-		        e = e.offsetParent;
-		    }
-
-		    return top;
-		};
-
-		var getScrollTopDocument = function()
-		{
-		    return document.documentElement.scrollTop + document.body.scrollTop;
-		};
-		})();
-	</script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.9.0/lazyload.min.js"></script>
-	<script>
-		var myLazyLoad = new LazyLoad({
-			elements_selector: ".lazy"
-		});
-	</script>
-	<script>
-		//get height of table of contents
-		var height = document.querySelector('.table-of-contents ol').offsetHeight;
-		var bar = document.querySelector('.table-of-contents ol');
-		bar.style.height = height + 100;
-	</script>
-<%- include('partials/foot.ejs') %>
+		<script src="/dist/bundle/create-story.js"></script>
+	</body>
+</html>
