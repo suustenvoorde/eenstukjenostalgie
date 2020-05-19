@@ -1,7 +1,8 @@
 var fetch = require('node-fetch');
-var sparqlqueries = require('./sparql');
 var wellknown = require('wellknown');
 var turf = require('@turf/turf');
+var sparqlqueries = require('./sparql.js');
+var database = require('./database.js');
 
 const chapters = {
   getPhotos: async function (formdata) {
@@ -64,6 +65,23 @@ const chapters = {
     });
 
     return data;
+  },
+  getPhotoSelection: async function (id, startIdx) {
+    var counter = 0;
+    return await database.getItem(database.stories, id)
+      .then(result => {
+        // Filter the result for streets until we reach more than 50 photos:
+        for (var year in result.data) {
+          if (result.data.hasOwnProperty(year)) {
+            result.data[year] = result.data[year].filter(street => {
+              counter += street.photos.length;
+              if (counter > startIdx && counter < startIdx+50) return street;
+            });
+          }
+        }
+        return result.data;
+      })
+      .catch(err => console.log(err));
   },
   fetchStreetWkts: async function (wkt) {
     var url = sparqlqueries.getStreetWkts(wkt);
