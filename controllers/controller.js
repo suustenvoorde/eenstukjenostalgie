@@ -77,13 +77,14 @@ exports.getCreateStoryPage = async function (req, res, next) {
 exports.postPhotoPage = async function (req, res, next) {
   // Create the photo data:
   var referer = req.header('Referer') || '/';
+  var url = referer.includes('?') ? referer.slice(0, referer.indexOf('?')) : referer;
   var photo = req.body;
   photo.id = shortid.generate();
 
   // Add the photo to the database:
   await database.addItem(database.photos, photo)
     .then(result => {
-      res.redirect(referer + '?shared=' + photo.id);
+      res.redirect(url + '?shared=' + photo.id);
     })
     .catch(err => console.log(err));
 }
