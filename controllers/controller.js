@@ -72,6 +72,14 @@ exports.getCreateStoryPage = async function (req, res, next) {
   });
 }
 
+exports.getPhotoSelectionPage = async function (req, res, next) {
+  var selection = await chapters.getPhotoSelection(req.params.id, Number(req.params.startIdx));
+  for (var year in selection) {
+    if (selection.hasOwnProperty(year) && selection[year].length == 0) delete selection[year];
+  }
+  res.json(selection);
+}
+
 exports.postPhotoPage = async function (req, res, next) {
   // Create the photo data:
   var referer = req.header('Referer') || '/';
