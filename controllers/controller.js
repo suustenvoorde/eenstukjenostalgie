@@ -61,21 +61,33 @@ exports.useCreateStoryPage = async function (req, res, next) {
   }
 }
 
-exports.getCreateStoryPage = async function (req, res, next) {
-  // Put the following in its own function to be called by lazy load later:
-
-  // Get the story from database using the id:
-  await database.getItem(database.stories, req.params.id)
+var getPhotoSelection = async function (id, startIdx) {
+  var counter = 0;
+  return await database.getItem(database.stories, id)
     .then(result => {
-      // Search the result.data for this first 50 images:
-
-      res.render('create-story', {
-        id: result.id,
-        data: result.data,
-        sharedPhoto: req.sharedPhoto
-      });
+      // Filter the result for streets until we reach more than 50 photos:
+      for (var year in result.data) {
+        if (result.data.hasOwnProperty(year)) {
+          result.data[year] = result.data[year].filter(street => {
+            counter += street.photos.length;
+            if (counter > startIdx && counter < startIdx+50) return street;
+          });
+        }
+      }
+      return result.data;
     })
     .catch(err => console.log(err));
+}
+
+exports.getCreateStoryPage = async function (req, res, next) {
+  // Get the story from database using the id:
+  var selection = await getPhotoSelection(req.params.id, 0);
+
+  // Render the create story page:
+  res.render('create-story', {
+    data: selection,
+    sharedPhoto: req.sharedPhoto
+  });
 }
 
 exports.postPhotoPage = async function (req, res, next) {
