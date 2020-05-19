@@ -46,9 +46,13 @@ exports.postCreateStoryPage = async function (req, res, next) {
 }
 
 exports.getCreateStoryPage = async function (req, res, next) {
+  // Put the following in its own function to be called by lazy load later:
+
   // Get the story from database using the id:
   await database.getItem(req.params.id)
     .then(result => {
+      // Search the result.data for this first 50 images:
+
       res.render('create-story', {
         data: result.data,
         id: result.id
