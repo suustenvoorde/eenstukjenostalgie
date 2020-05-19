@@ -25,33 +25,35 @@ const shareModal = {
     this.modal.classList.remove('show');
   },
   init: function () {
-    this.copyToClipboard = this.modal.querySelector('.copy-to-clipboard > input');
-    this.copyBtn = this.modal.querySelector('.copy-btn');
-    this.closeBtn = this.modal.querySelector('.close-btn');
-
     // Get the queries from the url:
     var queries = this.getQueries(window.location.search);
 
     // If query 'shared' exists:
     var shared = queries.find(query => query.name == 'shared');
-    if (shared) this.openModal(this.modal, shared.value);
+    if (shared) {
+      this.copyToClipboard = this.modal.querySelector('.copy-to-clipboard > input');
+      this.copyBtn = this.modal.querySelector('.copy-btn');
+      this.closeBtn = this.modal.querySelector('.close-btn');
 
-    // Copy url on clicking copyBtn:
-    this.copyBtn.addEventListener('click', (e) => {
-      this.copy(this.copyToClipboard);
-      e.preventDefault();
-    });
+      this.openModal(this.modal, shared.value);
 
-    // Close modal on clicking closeBtn:
-    this.closeBtn.addEventListener('click', (e) => {
-      this.closeModal();
-      e.preventDefault();
-    });
+      // Copy url on clicking copyBtn:
+      this.copyBtn.addEventListener('click', (e) => {
+        this.copy(this.copyToClipboard);
+        e.preventDefault();
+      });
 
-    // Close modal on clicking outside of modal:
-    document.body.addEventListener('click', (e) => {
-      if (e.target == this.modal) this.closeModal();
-    });
+      // Close modal on clicking closeBtn:
+      this.closeBtn.addEventListener('click', (e) => {
+        this.closeModal();
+        e.preventDefault();
+      });
+
+      // Close modal on clicking outside of modal:
+      document.body.addEventListener('click', (e) => {
+        if (e.target == this.modal) this.closeModal();
+      });
+    }
   }
 };
 
