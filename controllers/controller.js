@@ -5,10 +5,9 @@ var sparqlqueries = require('./sparql.js');
 var chapters = require('./chapters.js');
 var database = require('./database.js');
 
-exports.homepage = function (req, res, next) {
-  res.render('index', {
-    data: req.session.searchResults
-  });
+exports.homepage = async function (req, res, next) {
+  // Render the homepage:
+  res.render('index');
 }
 
 exports.searchLocationPage = function (req, res, next) {
@@ -37,7 +36,7 @@ exports.postCreateStoryPage = async function (req, res, next) {
   };
 
   // Add story to the database:
-  await database.addItem(story)
+  await database.addItem(database.stories, story)
     .then(result => {
       // When added, redirect:
       res.redirect('/create-story/' + story.id);
@@ -45,13 +44,58 @@ exports.postCreateStoryPage = async function (req, res, next) {
     .catch(err => console.log(err));
 }
 
+exports.useCreateStoryPage = async function (req, res, next) {
+  // Get the shared photo if given:
+  if (Object.keys(req.query)[0] == 'shared') {
+    await database.getItem(database.photos, req.query['shared'])
+      .then(result => {
+        req.sharedPhoto = {
+          src: result.src,
+          alt: result.alt
+        };
+        next();
+      })
+      .catch(err => console.log(err));
+  } else {
+    next();
+  }
+}
+
 exports.getCreateStoryPage = async function (req, res, next) {
   // Get the story from database using the id:
-  await database.getItem(req.params.id)
+  await database.getItem(database.stories, req.params.id)
     .then(result => {
       res.render('create-story', {
+        id: result.id,
         data: result.data,
-        id: result.id
+        sharedPhoto: req.sharedPhoto
+      });
+    })
+    .catch(err => console.log(err));
+}
+
+exports.postPhotoPage = async function (req, res, next) {
+  // Create the photo data:
+  var referer = req.header('Referer') || '/';
+  var url = referer.includes('?') ? referer.slice(0, referer.indexOf('?')) : referer;
+  var photo = req.body;
+  photo.id = shortid.generate();
+
+  // Add the photo to the database:
+  await database.addItem(database.photos, photo)
+    .then(result => {
+      res.redirect(url + '?shared=' + photo.id);
+    })
+    .catch(err => console.log(err));
+}
+
+exports.getPhotoPage = async function (req, res, next) {
+  // Get the photo from the database:
+  await database.getItem(database.photos, req.params.id)
+    .then(result => {
+      res.render('photo-share', {
+        src: result.src,
+        alt: result.alt
       });
     })
     .catch(err => console.log(err));

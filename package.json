@@ -7,8 +7,12 @@
     "start": "node app.js",
     "build-sass": "node-sass --include-path scss sass/main.scss public/css/main.css",
     "watch-sass": "node-sass -w --include-path scss sass/main.scss public/css/main.css",
-    "build-js": "browserify public/js/*.js -o public/dist/bundle.js",
-    "watch-js": "watchify public/js/*.js -o public/dist/bundle.js -dv",
+    "build-js": "npm run build-main-js | npm run build-create-story-js",
+    "watch-js": "npm run watch-main-js | npm run watch-create-story-js",
+    "build-main-js": "browserify public/js/main.js -o public/dist/bundle/main.js",
+    "watch-main-js": "watchify public/js/main.js -o public/dist/bundle/main.js -dv",
+    "build-create-story-js": "browserify public/js/create-story.js -o public/dist/bundle/create-story.js",
+    "watch-create-story-js": "watchify public/js/create-story.js -o public/dist/bundle/create-story.js -dv",
     "build": "npm run build-sass | npm run build-js"
   },
   "repository": {
@@ -20,7 +24,7 @@
   "dependencies": {
     "@turf/turf": "^5.1.6",
     "body-parser": "^1.18.3",
-    "browserify": "^16.2.2",
+    "browserify": "^16.5.1",
     "circle-to-polygon": "^1.0.2",
     "ejs": "^2.7.4",
     "express": "^4.16.3",
