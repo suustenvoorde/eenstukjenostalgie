@@ -1,4 +1,5 @@
 const lazyLoad = {
+  scrolling: true,
   images: document.querySelectorAll('.lazy'),
   fetchPhotoSelection: async function (startIdx) {
     var pathname = window.location.pathname.split('/');
@@ -9,27 +10,32 @@ const lazyLoad = {
       .then(res => res.json())
       .catch(err => console.log(err));
   },
-  init: async function () {
-    // ...Create img element and place in correct year:
+  addPhotos: function (selection) {
+    // Create img element and place it in the correct year:
+    // Toggle scrolling boolean:
+    // Replace lastImg variable:
+    // Replace lastImgTop value:
+  },
+  init: function () {
+    // Add loader:
     // Maybe for extra beauty: Add placeholders for photos to come:
 
-    var scrolling = true;
-    var finalImg = this.images[this.images.length-1];
-    var finalImgTop, scrollTop;
+    this.lastImg = this.images[this.images.length-1];
+    var scrollTop;
 
     // Calc the offsetTop of the final image:
     window.addEventListener('load', (e) => {
-      finalImgTop = finalImg.offsetTop;
+      this.lastImgTop = this.lastImg.offsetTop;
     });
 
     // Determine if scroll position >= position final img:
     document.addEventListener('scroll', async (e) => {
-      if (scrolling) {
+      if (this.scrolling) {
         scrollTop = window.scrollY;
-        if (scrollTop >= finalImgTop) {
-          scrolling = false;
+        if (scrollTop >= this.lastImgTop) {
+          this.scrolling = false;
           var selection = await this.fetchPhotoSelection(this.images.length);
-          console.log(selection);
+          this.addPhotos(selection);
         }
       }
     });
