@@ -1,6 +1,6 @@
 const lazyLoad = {
   scrolling: true,
-  images: document.querySelectorAll('.lazy'),
+  lazies: document.querySelectorAll('.lazy'),
   fetchPhotoSelection: async function (startIdx) {
     var pathname = window.location.pathname.split('/');
     var id = pathname[pathname.length-1];
@@ -11,8 +11,6 @@ const lazyLoad = {
       .catch(err => console.log(err));
   },
   addPhotos: function (selection) {
-    console.log(selection);
-
     var ul = document.createElement('ul');
     var li = document.createElement('li');
     var a = document.createElement('a');
@@ -39,6 +37,8 @@ const lazyLoad = {
             // Create the li elem:
             var cloneLi = li.cloneNode(true);
             cloneLi.classList.add('photo');
+            cloneLi.classList.add('lazy');
+            cloneLi.classList.add('placeholder');
             cloneUl.appendChild(cloneLi);
 
             // Create the a elem:
@@ -48,10 +48,13 @@ const lazyLoad = {
 
             // Create the img elem:
             var cloneImg = img.cloneNode(true);
-            cloneImg.classList.add('lazy');
             cloneImg.src = photo.url;
             cloneImg.alt = photo.title;
             cloneA.appendChild(cloneImg);
+
+            cloneImg.addEventListener('load', (e) => {
+              cloneLi.classList.remove('placeholder');
+            });
 
             // Create the p elem:
             var cloneP = p.cloneNode(true);
@@ -65,44 +68,38 @@ const lazyLoad = {
         yearElem.appendChild(fragment);
       }
 
-      // Find last img:
-      if (year == Object.keys(selection)[Object.keys(selection).length-1]) {
-        var lastImg = selection[year][selection[year].length-1].photos.find((photo, i, self) => i == self.length-1);
-        this.lastImg = Array.from(document.querySelectorAll('.lazy')).find(img => img.src == lastImg.url);
+      // Find last year:
+      if (year == Object.keys(selection).find((year, i, self) => i == self.length-1)) {
+        // Find the last lazy:
+        var lastStreet = selection[year].find((street, i, self) => i == self.length-1);
+        var lastPhoto = lastStreet.photos.find((photo, i, self) => i == self.length-1);
+        this.lastLazy = Array.from(document.querySelectorAll('.lazy')).find(li => li.querySelector('img').src == lastPhoto.url);
+        var lastImg = this.lastLazy.querySelector('img');
 
-        this.lastImg.addEventListener('load', () => {
-          // Define the new lastImgTop
-          this.lastImgTop = this.lastImg.offsetTop;
-
-          // Define the new startIdx:
-          console.log(this.startIdx);
-
-          // Toggle scrolling boolean:
+        lastImg.addEventListener('load', (e) => {
+          this.lastLazyTop = this.lastLazy.offsetTop;
           this.scrolling = true;
         });
       }
     }
   },
   init: function () {
-    // Add loader:
-    // Maybe for extra beauty: Add placeholders for photos to come:
-
     // Define startIdx:
-    this.startIdx = this.images.length;
+    this.startIdx = this.lazies.length;
 
-    this.lastImg = this.images[this.images.length-1];
+    this.lastLazy = Array.from(this.lazies).find((lazy, i, self) => i == self.length-1);
     var scrollTop;
 
     // Calc the offsetTop of the last image:
     window.addEventListener('load', (e) => {
-      this.lastImgTop = this.lastImg.offsetTop;
+      this.lastLazyTop = this.lastLazy.offsetTop;
     });
 
     // Determine if scroll position >= position last img:
     document.addEventListener('scroll', async (e) => {
       if (this.scrolling) {
         scrollTop = window.scrollY;
-        if (scrollTop >= this.lastImgTop - 100) {
+        if (scrollTop >= this.lastLazyTop - 100) {
           this.scrolling = false;
           var selection = await this.fetchPhotoSelection(this.startIdx);
           this.addPhotos(selection);

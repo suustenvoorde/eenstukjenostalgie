@@ -35,14 +35,13 @@
 
 						<section id="year-<%- year %>" class="year">
 							<img class="crosses" src="/images/crosses-amsterdam.svg" alt="">
-							<h1><%= year %></h1>
 							<% data[year].forEach(street => { %>
 								<ul class="street <%- street.uri.split('/')[street.uri.split('/').length-2] %>">
 									<% street.photos.forEach(photo => { %>
 
-										<li class="photo">
+										<li class="photo lazy">
 											<a class="photo__img">
-												<img class="lazy" src="<%- photo.url %>" alt="<%- photo.title %>">
+												<img src="<%- photo.url %>" alt="<%- photo.title %>">
 											</a>
 											<p class="photo__desc"><%= photo.title %></p>
 										</li>
