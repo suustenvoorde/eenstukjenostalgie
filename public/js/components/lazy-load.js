@@ -11,10 +11,11 @@ const lazyLoad = {
       .catch(err => console.log(err));
   },
   addPhotos: function (selection) {
+    console.log(selection);
     // Create img element and place it in the correct year:
-    // Toggle scrolling boolean:
     // Replace lastImg variable:
     // Replace lastImgTop value:
+    // Toggle scrolling boolean:
   },
   init: function () {
     // Add loader:
@@ -23,12 +24,12 @@ const lazyLoad = {
     this.lastImg = this.images[this.images.length-1];
     var scrollTop;
 
-    // Calc the offsetTop of the final image:
+    // Calc the offsetTop of the last image:
     window.addEventListener('load', (e) => {
       this.lastImgTop = this.lastImg.offsetTop;
     });
 
-    // Determine if scroll position >= position final img:
+    // Determine if scroll position >= position last img:
     document.addEventListener('scroll', async (e) => {
       if (this.scrolling) {
         scrollTop = window.scrollY;
