@@ -33,8 +33,9 @@
 				<% for (var year in data) { %>
 					<% if (data.hasOwnProperty(year)) { %>
 
-						<section id="year-<%- year %>" class="year <%- year %>">
+						<section id="year-<%- year %>" class="year">
 							<img class="crosses" src="/images/crosses-amsterdam.svg" alt="">
+							<h1><%= year %></h1>
 							<% data[year].forEach(street => { %>
 								<ul class="street <%- street.uri.split('/')[street.uri.split('/').length-2] %>">
 									<% street.photos.forEach(photo => { %>
