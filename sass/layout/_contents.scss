@@ -7,92 +7,30 @@
   @include smallScreen() {
     left: 15vw;
     top: 0;
-    width: calc(100% - 15vw - 4.5rem);
+    width: calc(100% - 15vw);
   }
 
-  & h1 {
+  & > h1 {
     display: block;
-    width: 95%;
-    margin: 2.5vw;
-  }
-
-  img {
-    @include smallScreen() {
-      cursor: zoom-in;
-    }
-  }
-
-  .openDetail {
-    display: none;
-    @include smallScreen() {
-      display: inline-block;
-    }
+    margin: $spacing-unit;
   }
 }
 
 .year {
-  margin: 0 2.5vw;
+  display: block;
+  margin: $spacing-unit;
 
   & .crosses {
-    width: 10rem;
-    margin-top: 2%;
-    margin-bottom: 5%;
+    width: auto;
+    height: 2rem;
   }
-}
 
-.data {
-  & ul {
-    @include prefix(columns, 15rem 2);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    @include smallScreen() {
-      @include prefix(columns, 20vw 3);
-    }
-
-    & li {
-      opacity: 1;
-      border-radius: .3125rem;
-      margin-bottom: 10%;
-      color: $color-black;
-      background-color: $color-white;
-      break-inside: avoid;
-
-      & label {
-        cursor: pointer;
-      }
-
-      & div {
-        & p {
-          display: inline-block;
-          width: 75%;
-          padding: 5% 0;
-          margin: 0;
-        }
-
-        & a {
-          display: inline-block;
-          width: 7.5%;
-          margin-left: 12.5%;
-          margin-top: 5%;
-
-          &:hover,
-          &:focus {
-            padding-bottom: 1%;
-            border-bottom: .125rem solid $color-black;
-            outline: 0;
-          }
-
-          & svg {
-            width: 75%;
-            height: auto;
-          }
-        }
-
-        &:first-child img {
-          width: 100%;
-        }
-      }
-    }
+  & .street {
+    @include prefix(columns, 15rem);
+    @include prefix(column-gap, $spacing-unit);
+    width: 100%;
+    padding-bottom: $spacing-unit;
+    border-bottom: 1px solid $color-black;
+    margin: $spacing-unit 0;
   }
 }
