@@ -102,7 +102,7 @@ const lazyLoad = {
     document.addEventListener('scroll', async (e) => {
       if (this.scrolling) {
         scrollTop = window.scrollY;
-        if (scrollTop >= this.lastImgTop) {
+        if (scrollTop >= this.lastImgTop - 100) {
           this.scrolling = false;
           var selection = await this.fetchPhotoSelection(this.startIdx);
           this.addPhotos(selection);
