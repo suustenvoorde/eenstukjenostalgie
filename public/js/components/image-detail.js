@@ -1,42 +1,36 @@
 const imageDetail = {
-  trigger: document.querySelectorAll('.openDetail'),
-  trigger2: document.querySelectorAll('.data-image img'),
-  detail: document.querySelector('.detail'),
+  photos: document.querySelectorAll('.year .photo__img'),
+  modal: document.querySelector('.photo-detail-modal__overlay'),
+  openModal: function (src, alt) {
+    this.modalImg.src = src;
+    this.modalImg.alt = alt;
+    this.modalDesc.textContent = alt;
+    this.modal.classList.add('show');
+  },
+  closeModal: function () {
+    this.modal.classList.remove('show');
+  },
   init: function () {
-    this.detailImg = this.detail.getElementsByTagName('img')[0];
-    this.detailText = this.detail.getElementsByTagName('p')[0];
-    this.detailCloseBtn = this.detail.querySelector('.popupCloseButton');
+    this.modalImg = this.modal.querySelector('.photo-detail__img');
+    this.modalDesc = this.modal.querySelector('.photo-detail__desc');
+    this.closeBtn = this.modal.querySelector('.close-btn');
 
-    this.trigger2.forEach(elem => {
-      elem.addEventListener('click', (e) => {
-        console.log(elem)
-        this.openDetail(elem.src, elem.alt);
-      });
-    });
-
-    this.trigger.forEach(elem => {
-      elem.addEventListener('click', (e) => {
-        this.openDetail(elem.dataset.image, elem.dataset.text);
+    this.photos.forEach(photo => {
+      photo.addEventListener('click', (e) => {
+        var img = photo.querySelector('img');
+        this.openModal(img.src, img.alt);
         e.preventDefault();
       });
     });
 
-    this.detailCloseBtn.addEventListener('click', (e) => {
-      this.closeDetail();
+    this.closeBtn.addEventListener('click', (e) => {
+      this.closeModal();
       e.preventDefault();
     });
-  },
-  openDetail: function (img, text = '') {
-    // Add image to popup:
-    this.detailImg.src = img;
-    this.detailImg.alt = text;
-    this.detailText.textContent = text;
 
-    // Show the popup:
-    this.detail.classList.add('show');
-  },
-  closeDetail: function () {
-    this.detail.classList.remove('show');
+    document.body.addEventListener('click', (e) => {
+      if (e.target == this.modal) this.closeModal();
+    });
   }
 };
 

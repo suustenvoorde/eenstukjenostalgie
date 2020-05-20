@@ -1,7 +1,8 @@
 var fetch = require('node-fetch');
-var sparqlqueries = require('./sparql');
 var wellknown = require('wellknown');
 var turf = require('@turf/turf');
+var sparqlqueries = require('./sparql.js');
+var database = require('./database.js');
 
 const chapters = {
   getPhotos: async function (formdata) {
@@ -20,7 +21,7 @@ const chapters = {
       var nearestPoint = turf.nearestPointOnLine(line, point, { units: 'kilometers' });
 
       return {
-        url: photo.img.value.split(':').join('s:'),
+        url: photo.img.value.split(':')[0].length == 5 ? photo.img.value : photo.img.value.split(':').join('s:'),
         title: photo.title.value,
         year: photo.start.value.slice(0,4),
         street: {
@@ -64,6 +65,33 @@ const chapters = {
     });
 
     return data;
+  },
+  getPhotoSelection: async function (id, startIdx) {
+    var counter = 0;
+    return await database.getItem(database.stories, id)
+      .then(result => {
+        // Filter the result for streets until we reach more than 50 photos:
+        for (var year in result.data) {
+          if (result.data.hasOwnProperty(year)) {
+            result.data[year] = result.data[year].filter(street => {
+              var selection;
+              if (counter >= startIdx && counter < startIdx+50) selection = street;
+              counter += street.photos.length;
+              return selection;
+            });
+          }
+        }
+        return result.data;
+      })
+      .catch(err => console.log(err));
+  },
+  fetchStreetWkts: async function (wkt) {
+    var url = sparqlqueries.getStreetWkts(wkt);
+
+    return await fetch (url)
+      .then(res => res.json())
+      .then(data => data.results.bindings)
+      .catch(err => console.log(err));
   },
   fetchLocationAndTimestamp: async function (startyear, endyear, wkt) {
     var url = sparqlqueries.getLocationAndTimestamp(startyear, endyear, wkt);

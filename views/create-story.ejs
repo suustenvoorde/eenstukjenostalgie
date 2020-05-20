@@ -33,23 +33,17 @@
 				<% for (var year in data) { %>
 					<% if (data.hasOwnProperty(year)) { %>
 
-						<section id="year-<%- year %>" class="year <%- year %>">
+						<section id="year-<%- year %>" class="year">
 							<img class="crosses" src="/images/crosses-amsterdam.svg" alt="">
 							<% data[year].forEach(street => { %>
-								<ul>
+								<ul class="street <%- street.uri.split('/')[street.uri.split('/').length-2] %>">
 									<% street.photos.forEach(photo => { %>
 
-										<li class="data-image">
-											<div class="content">
-												<img class="lazy" src="<%- photo.url %>" alt="<%- photo.title %>">
-												<p><%= photo.title %></p>
-												<a class="openDetail"
-													 data-image="<%- photo.url %>"
-													 data-text="<%- photo.title %>"
-													 href="">
-													<%- include('../public/images/icons/zoom-in.svg') %>
-												</a>
-											</div>
+										<li class="photo lazy">
+											<a class="photo__img">
+												<img src="<%- photo.url %>" alt="<%- photo.title %>">
+											</a>
+											<p class="photo__desc"><%= photo.title %></p>
 										</li>
 
 									<% }); %>

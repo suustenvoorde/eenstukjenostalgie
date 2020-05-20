@@ -63,15 +63,21 @@ exports.useCreateStoryPage = async function (req, res, next) {
 
 exports.getCreateStoryPage = async function (req, res, next) {
   // Get the story from database using the id:
-  await database.getItem(database.stories, req.params.id)
-    .then(result => {
-      res.render('create-story', {
-        id: result.id,
-        data: result.data,
-        sharedPhoto: req.sharedPhoto
-      });
-    })
-    .catch(err => console.log(err));
+  var selection = await chapters.getPhotoSelection(req.params.id, 0);
+
+  // Render the create story page:
+  res.render('create-story', {
+    data: selection,
+    sharedPhoto: req.sharedPhoto
+  });
+}
+
+exports.getPhotoSelectionPage = async function (req, res, next) {
+  var selection = await chapters.getPhotoSelection(req.params.id, Number(req.params.startIdx));
+  for (var year in selection) {
+    if (selection.hasOwnProperty(year) && selection[year].length == 0) delete selection[year];
+  }
+  res.json(selection);
 }
 
 exports.postPhotoPage = async function (req, res, next) {
