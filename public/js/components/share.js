@@ -2,7 +2,8 @@ const share = {
   elem: document.querySelector('.photo-share'),
   init: function () {
     this.elem.addEventListener('submit', (e) => {
-      var img = this.elem.nextElementSibling;
+      // var img = this.elem.nextElementSibling;
+      var img = this.elem.parentNode.querySelector('.photo-detail__img');
       var photo = {
         src: img.src,
         alt: img.alt
