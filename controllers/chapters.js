@@ -74,8 +74,10 @@ const chapters = {
         for (var year in result.data) {
           if (result.data.hasOwnProperty(year)) {
             result.data[year] = result.data[year].filter(street => {
+              var selection;
+              if (counter >= startIdx && counter < startIdx+50) selection = street;
               counter += street.photos.length;
-              if (counter > startIdx && counter < startIdx+50) return street;
+              return selection;
             });
           }
         }
