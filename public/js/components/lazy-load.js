@@ -1,3 +1,5 @@
+var imageDetail = require('./image-detail.js');
+
 const lazyLoad = {
   scrolling: true,
   lazies: document.querySelectorAll('.lazy'),
@@ -61,6 +63,11 @@ const lazyLoad = {
             cloneP.classList.add('photo__desc');
             cloneP.textContent = photo.title;
             cloneLi.appendChild(cloneP);
+
+            cloneA.addEventListener('click', (e) => {
+              imageDetail.openModal(cloneImg.src, cloneImg.alt);
+              e.preventDefault();
+            });
           });
         });
 
