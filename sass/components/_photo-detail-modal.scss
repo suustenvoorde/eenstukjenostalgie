@@ -22,16 +22,18 @@
 .photo-detail-modal {
   position: relative;
   display: block;
-  width: 100%;
-  max-width: 35rem;
+  // width: 100%;
+  // max-width: 35rem;
+  height: 90vh;
+  width: auto;
   border-radius: .625rem;
   margin: $spacing-unit;
   box-shadow: 0 0 0 .625rem rgba(44,44,44,.2);
 
   & > img {
     display: block;
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 100%;
     border-radius: .625rem;
   }
 
