@@ -65,21 +65,6 @@
       @include prefix(transform, translateX(0));
     }
 
-    &::after {
-      @include smallScreen() {
-        position: absolute;
-        z-index: 100;
-	      top: 0;
-        right: 0;
-	      width: 50%;
-        min-height: 100vh;
-	      height: inherit;
-        padding-bottom: 5%;
-	      background-color: $color-primary;
-        content: '';
-      }
-    }
-
     & li {
       & a {
         @include prefix(display, flex);

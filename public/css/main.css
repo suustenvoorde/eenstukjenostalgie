@@ -376,9 +376,9 @@ small {
   margin-bottom: 22.5vh; }
   @media all and (min-width: 48em) {
     .contents {
-      left: 15vw;
+      left: 10vw;
       top: 0;
-      width: calc(100% - 15vw); } }
+      width: calc(100% - 10vw); } }
   .contents > h1 {
     display: block;
     margin: 2.1875rem; }
@@ -466,18 +466,6 @@ small {
         -moz-transform: translateX(0);
         -o-transform: translateX(0);
         transform: translateX(0); } }
-    @media all and (min-width: 48em) {
-      .table-of-contents ol::after {
-        position: absolute;
-        z-index: 100;
-        top: 0;
-        right: 0;
-        width: 50%;
-        min-height: 100vh;
-        height: inherit;
-        padding-bottom: 5%;
-        background-color: #DA383F;
-        content: ''; } }
     .table-of-contents ol li a {
       display: -webkit-flex;
       display: -moz-flex;
