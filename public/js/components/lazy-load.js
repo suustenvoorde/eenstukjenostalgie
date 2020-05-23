@@ -24,7 +24,7 @@ const lazyLoad = {
         var yearElem = document.getElementById('year-' + year);
         var fragment = document.createDocumentFragment();
 
-        selection[year].forEach(street => {
+        selection[year].forEach((street, i) => {
           // Create the new street ul elem:
           var classname = street.uri.split('/')[street.uri.split('/').length-2];
           var cloneUl = ul.cloneNode(true);
@@ -32,7 +32,7 @@ const lazyLoad = {
           cloneUl.classList.add(classname);
           fragment.appendChild(cloneUl);
 
-          street.photos.forEach(photo => {
+          street.photos.forEach((photo, j) => {
             // Add one to the startIdx value:
             this.startIdx++;
 
@@ -56,6 +56,11 @@ const lazyLoad = {
 
             cloneImg.addEventListener('load', (e) => {
               cloneLi.classList.remove('placeholder');
+
+              if (i == selection[year].length-1 && j == street.photos.length-1) {
+                this.lastLazyTop = cloneLi.offsetTop;
+                this.scrolling = true;
+              }
             });
 
             // Create the p elem:
@@ -73,20 +78,6 @@ const lazyLoad = {
 
         // Append the fragment to the year elem:
         yearElem.appendChild(fragment);
-      }
-
-      // Find last year:
-      if (year == Object.keys(selection).find((year, i, self) => i == self.length-1)) {
-        // Find the last lazy:
-        var lastStreet = selection[year].find((street, i, self) => i == self.length-1);
-        var lastPhoto = lastStreet.photos.find((photo, i, self) => i == self.length-1);
-        this.lastLazy = Array.from(document.querySelectorAll('.lazy')).find(li => li.querySelector('img').src == lastPhoto.url);
-        var lastImg = this.lastLazy.querySelector('img');
-
-        lastImg.addEventListener('load', (e) => {
-          this.lastLazyTop = this.lastLazy.offsetTop;
-          this.scrolling = true;
-        });
       }
     }
   },
