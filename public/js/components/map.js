@@ -45,22 +45,6 @@ const map = {
 			})
 			.catch(err => console.log(err));
 
-		// Add the city district flags to the map:
-		await this.getDistrictFlags()
-			.then(result => {
-				result.features.forEach(feature => {
-					var marker = L.marker(feature.geometry.coordinates, {
-						icon: L.icon({
-							iconUrl: '/images/icons/districts/' + feature.properties.title + '.svg',
-							iconSize: [ 100, 100 ],
-							iconAnchor: [ 13, 75 ]
-						})
-					});
-					marker.addTo(this.map);
-				});
-			})
-			.catch(err => console.log(err));
-
 		// Add the circle to the map
 		this.circle
 			.setStyle({ className: 'radius' })
@@ -182,11 +166,6 @@ const map = {
 	},
 	getCityDistricts: async function () {
 		return await fetch ('/json/amsterdam-districts.geojson')
-			.then(res => res.json())
-			.catch(err => console.log(err));
-	},
-	getDistrictFlags: async function () {
-		return await fetch ('/json/amsterdam-district-flags.geojson')
 			.then(res => res.json())
 			.catch(err => console.log(err));
 	},
