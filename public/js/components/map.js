@@ -33,12 +33,13 @@ const map = {
 		await this.getCityDistricts()
 			.then(result => {
 				this.cityDistricts = L.geoJson(result, {
-					style: function (feature) {
+					style: (feature) => {
 						return {
 							fillColor: '#FFFFFF',
 							fillOpacity: 1,
 							color: '#000000',
-							opacity: 1
+							opacity: 1,
+							weight: 5
 						}
 					}
 				}).addTo(this.map);
@@ -46,11 +47,11 @@ const map = {
 			.catch(err => console.log(err));
 
 		// Add the circle to the map
+		this.map.createPane('circle');
 		this.circle
-			.setStyle({ className: 'radius' })
+			.setStyle({ className: 'radius', pane: 'circle' })
 			.setLatLng(this.centerLatLng)
 			.setRadius(this.radiusSelect.value / 2)
-			.bringToFront()
 			.addTo(this.map);
 
 		// Initialize circle events:
@@ -97,6 +98,16 @@ const map = {
 			this.startPos.x = layerPoint.x - this.currentPos.x;
 			this.startPos.y = layerPoint.y - this.currentPos.y;
 			this.moveCircle();
+
+			// Change city district stroke width:
+			this.cityDistricts.eachLayer(layer => {
+				var weight = newZoomLevel >= 8 && newZoomLevel < 11
+					? 1 : newZoomLevel >= 11 && newZoomLevel < 13
+					? 2 : newZoomLevel >= 13 && newZoomLevel < 15
+					? 5 : newZoomLevel >= 15
+					? 7 : 0;
+				layer.setStyle({ weight: weight });
+			});
 		});
 
 		// Following code is to let radius select follow the circle:

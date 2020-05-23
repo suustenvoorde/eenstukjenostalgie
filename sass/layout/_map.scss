@@ -16,8 +16,8 @@
     @include prefix(mix-blend-mode, difference);
   }
 
-  & .leaflet-interactive {
-    stroke-width: 5;
+  & .leaflet-circle-pane {
+    z-index: 4;
   }
 
   & .leaflet-control-attribution {
@@ -28,6 +28,7 @@
     fill: $color-primary;
     fill-opacity: .8;
     stroke: $color-primary-dark;
+    stroke-width: 5;
     cursor: grab;
     @include prefix(transition, stroke-width .3s ease);
     &:hover { stroke-width: 10; }
