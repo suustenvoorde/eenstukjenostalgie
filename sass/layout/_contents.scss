@@ -35,7 +35,6 @@
     @include prefix(column-gap, $spacing-unit);
     width: 100%;
     padding-bottom: $spacing-unit;
-    border-bottom: 1px solid $color-black;
     margin: $spacing-unit 0;
   }
 }

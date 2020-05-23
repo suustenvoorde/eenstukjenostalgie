@@ -122,6 +122,10 @@
 
   & .close-menu {
     @include prefix(transform, translateX(4rem));
+
+    @include smallScreen() {
+      @include prefix(transform, translateX(0rem));
+    }
   }
 
   & .open-menu {
