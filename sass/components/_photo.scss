@@ -4,28 +4,26 @@
   display: block;
   overflow: hidden;
   width: 100%;
-  border-radius: .625rem;
   margin-bottom: $spacing-unit;
 
   &.placeholder {
     padding-bottom: 50%;
-    border-radius: .625rem;
     background-color: rgba(44,44,44,.2);
 
     &::after {
-      position: absolute;
-      left: calc((100% - #{1 * $spacing-unit} - 1.25rem) / 2);
-      top: calc((100% - #{1 * $spacing-unit} - 1.25rem) / 2);
-      display: block;
-      width: #{1 * $spacing-unit};
-      height: #{1 * $spacing-unit};
-      border: .625rem solid transparent;
-      border-radius: 50%;
-      border-top-color: $color-black;
-      background-color: transparent;
-      content: '';
-      @include prefix(transform, rotate(0deg));
-      @include prefix(animation, loading 1s ease-in-out infinite);
+      // position: absolute;
+      // left: calc((100% - #{1 * $spacing-unit} - 1.25rem) / 2);
+      // top: calc((100% - #{1 * $spacing-unit} - 1.25rem) / 2);
+      // display: block;
+      // width: #{1 * $spacing-unit};
+      // height: #{1 * $spacing-unit};
+      // border: .625rem solid transparent;
+      // border-radius: 50%;
+      // border-top-color: $color-black;
+      // background-color: transparent;
+      // content: '';
+      // @include prefix(transform, rotate(0deg));
+      // @include prefix(animation, loading 1s ease-in-out infinite);
     }
   }
 
@@ -51,7 +49,6 @@
       display: block;
       width: 100%;
       height: auto;
-      border-radius: .625rem;
     }
   }
 
@@ -62,7 +59,6 @@
     bottom: 0;
     display: block;
     padding: #{.5 * $spacing-unit};
-    border-radius: 0 0 .625rem .625rem;
     color: $color-white;
     background-color: $color-primary-dark;
     @include prefix(pointer-events, none);
