@@ -9,8 +9,6 @@
     left: 0;
 	  width: 7.5vw;
 	  height: 100%;
-    display: flex;
-    justify-content: center;
   }
 
   & button {
@@ -58,6 +56,7 @@
     background-color: $color-primary;
     list-style: none;
     clear: both;
+    margin-left: $spacing-unit;
     @include prefix(transform, translateX(-4rem));
     @include prefix(transition, all .3s ease-in-out);
     @include smallScreen() {

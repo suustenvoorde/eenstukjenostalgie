@@ -7,7 +7,6 @@
     top: 0px;
     @include smallScreen() {
       position: fixed;
-      left: calc((7.5vw - 20px) / 2);
       top: 10px;
     }
   }

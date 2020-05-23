@@ -31,7 +31,7 @@
   }
 
   & .street {
-    @include prefix(columns, 15rem);
+    @include prefix(columns, 20rem);
     @include prefix(column-gap, $spacing-unit);
     width: 100%;
     padding-bottom: $spacing-unit;
