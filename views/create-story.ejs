@@ -36,7 +36,7 @@
 						<section id="year-<%- year %>" class="year">
 							<img class="crosses" src="/images/crosses-amsterdam.svg" alt="">
 							<% data[year].forEach(street => { %>
-								<h2><%- street.uri.split('/')[street.uri.split('/').length-2] %></h2>
+								<h2><%- street.label %></h2>
 								<ul class="street <%- street.uri.split('/')[street.uri.split('/').length-2] %>">
 									<% street.photos.forEach(photo => { %>
 

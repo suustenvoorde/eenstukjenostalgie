@@ -13,6 +13,7 @@ const lazyLoad = {
       .catch(err => console.log(err));
   },
   addPhotos: function (selection) {
+    var h2 = document.createElement('h2');
     var ul = document.createElement('ul');
     var li = document.createElement('li');
     var a = document.createElement('a');
@@ -31,6 +32,12 @@ const lazyLoad = {
           cloneUl.classList.add('street');
           cloneUl.classList.add(classname);
           fragment.appendChild(cloneUl);
+
+          //Create the h2 elem:
+          var cloneH2 = h2.cloneNode(true);
+          cloneH2.textContent = street.label;
+          fragment.insertBefore(cloneH2, cloneUl);
+
 
           street.photos.forEach(photo => {
             // Add one to the startIdx value:
