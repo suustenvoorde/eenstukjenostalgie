@@ -14,6 +14,11 @@
     display: block;
     margin: $spacing-unit;
   }
+
+  h2 {
+    margin-top: $spacing-unit;
+    font-weight: 600;
+  }
 }
 
 .year {

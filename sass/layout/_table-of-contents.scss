@@ -96,10 +96,10 @@
         }
 
         &.active-year {
-          color: $color-primary;
+          font-weight: $heading-fw;
 
           @include smallScreen() {
-            font-weight: $heading-fw;
+            color: $color-primary;
             text-decoration: none;
             position: relative;
             z-index: 1000;
