@@ -5,9 +5,9 @@
   width: 100%;
   margin-bottom: 22.5vh;
   @include smallScreen() {
-    left: 10vw;
+    left: 7.5vw;
     top: 0;
-    width: calc(100% - 10vw);
+    width: calc(100% - 7.5vw);
   }
 
   & > h1 {

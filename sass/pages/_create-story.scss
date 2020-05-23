@@ -3,11 +3,10 @@
     z-index: 1000000;
     position: absolute;
     width: 20px;
-    left: 10px;
+    left: calc((7.5vw - 20px) / 2);
     top: 10px;
     @include smallScreen() {
       position: fixed;
-      left: 30px;
     }
   }
 }

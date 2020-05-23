@@ -7,8 +7,10 @@
   height: 100vh;
   @include smallScreen() {
     left: 0;
-	  width: 15vw;
+	  width: 7.5vw;
 	  height: 100%;
+    display: flex;
+    justify-content: center;
   }
 
   & button {
