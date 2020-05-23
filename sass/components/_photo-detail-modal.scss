@@ -11,7 +11,7 @@
   opacity: 0;
   background-color: rgba(44,44,44,.8);
   @include prefix(pointer-events, none);
-  @include prefix(transition, opacity 1s ease);
+  @include prefix(transition, opacity .3s ease);
 
   &.show {
     opacity: 1;
