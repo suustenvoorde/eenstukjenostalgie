@@ -18,7 +18,7 @@
     width: 4rem;
     height: 4rem;
     padding: 1rem;
-    border: 0;
+    border:  1px solid $color-primary;
     border-radius: 0;
     background-color: $color-primary;
     @include smallScreen() {
@@ -89,7 +89,6 @@
         font-size: $base-fz;
         padding: .25rem 0;
 
-        @include prefix(transition, 1s);
         @include smallScreen() {
           color: $color-black;
           width: 50%;
@@ -97,7 +96,7 @@
         }
 
         &.active-year {
-          color: $color-white;
+          color: $color-primary;
 
           @include smallScreen() {
             font-weight: $heading-fw;
@@ -105,10 +104,6 @@
             position: relative;
             z-index: 1000;
 	          width: 50%;
-            font-size: 1.25em;
-
-            margin-left: 50%;
-	          font-size: 1.75em;
             font-weight: $heading-fw;
 	          text-align: center;
             text-decoration: none;
