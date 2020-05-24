@@ -3,20 +3,22 @@
   <%- include('partials/head.ejs') %>
   <body>
 
-    <section class="photo-share-overlay">
-      <article class="shared-photo">
-        <img class="shared-photo__img" src="<%- src %>" alt="<%- alt %>">
-        <p class="shared-photo__desc"><%= alt %></p>
-      </article>
+    <div class="photo-share-overlay">
+      <section class="photo-share-wrapper">
+        <article class="shared-photo">
+          <img class="shared-photo__img" src="<%- src %>" alt="<%- alt %>">
+          <p class="shared-photo__desc"><%= alt %></p>
+        </article>
 
-      <aside class="call-to-action">
-        <h2>Zelf foto's uit het verleden vinden?</h2>
-        <a class="action-btn action-btn-white" href="/" type="button">
-          <span>Zoek herinneringen</span>
-          <%- include('../public/images/icons/arrow-right.svg') %>
-        </a>
-      </aside>
-    </section>
+        <aside class="call-to-action">
+          <h1>Zelf foto's uit het verleden vinden?</h1>
+          <a class="action-btn action-btn--white" href="/" type="button">
+            <span>Zoek herinneringen</span>
+            <%- include('../public/images/icons/arrow-right.svg') %>
+          </a>
+        </aside>
+      </section>
+    </div>
 
     <%- include('partials/foot.ejs') %>
   </body>
