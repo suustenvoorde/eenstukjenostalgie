@@ -27,7 +27,7 @@
     max-width: 25rem;
     margin: 0 auto;
     @include smallScreen() {
-      max-width: 45rem;
+      max-width: 35rem;
     }
 
     &__img {
