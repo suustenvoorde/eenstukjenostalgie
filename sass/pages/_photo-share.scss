@@ -1,0 +1,15 @@
+.photo-share-overlay {
+  @include prefix(display, flex);
+  @include prefix(flex-wrap, wrap);
+  width: 100%;
+
+  & .shared-photo {
+    display: block;
+    margin: #{.5 * $spacing-unit};
+  }
+
+  & .call-to-action {
+    display: block;
+    margin: #{.5 * $spacing-unit};
+  }
+}
