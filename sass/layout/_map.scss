@@ -12,15 +12,30 @@
     height: 100vh;
   }
 
-  .leaflet-interactive {
-    fill: $color-primary;
-    stroke: $color-primary-dark;
+  & .leaflet-overlay-pane {
+    @include prefix(mix-blend-mode, difference);
   }
 
-  .leaflet-control-attribution {
+  & .leaflet-circle-pane {
+    z-index: 4;
+  }
+
+  & .leaflet-control-attribution {
     display: none;
   }
+
+  & .radius {
+    fill: $color-primary;
+    fill-opacity: .8;
+    stroke: $color-primary-dark;
+    stroke-width: 5;
+    cursor: grab;
+    @include prefix(transition, stroke-width .3s ease);
+    &:hover { stroke-width: 10; }
+  }
 }
+
+
 
 /********************
   Radius select
