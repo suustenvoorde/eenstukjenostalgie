@@ -37,6 +37,7 @@ const search = {
 
     // Event for submitting the form:
     this.searchbar.addEventListener('submit', (e) => {
+      e.preventDefault();
       var value = new FormData(e.target).get('searchLocation');
 
       // Return if value is empty:
@@ -45,12 +46,13 @@ const search = {
       // Get the search results for current value:
       var results = this.getAutocomplete(data, value);
 
+      if (results.length == 0) return;
+
       // Add first search result to the map:
       map.selectedStreet(results[0]);
 
       // Show first search result as searchbar value:
       this.searchbar.querySelector('input').value = results[0];
-      e.preventDefault();
     });
 
     // Event listener when clicking the document:
