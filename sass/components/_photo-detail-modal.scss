@@ -57,14 +57,16 @@
 
     & .close-btn {
       position: absolute;
-      top: #{-.75 * $spacing-unit};
-      right: #{-.75 * $spacing-unit};
+      top: 0;
+      right: 0;
       display: block;
       width: #{1.5 * $spacing-unit};
       height: #{1.5 * $spacing-unit};
       padding: 1.140625rem;
       border: 0;
       border-radius: 50%;
+      outline: 0;
+      margin: #{.25 * $spacing-unit};
       background-color: $color-primary;
       cursor: pointer;
       @include prefix(transform, scale(1,1));
@@ -113,6 +115,7 @@
     padding: 1.140625rem;
     border: 0;
     border-radius: 50%;
+    outline: 0;
     background-color: $color-primary;
     cursor: pointer;
     @include prefix(transform, scale(1,1));
