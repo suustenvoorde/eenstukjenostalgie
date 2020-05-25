@@ -1,9 +1,9 @@
 .home {
-  .wrapper {
+  & .wrapper {
     @include prefix(display, flex);
   }
 
-  .title {
+  & .title {
     position: absolute;
     left: 0;
     top: 0;
@@ -16,5 +16,10 @@
     @include smallScreen() {
       left: 30rem;
     }
+  }
+
+  & .site-footer {
+    position: absolute;
+    bottom: 0;
   }
 }
