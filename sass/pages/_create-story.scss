@@ -1,5 +1,5 @@
 .create-story {
-  .back {
+  & .back {
     z-index: 1000000;
     position: absolute;
     width: 20px;
@@ -9,5 +9,10 @@
       position: fixed;
       top: 10px;
     }
+  }
+
+  & .site-footer {
+    padding-left: calc(10vw + #{$spacing-unit});
+    padding-right: $spacing-unit;
   }
 }

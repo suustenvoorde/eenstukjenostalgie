@@ -1,13 +1,12 @@
 .photo-share-overlay {
   display: block;
-  min-height: calc(100vh - 4.8125rem);
+  min-height: calc(100vh - 4.5625rem);
   background-color: $color-black;
   padding: #{$spacing-unit};
   @include smallScreen() {
     @include prefix(display, flex);
     @include prefix(align-items, center);
     @include prefix(justify-content, center);
-
     padding: $spacing-unit;
   }
 }
@@ -15,18 +14,15 @@
 .photo-share-wrapper {
   @include prefix(display, flex);
   @include prefix(flex-wrap, wrap);
-
   @include smallScreen() {
     @include prefix(flex-wrap, nowrap);
   }
 
   & .shared-photo {
     width: 100%;
-
     @include smallScreen() {
       @include prefix(display, flex);
       @include prefix(flex-direction, column);
-
       height: 100%;
       width: auto;
     }
@@ -34,7 +30,6 @@
     &__img {
       display: block;
       width: 100%;
-
       @include smallScreen() {
         max-height: calc(100vh - 4.8125rem - #{$spacing-unit * 4});
         width: auto;
@@ -75,5 +70,12 @@
     h1 {
       color: $color-white;
     }
+  }
+}
+
+.photo-share-page .site-footer {
+  @include smallScreen() {
+    padding: 1.8125rem $spacing-unit;
+    text-align: center;
   }
 }
