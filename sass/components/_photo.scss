@@ -11,19 +11,19 @@
     background-color: rgba(44,44,44,.2);
 
     &::after {
-      // position: absolute;
-      // left: calc((100% - #{1 * $spacing-unit} - 1.25rem) / 2);
-      // top: calc((100% - #{1 * $spacing-unit} - 1.25rem) / 2);
-      // display: block;
-      // width: #{1 * $spacing-unit};
-      // height: #{1 * $spacing-unit};
-      // border: .625rem solid transparent;
-      // border-radius: 50%;
-      // border-top-color: $color-black;
-      // background-color: transparent;
-      // content: '';
-      // @include prefix(transform, rotate(0deg));
-      // @include prefix(animation, loading 1s ease-in-out infinite);
+      position: absolute;
+      left: calc((100% - #{1 * $spacing-unit} - 1.25rem) / 2);
+      top: calc((100% - #{1 * $spacing-unit} - 1.25rem) / 2);
+      display: block;
+      width: #{1 * $spacing-unit};
+      height: #{1 * $spacing-unit};
+      border: .625rem solid transparent;
+      border-radius: 50%;
+      border-top-color: $color-black;
+      background-color: transparent;
+      content: '';
+      @include prefix(transform, rotate(0deg));
+      @include prefix(animation, loading 1s ease-in-out infinite);
     }
   }
 
