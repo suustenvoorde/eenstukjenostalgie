@@ -85,6 +85,20 @@
 }
 
 // Just as a test environment for the photo-share:
+.photo {
+  .photo-share {
+    @include smallScreen() {
+      display: none;
+    }
+  }
+
+  &:hover {
+    .photo-share {
+      display: block;
+    }
+  }
+}
+
 .photo-share {
   position: absolute;
   left: #{.25 * $spacing-unit};
