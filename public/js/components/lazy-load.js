@@ -19,6 +19,8 @@ const lazyLoad = {
     var a = document.createElement('a');
     var img = document.createElement('img');
     var p = document.createElement('p');
+    var form = document.createElement('form');
+    var button = document.createElement('button');
 
     for (var year in selection) {
       if (selection.hasOwnProperty(year)) {
@@ -80,6 +82,24 @@ const lazyLoad = {
               imageDetail.openModal(cloneImg.src, cloneImg.alt);
               e.preventDefault();
             });
+
+            // Create the form elem:
+            var cloneForm = form.cloneNode(true);
+            cloneForm.classList.add('photo-share');
+            cloneForm.action = '/photo';
+            cloneForm.method = "post";
+            cloneLi.appendChild(cloneForm);
+
+            var cloneButton = button.cloneNode(true);
+            cloneButton.classList.add('share-btn');
+            cloneButton.type = "submit";
+            cloneForm.appendChild(cloneButton);
+
+            var cloneButtonImage = img.cloneNode(true);
+            cloneButtonImage.src = "../../images/icons/share.svg";
+            cloneButton.appendChild(cloneButtonImage);
+
+
           });
         });
 

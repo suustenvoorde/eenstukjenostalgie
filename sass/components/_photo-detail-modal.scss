@@ -118,7 +118,7 @@
     @include prefix(transform, scale(1,1));
     @include prefix(transition, transform .3s ease);
 
-    & > svg {
+    & > svg, img {
       width: 100%;
       height: auto;
       fill: $color-white;
