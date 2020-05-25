@@ -1,8 +1,8 @@
 .photo-share-overlay {
   display: block;
-  width: 100%;
   min-height: calc(100vh - 4.8125rem);
   background-color: $color-black;
+  padding: #{$spacing-unit};
   @include smallScreen() {
     padding: $spacing-unit;
   }
@@ -11,36 +11,39 @@
 .photo-share-wrapper {
   @include prefix(display, flex);
   @include prefix(flex-wrap, wrap);
-  @include prefix(justify-content, space-between);
-  width: fit-content;
-  max-width: 70rem;
-  margin: 0 auto;
+
   @include smallScreen() {
+    max-height: calc(100vh - 4.8125rem - #{$spacing-unit * 2});
     @include prefix(flex-wrap, nowrap);
-    max-height: calc(100vh - #{2 * $spacing-unit});
+    @include prefix(justify-content, center);
   }
 
   & .shared-photo {
-    @include prefix(flex, 1 1 auto);
-    display: block;
     width: 100%;
-    max-width: 25rem;
-    margin: 0 auto;
+
     @include smallScreen() {
-      max-width: 35rem;
+      @include prefix(display, flex);
+      @include prefix(flex-direction, column);
+      @include prefix(align-items, stretch);
+
+      height: 100%;
+      width: auto;
     }
 
     &__img {
       display: block;
       width: 100%;
-      height: auto;
+
       @include smallScreen() {
+        min-height: calc(100vh - 4.8125rem - #{$spacing-unit * 4});
+        width: auto;
+        max-width: 40vw;
+        object-fit: cover;
         border-radius: .625rem 0 0 0;
       }
     }
 
     &__desc {
-      display: block;
       padding: #{.5 * $spacing-unit} $spacing-unit;
       background-color: $color-white;
       @include smallScreen() {
@@ -53,18 +56,18 @@
     @include prefix(display, flex);
     @include prefix(flex-direction, column);
     @include prefix(justify-content, center);
-    width: 100%;
-    max-width: 25rem;
     padding: #{.5 * $spacing-unit};
-    margin: 0 auto;
     background-color: $color-primary;
+    width: 100%;
     @include smallScreen() {
+      max-width: 30em;
       @include prefix(flex, 1 0 25rem);
       border-radius: 0 .625rem .625rem 0;
     }
 
     & > h1,
     & > .action-btn {
+      line-height: 1.5;
       margin: #{.5 * $spacing-unit};
     }
 
