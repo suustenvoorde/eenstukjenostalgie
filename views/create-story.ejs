@@ -43,13 +43,13 @@
 										<li class="photo lazy">
 											<a class="photo__img">
 												<img src="<%- photo.url %>" alt="<%- photo.title %>">
-												<!-- <form class="photo-share" action="/photo" method="post">
-													<button class="share-btn" type="submit">
-														<%- include('../public/images/icons/share.svg') %>
-													</button>
-												</form> -->
 											</a>
 											<p class="photo__desc"><%= photo.title %></p>
+											<form class="photo-share" action="/photo" method="post">
+												<button class="share-btn" type="submit">
+													<%- include('../public/images/icons/share.svg') %>
+												</button>
+											</form>
 										</li>
 
 									<% }); %>
