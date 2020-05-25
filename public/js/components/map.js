@@ -195,10 +195,11 @@ const map = {
 	},
 	changeRadius: function () {
 		this.radiusSelect.addEventListener('change', (e) => {
-			var latlng = this.circle.getLatLng();
-			var meters = e.target.value / 2;
-			this.createCircle(Object.values(latlng), meters);
-			this.createPolygon(this.centerLatLng, meters);
+			var latLng = this.circle.getLatLng();
+			var radius = e.target.value / 2;
+			this.circle.setLatLng(latLng);
+			this.circle.setRadius(radius);
+			this.createPolygon(this.centerLatLng, radius);
 		});
 	},
 	createPolygon: function (coords, radius = this.circle.getRadius(), numberOfEdges = 10) {
@@ -209,8 +210,8 @@ const map = {
 		if (!this.polygon) this.polygon = L.polygon(polygonCoords.coordinates[0]);
 
 		this.polygon
-			.setLatLngs(polygonCoords.coordinates[0])
-			.addTo(this.map); // Remove for production
+			.setLatLngs(polygonCoords.coordinates[0]);
+			// .addTo(this.map); // Remove for production
 
 		// Create a wkt from the polygon:
 		this.inputCircle = {
