@@ -4,6 +4,10 @@
   background-color: $color-black;
   padding: #{$spacing-unit};
   @include smallScreen() {
+    @include prefix(display, flex);
+    @include prefix(align-items, center);
+    @include prefix(justify-content, center);
+
     padding: $spacing-unit;
   }
 }
@@ -15,7 +19,6 @@
   @include smallScreen() {
     max-height: calc(100vh - 4.8125rem - #{$spacing-unit * 2});
     @include prefix(flex-wrap, nowrap);
-    @include prefix(justify-content, center);
   }
 
   & .shared-photo {
@@ -24,7 +27,6 @@
     @include smallScreen() {
       @include prefix(display, flex);
       @include prefix(flex-direction, column);
-      @include prefix(align-items, stretch);
 
       height: 100%;
       width: auto;
@@ -35,7 +37,7 @@
       width: 100%;
 
       @include smallScreen() {
-        min-height: calc(100vh - 4.8125rem - #{$spacing-unit * 4});
+        max-height: calc(100vh - 4.8125rem - #{$spacing-unit * 4});
         width: auto;
         max-width: 40vw;
         object-fit: cover;
@@ -47,6 +49,7 @@
       padding: #{.5 * $spacing-unit} $spacing-unit;
       background-color: $color-white;
       @include smallScreen() {
+        max-width: 40vw;
         border-radius: 0 0 0 .625rem;
       }
     }
