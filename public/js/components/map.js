@@ -83,21 +83,29 @@ const map = {
 
 		// var originCenterPoint = this.map.latLngToLayerPoint(this.centerLatLng);
 
-		// On circle drag:
 		draggableCircle.on('drag', (e) => {
 			this.currentPos.x = e.sourceTarget._newPos.x;
 			this.currentPos.y = e.sourceTarget._newPos.y;
-			this.moveCircle();
 		});
 
-		// On map zoom:
-		this.map.on('zoom', (e) => {
+		draggableCircle.on('dragend', (e) => {
+			var x = this.startPos.x + this.currentPos.x;
+			var y = this.startPos.y + this.currentPos.y;
+			var latLng = this.map.layerPointToLatLng({ x: x, y: y });
+
+			this.centerLatLng = Object.values(latLng);
+			this.createPolygon(this.centerLatLng);
+		});
+
+		this.map.on('zoomend', (e) => {
 			var newZoomLevel = Number(e.sourceTarget._animateToZoom);
-			var layerPoint = this.map.latLngToLayerPoint(this.centerLatLng);
+			var centerPoint = this.map.latLngToLayerPoint(this.centerLatLng);
 			this.map.setView(this.centerLatLng, newZoomLevel);
-			this.startPos.x = layerPoint.x - this.currentPos.x;
-			this.startPos.y = layerPoint.y - this.currentPos.y;
-			this.moveCircle();
+			this.startPos.x = centerPoint.x - this.currentPos.x;
+			this.startPos.y = centerPoint.y - this.currentPos.y;
+
+			var latLng = this.map.layerPointToLatLng({ x: this.startPos.x, y: this.startPos.y });
+			this.circle.setLatLng(Object.values(latLng));
 
 			// Change city district stroke width:
 			this.cityDistricts.eachLayer(layer => {
@@ -187,28 +195,12 @@ const map = {
 	},
 	changeRadius: function () {
 		this.radiusSelect.addEventListener('change', (e) => {
-			var latlng = this.circle.getLatLng();
-			var meters = e.target.value / 2;
-			this.createCircle(Object.values(latlng), meters);
-			this.createPolygon(this.centerLatLng, meters);
+			var latLng = this.circle.getLatLng();
+			var radius = e.target.value / 2;
+			this.circle.setLatLng(latLng);
+			this.circle.setRadius(radius);
+			this.createPolygon(this.centerLatLng, radius);
 		});
-	},
-	moveCircle: function () {
-		var x = this.startPos.x + this.currentPos.x;
-		var y = this.startPos.y + this.currentPos.y;
-		var point = { x: x, y: y };
-		var latlng = this.map.layerPointToLatLng(point);
-		var radius = this.circle.getRadius();
-
-		// Create the new polygon:
-		this.centerLatLng = Object.values(latlng);
-		this.createCircle(Object.values(latlng), radius);
-		this.createPolygon(Object.values(latlng), radius);
-		L.DomUtil.setTransform(this.circle._path, { x: 0, y: 0 });
-	},
-	createCircle: function (coords, radius = this.circle.getRadius()) {
-		this.circle.setLatLng(coords);
-		this.circle.setRadius(radius);
 	},
 	createPolygon: function (coords, radius = this.circle.getRadius(), numberOfEdges = 10) {
 		//leaflet polygon to wkt
@@ -218,9 +210,8 @@ const map = {
 		if (!this.polygon) this.polygon = L.polygon(polygonCoords.coordinates[0]);
 
 		this.polygon
-			.setLatLngs(polygonCoords.coordinates[0])
-			// .addTo(this.map) // Remove for production
-			// .bringToBack(); // Remove for production
+			.setLatLngs(polygonCoords.coordinates[0]);
+			// .addTo(this.map); // Remove for production
 
 		// Create a wkt from the polygon:
 		this.inputCircle = {
@@ -236,17 +227,18 @@ exports.selectedStreet = function (streetName) {
 	map.geoJSON.eachLayer(layer => {
 		if (layer.feature.properties.name === streetName) {
 			var bounds = layer.getBounds();
-			var center = bounds.getCenter();
 
-			var layerPoint = map.map.latLngToLayerPoint([center.lat, center.lng]);
-			map.map.setView([center.lat, center.lng], 14);
+			map.centerLatLng = Object.values(bounds.getCenter());
+			map.map.setView(map.centerLatLng, map.map.getZoom());
+			map.createPolygon(map.centerLatLng);
 
-			map.startPos.x = layerPoint.x - map.currentPos.x;
-			map.startPos.y = layerPoint.y - map.currentPos.y;
+			var centerPoint = map.map.latLngToLayerPoint(map.centerLatLng);
 
-			map.moveCircle();
-			map.createCircle([center.lat, center.lng]);
-			map.createPolygon([center.lat, center.lng]);
+			map.startPos.x = centerPoint.x - map.currentPos.x;
+			map.startPos.y = centerPoint.y - map.currentPos.y;
+
+			var latLng = map.map.layerPointToLatLng({ x: map.startPos.x, y: map.startPos.y });
+			map.circle.setLatLng(Object.values(latLng));
 		}
 	});
 }

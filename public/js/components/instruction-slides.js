@@ -23,9 +23,17 @@ const instructionSlides = {
     this.slideLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         const href = link.href.slice(link.href.indexOf('#') + 1);
+        const prevSlide = this.slides.find(slide => slide.classList.contains('active'));
+        this.prevSlideId = prevSlide.id;
+
         this.goTo(href);
+        history.pushState(null, null, window.location.href);
         e.preventDefault();
       });
+    });
+
+    window.addEventListener('popstate', (e) => {
+      if (this.prevSlideId) this.goTo(this.prevSlideId);
     });
   }
 };

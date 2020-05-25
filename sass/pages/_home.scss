@@ -11,6 +11,7 @@
     margin: $spacing-unit;
     margin-left: #{2 * $spacing-unit};
     margin-right: calc(6.5rem + #{2 * $spacing-unit});
+    @include prefix(pointer-events, none);
 
     @include smallScreen() {
       left: 30rem;
