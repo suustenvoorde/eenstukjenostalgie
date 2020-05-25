@@ -2,8 +2,16 @@
   @include prefix(box-sizing, border-box);
   padding: 0;
   margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
 }
 
 body {
   position: relative;
+  font-family: $base-ff;
+  font-size: $base-fz;
+  font-weight: $base-fw;
+  line-height: $base-lh;
 }
