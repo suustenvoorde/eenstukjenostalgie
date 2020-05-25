@@ -1,0 +1,80 @@
+.photo-share-overlay {
+  display: block;
+  min-height: calc(100vh - 4.8125rem);
+  background-color: $color-black;
+  padding: #{$spacing-unit};
+  @include smallScreen() {
+    @include prefix(display, flex);
+    @include prefix(align-items, center);
+    @include prefix(justify-content, center);
+
+    padding: $spacing-unit;
+  }
+}
+
+.photo-share-wrapper {
+  @include prefix(display, flex);
+  @include prefix(flex-wrap, wrap);
+
+  @include smallScreen() {
+    @include prefix(flex-wrap, nowrap);
+  }
+
+  & .shared-photo {
+    width: 100%;
+
+    @include smallScreen() {
+      @include prefix(display, flex);
+      @include prefix(flex-direction, column);
+
+      height: 100%;
+      width: auto;
+    }
+
+    &__img {
+      display: block;
+      width: 100%;
+
+      @include smallScreen() {
+        max-height: calc(100vh - 4.8125rem - #{$spacing-unit * 4});
+        width: auto;
+        max-width: 40vw;
+        object-fit: cover;
+        border-radius: .625rem 0 0 0;
+      }
+    }
+
+    &__desc {
+      padding: #{.5 * $spacing-unit} $spacing-unit;
+      background-color: $color-white;
+      @include smallScreen() {
+        max-width: 40vw;
+        border-radius: 0 0 0 .625rem;
+      }
+    }
+  }
+
+  & .call-to-action {
+    @include prefix(display, flex);
+    @include prefix(flex-direction, column);
+    @include prefix(justify-content, center);
+    padding: #{.5 * $spacing-unit};
+    background-color: $color-primary;
+    width: 100%;
+    @include smallScreen() {
+      max-width: 30em;
+      @include prefix(flex, 1 0 25rem);
+      border-radius: 0 .625rem .625rem 0;
+    }
+
+    & > h1,
+    & > .action-btn {
+      line-height: 1.5;
+      margin: #{.5 * $spacing-unit};
+    }
+
+    h1 {
+      color: $color-white;
+    }
+  }
+}

@@ -3,23 +3,25 @@
   @include prefix(flex-wrap, nowrap);
   @include prefix(justify-content, space-between);
   @include prefix(align-items, center);
-  min-height: 3.125rem;
+  min-height: 2.125rem;
   padding: .9375rem $spacing-unit;
   border: .1875rem solid $color-black;
   border-radius: #{2 * $spacing-unit};
   color: $color-black;
   background-color: transparent;
   font-family: $subheading-ff;
-  font-size: 1.25em;
+  font-size: 1em;
   font-weight: $heading-fw;
   text-align: left;
   text-decoration: none;
   line-height: $subheading-lh;
+  max-width: max-content;
   cursor: pointer;
   @include prefix(transition, all .3s ease);
   @include smallScreen() {
+    font-size: 1.25em;
     min-height: #{2 * $spacing-unit};
-    padding: 1.5625rem #{1.5 * $spacing-unit};
+    padding: 1.25rem #{1.5 * $spacing-unit};
     border: .3125rem solid $color-black;
   }
 
