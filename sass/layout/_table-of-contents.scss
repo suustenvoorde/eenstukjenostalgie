@@ -95,7 +95,7 @@
         }
 
         &.active-year {
-          font-weight: $heading-fw;
+          font-weight: 800;
 
           @include smallScreen() {
             color: $color-primary;
@@ -103,7 +103,6 @@
             position: relative;
             z-index: 1000;
 	          width: 50%;
-            font-weight: $heading-fw;
 	          text-align: center;
             text-decoration: none;
           }
