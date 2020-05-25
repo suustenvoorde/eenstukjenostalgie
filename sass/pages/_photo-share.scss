@@ -17,7 +17,6 @@
   @include prefix(flex-wrap, wrap);
 
   @include smallScreen() {
-    max-height: calc(100vh - 4.8125rem - #{$spacing-unit * 2});
     @include prefix(flex-wrap, nowrap);
   }
 
