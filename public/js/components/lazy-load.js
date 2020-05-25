@@ -25,7 +25,13 @@ const lazyLoad = {
     for (var year in selection) {
       if (selection.hasOwnProperty(year)) {
         var yearElem = document.getElementById('year-' + year);
+        var crosses = img.cloneNode(true);
         var fragment = document.createDocumentFragment();
+
+        crosses.classList.add('crosses');
+        crosses.src = '/images/crosses-amsterdam.svg';
+        crosses.alt = '';
+        fragment.appendChild(crosses);
 
         selection[year].forEach((street, i) => {
           // Create the new street ul elem:
@@ -98,8 +104,6 @@ const lazyLoad = {
             var cloneButtonImage = img.cloneNode(true);
             cloneButtonImage.src = "../../images/icons/share.svg";
             cloneButton.appendChild(cloneButtonImage);
-
-
           });
         });
 

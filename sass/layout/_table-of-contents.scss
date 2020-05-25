@@ -75,10 +75,11 @@
           color: $color-black;
         }
 
-        &:hover,
-        &:active,
-        &:focus {
+        &:hover > h2,
+        &:active > h2,
+        &:focus > h2 {
           color: $color-primary;
+          font-weight: 800;
         }
       }
 
