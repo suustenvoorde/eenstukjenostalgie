@@ -11,8 +11,6 @@ const shareModal = {
     });
   },
   openModal: function (modal, photoId) {
-    var url = window.location.host + '/photo/' + photoId;
-    this.copyToClipboard.value = url;
     this.modal.classList.add('show');
   },
   copy: function (input) {
@@ -20,6 +18,7 @@ const shareModal = {
     input.setSelectionRange(0, 99999); // For mobile devices
     input.parentNode.classList.add('copied');
     document.execCommand('copy');
+    setTimeout(() => { input.parentNode.classList.remove('copied'); }, 800);
   },
   closeModal: function () {
     this.modal.classList.remove('show');
@@ -35,7 +34,7 @@ const shareModal = {
       this.copyBtn = this.modal.querySelector('.copy-btn');
       this.closeBtn = this.modal.querySelector('.close-btn');
 
-      this.openModal(this.modal, shared.value);
+      this.openModal(this.modal);
 
       // Copy url on clicking copyBtn:
       this.copyBtn.addEventListener('click', (e) => {
