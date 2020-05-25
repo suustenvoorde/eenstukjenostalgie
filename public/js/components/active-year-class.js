@@ -10,7 +10,6 @@ const hamburgerMenu = {
         if(sections[i].offsetTop <= window.scrollY && (sections[i].offsetTop + sections[i].offsetHeight) > window.scrollY+5) {
           yearTitle[i].classList.add('active-year');
         } else if (window.scrollY < 67) {
-          console.log(window.scrollY, sections[i].offsetTop)
           yearTitle[0].classList.add('active-year');
         }
         else {

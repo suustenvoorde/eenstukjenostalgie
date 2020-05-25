@@ -1,91 +1,75 @@
 .share-modal__overlay {
   position: fixed;
-  z-index: 10;
+  z-index: 11;
   left: 0;
-  top: 0;
   right: 0;
   bottom: 0;
-  @include prefix(display, flex);
-  @include prefix(justify-content, center);
-  @include prefix(align-items, center);
-  opacity: 0;
-  background-color: rgba(44,44,44,.9);
+  display: block;
+  padding: #{.5 * $spacing-unit};
+  background-color: $color-primary;
+  box-shadow: 0 0 0 .625rem rgba(44,44,44,.2);
   @include prefix(pointer-events, none);
-  @include prefix(transition, opacity 1s ease);
+  @include prefix(transform, translateY(100%));
+  @include prefix(transition, transform .3s ease);
 
   &.show {
-    opacity: 1;
     @include prefix(pointer-events, auto);
+    @include prefix(transform, translateY(0));
+  }
+}
+
+.share-modal {
+  position: relative;
+  display: block;
+  width: 100%;
+  @include smallScreen() {
+    width: calc(100% - 10vw);
+    margin-left: 10vw;
   }
 
-  & .share-modal {
-    position: relative;
-    display: block;
-    width: 100%;
-    max-width: 35rem;
-    border-radius: .625rem;
-    margin: $spacing-unit;
-    box-shadow: 0 0 0 .625rem rgba(44,44,44,.2);
+  & h2 {
+    margin: #{.5 * $spacing-unit};
+    margin-bottom: 0;
+    color: $color-white;
+  }
 
-    & > img {
+  & p {
+    margin: #{.5 * $spacing-unit};
+    margin-bottom: 0;
+  }
+
+  & .copy-to-clipboard {
+    max-width: 32rem;
+    margin: #{.5 * $spacing-unit};
+    margin-top: 0;
+  }
+
+  & .close-btn {
+    position: absolute;
+    top: #{-.5 * $spacing-unit};
+    right: #{.5 * $spacing-unit};
+    display: block;
+    width: #{$spacing-unit};
+    height: #{$spacing-unit};
+    padding: .71875rem;
+    border: 0;
+    border-radius: 50%;
+    outline: 0;
+    background-color: $color-white;
+    cursor: pointer;
+    @include prefix(transform, scale(1,1));
+    @include prefix(transition, transform .3s ease);
+
+    & > svg {
       display: block;
       width: 100%;
       height: auto;
-      border-radius: .625rem;
+      fill: $color-black;
     }
 
-    & .share {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      display: block;
-      padding: #{.5 * $spacing-unit};
-      border-radius: 0 0 .625rem .625rem;
-      background-color: $color-white;
-
-      & > h2 {
-        margin: #{.5 * $spacing-unit};
-        margin-bottom: 0;
-      }
-
-      & > p {
-        margin: #{.5 * $spacing-unit};
-        margin-top: 0;
-      }
-
-      & > .copy-to-clipboard {
-        margin: #{.5 * $spacing-unit};
-      }
-    }
-
-    & .close-btn {
-      position: absolute;
-      top: #{-.75 * $spacing-unit};
-      right: #{-.75 * $spacing-unit};
-      display: block;
-      width: #{1.5 * $spacing-unit};
-      height: #{1.5 * $spacing-unit};
-      padding: 1.140625rem;
-      border: 0;
-      border-radius: 50%;
-      outline: 0;
-      background-color: $color-primary;
-      cursor: pointer;
-      @include prefix(transform, scale(1,1));
-      @include prefix(transition, transform .3s ease);
-
-      & > svg {
-        display: block;
-        width: 100%;
-        height: auto;
-        fill: $color-white;
-      }
-
-      &:hover,
-      &:focus {
-        @include prefix(transform, scale(.9,.9));
-      }
+    &:hover,
+    &:focus {
+      @include prefix(transform, scale(.9,.9));
     }
   }
 }
