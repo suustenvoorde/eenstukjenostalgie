@@ -83,6 +83,8 @@
   position: absolute;
   left: #{.25 * $spacing-unit};
   top: #{.25 * $spacing-unit};
+  z-index: 1;
+
 
   & .share-btn {
     display: block;
