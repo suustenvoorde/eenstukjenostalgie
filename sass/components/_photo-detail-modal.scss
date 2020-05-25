@@ -1,88 +1,110 @@
 .photo-detail-modal__overlay {
-  position: fixed;
-  z-index: 10;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  @include prefix(display, flex);
-  @include prefix(justify-content, center);
-  @include prefix(align-items, center);
-  opacity: 0;
-  background-color: rgba(44,44,44,.8);
-  @include prefix(pointer-events, none);
-  @include prefix(transition, opacity 1s ease);
-
-  &.show {
-    opacity: 1;
-    @include prefix(pointer-events, auto);
-  }
+  display: none;
 }
 
-.photo-detail-modal {
-  position: relative;
-  display: block;
-  width: 100%;
-  max-width: 35rem;
-  border-radius: .625rem;
-  margin: $spacing-unit;
-  box-shadow: 0 0 0 .625rem rgba(44,44,44,.2);
-
-  & > img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: .625rem;
-  }
-
-  & .photo-detail {
-    position: absolute;
+@include smallScreen() {
+  .photo-detail-modal__overlay {
+    position: fixed;
+    z-index: 10;
     left: 0;
+    top: 0;
     right: 0;
     bottom: 0;
-    display: block;
-    padding: #{.5 * $spacing-unit};
-    border-radius: 0 0 .625rem .625rem;
-    background-color: $color-white;
+    @include prefix(display, flex);
+    @include prefix(justify-content, center);
+    @include prefix(align-items, center);
+    opacity: 0;
+    background-color: rgba(44,44,44,.8);
+    @include prefix(pointer-events, none);
+    @include prefix(transition, opacity .3s ease);
 
-    &__desc {
-      margin: #{.5 * $spacing-unit};
+    &.show {
+      opacity: 1;
+      @include prefix(pointer-events, auto);
     }
   }
 
-  & .close-btn {
-    position: absolute;
-    top: #{-.75 * $spacing-unit};
-    right: #{-.75 * $spacing-unit};
+  .photo-detail-modal {
+    position: relative;
     display: block;
-    width: #{1.5 * $spacing-unit};
-    height: #{1.5 * $spacing-unit};
-    padding: 1.140625rem;
-    border: 0;
-    border-radius: 50%;
-    background-color: $color-primary;
-    cursor: pointer;
-    @include prefix(transform, scale(1,1));
-    @include prefix(transition, transform .3s ease);
+    height: 90vh;
+    width: auto;
+    border-radius: .625rem;
+    margin: $spacing-unit;
+    box-shadow: 0 0 0 .625rem rgba(44,44,44,.2);
 
-    & > svg {
-      width: 100%;
-      height: auto;
-      fill: $color-white;
+    & > img {
+      display: block;
+      width: auto;
+      height: 100%;
+      border-radius: .625rem;
     }
 
-    &:hover,
-    &:focus {
-      @include prefix(transform, scale(.9,.9));
+    & .photo-detail {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: block;
+      padding: #{.5 * $spacing-unit};
+      border-radius: 0 0 .625rem .625rem;
+      background-color: $color-white;
+
+      &__desc {
+        margin: #{.5 * $spacing-unit};
+      }
+    }
+
+    & .close-btn {
+      position: absolute;
+      top: #{-.75 * $spacing-unit};
+      right: #{-.75 * $spacing-unit};
+      display: block;
+      width: #{1.5 * $spacing-unit};
+      height: #{1.5 * $spacing-unit};
+      padding: 1.140625rem;
+      border: 0;
+      border-radius: 50%;
+      background-color: $color-primary;
+      cursor: pointer;
+      @include prefix(transform, scale(1,1));
+      @include prefix(transition, transform .3s ease);
+
+      & > svg {
+        width: 100%;
+        height: auto;
+        fill: $color-white;
+      }
+
+      &:hover,
+      &:focus {
+        @include prefix(transform, scale(.9,.9));
+      }
     }
   }
 }
 
 // Just as a test environment for the photo-share:
+.photo {
+  .photo-share {
+    @include smallScreen() {
+      display: none;
+    }
+  }
+
+  &:hover {
+    .photo-share {
+      display: block;
+    }
+  }
+}
+
 .photo-share {
   position: absolute;
   left: #{.25 * $spacing-unit};
   top: #{.25 * $spacing-unit};
+  z-index: 1;
+
 
   & .share-btn {
     display: block;

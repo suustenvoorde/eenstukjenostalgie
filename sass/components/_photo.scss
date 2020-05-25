@@ -4,7 +4,6 @@
   display: block;
   overflow: hidden;
   width: 100%;
-  border-radius: .625rem;
   margin-bottom: $spacing-unit;
 
   &.placeholder {
@@ -50,7 +49,6 @@
       display: block;
       width: 100%;
       height: auto;
-      border-radius: .625rem;
     }
   }
 
@@ -61,7 +59,6 @@
     bottom: 0;
     display: block;
     padding: #{.5 * $spacing-unit};
-    border-radius: 0 0 .625rem .625rem;
     color: $color-white;
     background-color: $color-primary-dark;
     @include prefix(pointer-events, none);

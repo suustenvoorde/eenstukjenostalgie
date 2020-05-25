@@ -5,14 +5,19 @@
   width: 100%;
   margin-bottom: 22.5vh;
   @include smallScreen() {
-    left: 15vw;
+    left: 10vw;
     top: 0;
-    width: calc(100% - 15vw);
+    width: calc(100% - 10vw);
   }
 
   & > h1 {
     display: block;
     margin: $spacing-unit;
+  }
+
+  h2 {
+    margin-top: $spacing-unit;
+    font-weight: 600;
   }
 }
 
@@ -26,11 +31,10 @@
   }
 
   & .street {
-    @include prefix(columns, 15rem);
+    @include prefix(columns, 20rem);
     @include prefix(column-gap, $spacing-unit);
     width: 100%;
     padding-bottom: $spacing-unit;
-    border-bottom: 1px solid $color-black;
     margin: $spacing-unit 0;
   }
 }

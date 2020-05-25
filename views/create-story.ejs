@@ -36,12 +36,18 @@
 						<section id="year-<%- year %>" class="year">
 							<img class="crosses" src="/images/crosses-amsterdam.svg" alt="">
 							<% data[year].forEach(street => { %>
+								<h2><%- street.label %></h2>
 								<ul class="street <%- street.uri.split('/')[street.uri.split('/').length-2] %>">
 									<% street.photos.forEach(photo => { %>
 
 										<li class="photo lazy">
 											<a class="photo__img">
 												<img src="<%- photo.url %>" alt="<%- photo.title %>">
+												<form class="photo-share" action="/photo" method="post">
+													<button class="share-btn" type="submit">
+														<%- include('../public/images/icons/share.svg') %>
+													</button>
+												</form>
 											</a>
 											<p class="photo__desc"><%= photo.title %></p>
 										</li>
