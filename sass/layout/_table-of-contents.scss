@@ -56,7 +56,6 @@
     background-color: $color-primary;
     list-style: none;
     clear: both;
-    margin-left: $spacing-unit;
     @include prefix(transform, translateX(-4rem));
     @include prefix(transition, all .3s ease-in-out);
     @include smallScreen() {
