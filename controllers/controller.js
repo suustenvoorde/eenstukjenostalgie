@@ -50,7 +50,7 @@ exports.useCreateStoryPage = async function (req, res, next) {
     await database.getItem(database.photos, req.query['shared'])
       .then(result => {
         req.sharedPhoto = {
-          url: req.hostname + '/photo/' + result.id,
+          url: 'www.' + req.hostname + '/photo/' + result.id,
           src: result.src,
           alt: result.alt
         };
