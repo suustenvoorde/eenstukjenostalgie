@@ -79,6 +79,7 @@
         &:active > h2,
         &:focus > h2 {
           color: $color-primary;
+          font-weight: 800;
         }
       }
 
