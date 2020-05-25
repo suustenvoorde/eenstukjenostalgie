@@ -37,7 +37,7 @@ const map = {
 						return {
 							fillColor: '#FFFFFF',
 							fillOpacity: 1,
-							color: '#000000',
+							color: '#808080',
 							opacity: 1,
 							weight: 5
 						}
