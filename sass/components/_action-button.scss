@@ -3,8 +3,9 @@
   @include prefix(flex-wrap, nowrap);
   @include prefix(justify-content, space-between);
   @include prefix(align-items, center);
-  min-height: 2.125rem;
-  padding: .9375rem $spacing-unit;
+  max-width: max-content;
+  min-height: #{2 * $spacing-unit};
+  padding: 1.53125rem $spacing-unit;
   border: .1875rem solid $color-black;
   border-radius: #{2 * $spacing-unit};
   outline: 0;
@@ -16,14 +17,12 @@
   text-align: left;
   text-decoration: none;
   line-height: $subheading-lh;
-  max-width: max-content;
   cursor: pointer;
   @include prefix(transition, all .3s ease);
   @include smallScreen() {
+    padding: 1.375rem #{1.5 * $spacing-unit};
+    border-width: .3125rem;
     font-size: 1.25em;
-    min-height: #{2 * $spacing-unit};
-    padding: 1.25rem #{1.5 * $spacing-unit};
-    border: .3125rem solid $color-black;
   }
 
   & > svg {
