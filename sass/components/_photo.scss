@@ -7,7 +7,7 @@
   margin-bottom: $spacing-unit;
 
   &.placeholder {
-    padding-bottom: 50%;
+    height: 100px;
     background-color: rgba(44,44,44,.2);
 
     &::after {

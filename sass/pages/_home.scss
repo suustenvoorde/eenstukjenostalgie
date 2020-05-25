@@ -1,18 +1,24 @@
 .home {
-  .wrapper {
+  & .wrapper {
     @include prefix(display, flex);
   }
-  
-  .title {
+
+  & .title {
     position: absolute;
     left: 0;
     top: 0;
     display: block;
     margin: $spacing-unit;
+    margin-left: #{2 * $spacing-unit};
     margin-right: calc(6.5rem + #{2 * $spacing-unit});
 
     @include smallScreen() {
       left: 30rem;
     }
+  }
+
+  & .site-footer {
+    position: absolute;
+    bottom: 0;
   }
 }

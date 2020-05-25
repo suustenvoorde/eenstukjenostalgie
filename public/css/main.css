@@ -326,11 +326,27 @@ small {
     #map {
       width: calc(100% - 30rem);
       height: 100vh; } }
-  #map .leaflet-interactive {
-    fill: #DA383F;
-    stroke: #B7363B; }
+  #map .leaflet-overlay-pane {
+    -webkit-mix-blend-mode: difference;
+    -moz-mix-blend-mode: difference;
+    -o-mix-blend-mode: difference;
+    mix-blend-mode: difference; }
+  #map .leaflet-circle-pane {
+    z-index: 4; }
   #map .leaflet-control-attribution {
     display: none; }
+  #map .radius {
+    fill: #DA383F;
+    fill-opacity: .8;
+    stroke: #B7363B;
+    stroke-width: 5;
+    cursor: grab;
+    -webkit-transition: stroke-width 0.3s ease;
+    -moz-transition: stroke-width 0.3s ease;
+    -o-transition: stroke-width 0.3s ease;
+    transition: stroke-width 0.3s ease; }
+    #map .radius:hover {
+      stroke-width: 10; }
 
 /********************
   Radius select
@@ -844,15 +860,25 @@ small {
 .photo-detail-modal {
   position: relative;
   display: block;
+<<<<<<< HEAD
   height: 90vh;
   width: auto;
+=======
+  width: 100%;
+  max-width: 35rem;
+>>>>>>> master
   border-radius: .625rem;
   margin: 2.1875rem;
   box-shadow: 0 0 0 0.625rem rgba(44, 44, 44, 0.2); }
   .photo-detail-modal > img {
     display: block;
+<<<<<<< HEAD
     width: auto;
     height: 100%;
+=======
+    width: 100%;
+    height: auto;
+>>>>>>> master
     border-radius: .625rem; }
   .photo-detail-modal .photo-detail {
     position: absolute;
@@ -1328,6 +1354,7 @@ small {
   top: 0;
   display: block;
   margin: 2.1875rem;
+  margin-left: 4.375rem;
   margin-right: calc(6.5rem + 4.375rem); }
   @media all and (min-width: 48em) {
     .home .title {
