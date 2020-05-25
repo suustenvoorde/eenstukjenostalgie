@@ -8,13 +8,8 @@ const map = {
 	searchbar: document.querySelector('.searchbar'),
 	radiusSelect: document.querySelector('.radius-select'),
 	mapboxAccessToken: 'pk.eyJ1IjoibWF4ZGV2cmllczk1IiwiYSI6ImNqZWZydWkyNjF3NXoyd28zcXFqdDJvbjEifQ.Dl3DvuFEqHVAxfajg0ESWg',
-	map: L.map('map', {
-		zoomControl: false
-	}),
+	map: L.mapbox.map('map'),
 	circle: L.circle(),
-	polygon: L.polygon({
-		color: '#0000FF'
-	}),
 	geoJSON: L.geoJSON(),
 	centerLatLng: [ 52.370216, 4.895168 ],
 	startPos: { x: 0, y: 0 },
@@ -26,23 +21,35 @@ const map = {
 		this.radiusSelect.style.top = (this.mapElem.offsetTop + point.y) + 'px';
 	},
 	init: async function () {
+		L.mapbox.accessToken = this.mapboxAccessToken;
+
 		// Set the original view of the map:
 		this.map.setView(this.centerLatLng, 14);
 
 		// Give the map the correct style:
-		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + this.mapboxAccessToken, {
-			minZoom: 11,
-			maxZoom: 20,
-			id: 'mapbox.light'
-		}).addTo(this.map);
+		this.map.addLayer(L.mapbox.styleLayer('mapbox://styles/maxdevries95/ckai3ajbs0jig1ir1pq2k4nbr'));
 
-		// Add zoom control to bottomright of the map:
-		L.control.zoom({
-			position: 'bottomright'
-		}).addTo(this.map);
+		// Add city districts to the map:
+		await this.getCityDistricts()
+			.then(result => {
+				this.cityDistricts = L.geoJson(result, {
+					style: (feature) => {
+						return {
+							fillColor: '#FFFFFF',
+							fillOpacity: 1,
+							color: '#000000',
+							opacity: 1,
+							weight: 5
+						}
+					}
+				}).addTo(this.map);
+			})
+			.catch(err => console.log(err));
 
 		// Add the circle to the map
+		this.map.createPane('circle');
 		this.circle
+			.setStyle({ className: 'radius', pane: 'circle' })
 			.setLatLng(this.centerLatLng)
 			.setRadius(this.radiusSelect.value / 2)
 			.addTo(this.map);
@@ -91,6 +98,16 @@ const map = {
 			this.startPos.x = layerPoint.x - this.currentPos.x;
 			this.startPos.y = layerPoint.y - this.currentPos.y;
 			this.moveCircle();
+
+			// Change city district stroke width:
+			this.cityDistricts.eachLayer(layer => {
+				var weight = newZoomLevel >= 8 && newZoomLevel < 11
+					? 1 : newZoomLevel >= 11 && newZoomLevel < 13
+					? 2 : newZoomLevel >= 13 && newZoomLevel < 15
+					? 5 : newZoomLevel >= 15
+					? 7 : 0;
+				layer.setStyle({ weight: weight });
+			});
 		});
 
 		// Following code is to let radius select follow the circle:
@@ -158,12 +175,15 @@ const map = {
 		// 	this.createPolygon([latLng.lat, latLng.lng]);
 		// });
 	},
+	getCityDistricts: async function () {
+		return await fetch ('/json/amsterdam-districts.geojson')
+			.then(res => res.json())
+			.catch(err => console.log(err));
+	},
 	getAllStreets: async function () {
 		return fetch('/json/streets.json')
 			.then(res => res.json())
-			.catch(err => {
-				console.log(err);
-			});
+			.catch(err => console.log(err));
 	},
 	changeRadius: function () {
 		this.radiusSelect.addEventListener('change', (e) => {
@@ -195,8 +215,10 @@ const map = {
 		var polygonCoords = circleToPolygon(coords, radius, numberOfEdges);
 
 		// Set the new coords:
+		if (!this.polygon) this.polygon = L.polygon(polygonCoords.coordinates[0]);
+
 		this.polygon
-			.setLatLngs(polygonCoords.coordinates[0]);
+			.setLatLngs(polygonCoords.coordinates[0])
 			// .addTo(this.map) // Remove for production
 			// .bringToBack(); // Remove for production
 

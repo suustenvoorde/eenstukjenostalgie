@@ -9,6 +9,7 @@
     top: 0;
     display: block;
     margin: $spacing-unit;
+    margin-left: #{2 * $spacing-unit};
     margin-right: calc(6.5rem + #{2 * $spacing-unit});
 
     @include smallScreen() {
