@@ -1,4 +1,3 @@
-// var map = require('./map.js');
 var map = require('./map.js');
 var loader = require('./loader.js');
 
