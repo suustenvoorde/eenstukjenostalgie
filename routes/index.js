@@ -11,9 +11,6 @@ router.post('/search-location', controller.searchLocationPage);
 // POST create story page:
 router.post('/create-story', controller.postCreateStoryPage);
 
-// USE create story page:
-router.use('/create-story/:id', controller.useCreateStoryPage);
-
 // GET create story page:
 router.get('/:street/:id', controller.getCreateStoryPage);
 

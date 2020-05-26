@@ -49,24 +49,6 @@ exports.postCreateStoryPage = async function (req, res, next) {
     .catch(err => console.log(err));
 }
 
-exports.useCreateStoryPage = async function (req, res, next) {
-  // Get the shared photo if given:
-  if (Object.keys(req.query)[0] == 'shared') {
-    await database.getItem(database.photos, req.query['shared'])
-      .then(result => {
-        req.sharedPhoto = {
-          url: 'www.' + req.hostname + '/photo/' + result.id,
-          src: result.src,
-          alt: result.alt
-        };
-        next();
-      })
-      .catch(err => console.log(err));
-  } else {
-    next();
-  }
-}
-
 exports.getCreateStoryPage = async function (req, res, next) {
   // Get the story from database using the id:
   var selection = await chapters.getPhotoSelection(req.params.id, 0);
@@ -88,15 +70,13 @@ exports.getPhotoSelectionPage = async function (req, res, next) {
 
 exports.postPhotoPage = async function (req, res, next) {
   // Create the photo data:
-  var referer = req.header('Referer') || '/';
-  var url = referer.includes('?') ? referer.slice(0, referer.indexOf('?')) : referer;
   var photo = req.body;
   photo.id = shortid.generate();
 
   // Add the photo to the database:
   await database.addItem(database.photos, photo)
     .then(result => {
-      res.redirect(url + '?shared=' + photo.id);
+      res.send(JSON.stringify(photo));
     })
     .catch(err => console.log(err));
 }
