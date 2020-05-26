@@ -1,4 +1,5 @@
 var imageDetail = require('./image-detail.js');
+var share = require('./share.js');
 
 const lazyLoad = {
   scrolling: true,
@@ -19,7 +20,6 @@ const lazyLoad = {
     var a = document.createElement('a');
     var img = document.createElement('img');
     var p = document.createElement('p');
-    var form = document.createElement('form');
     var button = document.createElement('button');
 
     for (var year in selection) {
@@ -45,7 +45,6 @@ const lazyLoad = {
           var cloneH2 = h2.cloneNode(true);
           cloneH2.textContent = street.label;
           fragment.insertBefore(cloneH2, cloneUl);
-
 
           street.photos.forEach((photo, j) => {
             // Add one to the startIdx value:
@@ -89,21 +88,18 @@ const lazyLoad = {
               e.preventDefault();
             });
 
-            // Create the form elem:
-            var cloneForm = form.cloneNode(true);
-            cloneForm.classList.add('photo-share');
-            cloneForm.action = '/photo';
-            cloneForm.method = "post";
-            cloneLi.appendChild(cloneForm);
-
             var cloneButton = button.cloneNode(true);
             cloneButton.classList.add('share-btn');
-            cloneButton.type = "submit";
-            cloneForm.appendChild(cloneButton);
+            cloneButton.type = 'button';
+            cloneLi.appendChild(cloneButton);
 
             var cloneButtonImage = img.cloneNode(true);
-            cloneButtonImage.src = "../../images/icons/share.svg";
+            cloneButtonImage.src = '../../images/icons/share.svg';
             cloneButton.appendChild(cloneButtonImage);
+
+            cloneButton.addEventListener('click', (e) => {
+              share.postPhoto(cloneButton);
+            });
           });
         });
 

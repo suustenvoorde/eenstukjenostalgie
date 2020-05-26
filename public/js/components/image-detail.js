@@ -1,3 +1,5 @@
+var shareModal = require('./share-modal.js');
+
 const imageDetail = {
   photos: document.querySelectorAll('.year .photo__img'),
   modal: document.querySelector('.photo-detail-modal__overlay'),
@@ -6,6 +8,7 @@ const imageDetail = {
     this.modalImg.alt = alt;
     this.modalDesc.textContent = alt;
     this.modal.classList.add('show');
+    if (shareModal.modal.classList.contains('show')) shareModal.modal.classList.remove('show');
   },
   closeModal: function () {
     this.modal.classList.remove('show');

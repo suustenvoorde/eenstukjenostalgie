@@ -47,11 +47,7 @@
 												<img src="<%- photo.url %>" alt="<%- photo.title %>">
 											</a>
 											<p class="photo__desc"><%= photo.title %></p>
-											<form class="photo-share" action="/photo" method="post">
-												<button class="share-btn" type="submit">
-													<%- include('../public/images/icons/share.svg') %>
-												</button>
-											</form>
+											<button class="share-btn" type="submit"><%- include('../public/images/icons/share.svg') %></button>
 										</li>
 
 									<% }); %>
@@ -64,21 +60,19 @@
 			</main>
 		</div>
 
-		<% if (sharedPhoto) { %>
-			<div class="share-modal__overlay show">
-				<div class="share-modal">
-					<h2>Deel jouw foto met anderen</h2>
-					<p>
-						Kopieer deze link:
-					</p>
-					<div class="copy-to-clipboard">
-						<input type="text" value="<%- sharedPhoto.url %>">
-						<button class="copy-btn" type="button"><%- include('../public/images/icons/clipboard.svg') %></button>
-					</div>
-					<button class="close-btn" type="button"><%- include('../public/images/icons/close.svg') %></button>
+		<div class="share-modal__overlay">
+			<div class="share-modal">
+				<h2>Deel jouw foto met anderen</h2>
+				<p>
+					Kopieer deze link:
+				</p>
+				<div class="copy-to-clipboard">
+					<input type="text" value="">
+					<button class="copy-btn" type="button"><%- include('../public/images/icons/clipboard.svg') %></button>
 				</div>
+				<button class="close-btn" type="button"><%- include('../public/images/icons/close.svg') %></button>
 			</div>
-		<% } %>
+		</div>
 
 		<%- include('partials/foot.ejs') %>
 
