@@ -15,7 +15,7 @@ router.post('/create-story', controller.postCreateStoryPage);
 router.use('/create-story/:id', controller.useCreateStoryPage);
 
 // GET create story page:
-router.get('/create-story/:id', controller.getCreateStoryPage);
+router.get('/:street/:id', controller.getCreateStoryPage);
 
 // GET photo selection page:
 router.get('/photo-selection/:id/:startIdx', controller.getPhotoSelectionPage);

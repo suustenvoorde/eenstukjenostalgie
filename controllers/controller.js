@@ -35,11 +35,16 @@ exports.postCreateStoryPage = async function (req, res, next) {
     data: photos
   };
 
+  var street = story.data[Object.keys(story.data)[0]][0].uri;
+  street = street.split('/')[street.split('/').length-2];
+  street = street.split('-').join('');
+
   // Add story to the database:
   await database.addItem(database.stories, story)
     .then(result => {
       // When added, redirect:
-      res.redirect('/create-story/' + story.id);
+      // res.redirect('/create-story/' + story.id);
+      res.redirect('/' + street + '/' + story.id);
     })
     .catch(err => console.log(err));
 }
