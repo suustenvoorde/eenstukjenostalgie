@@ -10,21 +10,6 @@ exports.homepage = async function (req, res, next) {
   res.render('index');
 }
 
-exports.searchLocationPage = function (req, res, next) {
-  var url = sparqlqueries.url(sparqlqueries.getLocationBySearch(req.body.searchLocation));
-
-  fetch (url)
-    .then(res => res.json())
-    .then(data => {
-      var rows = data.results.bindings;
-      req.session.searchResults = rows;
-      res.redirect('/');
-    })
-    .catch(err => {
-      console.log(err);
-    });
-}
-
 exports.postCreateStoryPage = async function (req, res, next) {
   // Get the photos from the API:
   var photos = await chapters.getPhotos(req.body);

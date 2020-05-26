@@ -5,9 +5,6 @@ var controller = require('../controllers/controller.js');
 // GET new story page:
 router.get('/', controller.homepage);
 
-// POST search location page:
-router.post('/search-location', controller.searchLocationPage);
-
 // POST create story page:
 router.post('/create-story', controller.postCreateStoryPage);
 
