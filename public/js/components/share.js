@@ -1,3 +1,4 @@
+var imageDetail = require('./image-detail.js');
 var shareModal = require('./share-modal.js');
 
 const share = {
@@ -5,8 +6,7 @@ const share = {
   init: async function () {
     this.elems.forEach(elem => {
       elem.addEventListener('click', (e) => {
-        e.preventDefault();
-        var img = elem.parentNode.parentNode.querySelector('img');
+        var img = elem.parentNode.querySelector('img');
         var photo = {
           src: img.src,
           alt: img.alt
@@ -26,9 +26,11 @@ const share = {
         })
         .then(res => res.json())
         .then(photo => {
+          if (imageDetail.modal.classList.contains('show')) imageDetail.modal.classList.remove('show');
           shareModal.openModal(photo.id);
         })
         .catch(err => console.log(err));
+        e.preventDefault();
       });
     });
   }
