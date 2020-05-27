@@ -29,6 +29,17 @@ exports.postCreateStoryPage = async function (req, res, next) {
   // Get the photos from the API:
   var photos = await chapters.getPhotos(req.body);
 
+  // Check for errors:
+  var errMsg = req.body.startyear > req.body.endyear
+    ? 'year' : Object.values(photos).length == 0
+    ? 'empty'
+    : undefined;
+
+  if (errMsg) {
+    res.redirect('/?err=' + errMsg);
+    return;
+  }
+
   // Create a story object:
   var story = {
     id: shortid.generate(),
