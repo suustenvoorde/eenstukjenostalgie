@@ -28,7 +28,7 @@ const lazyLoad = {
         var crosses = img.cloneNode(true);
         var fragment = document.createDocumentFragment();
 
-        console.log(Object.keys(selection));
+        this.startYear = Object.keys(selection)[Object.keys(selection).length-1];
 
         crosses.classList.add('crosses');
         crosses.src = '/images/crosses-amsterdam.svg';
