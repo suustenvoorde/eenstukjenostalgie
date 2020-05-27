@@ -73,6 +73,8 @@ const chapters = {
         // Filter the result for streets until we reach more than 50 photos:
         for (var year in result.data) {
           if (result.data.hasOwnProperty(year)) {
+            if (startYear == null) startYear = Number(Object.keys(result.data)[0]);
+
             result.data[year] = result.data[year].filter(street => {
               var selection;
 

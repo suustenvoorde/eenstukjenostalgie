@@ -46,8 +46,7 @@ exports.postCreateStoryPage = async function (req, res, next) {
 
 exports.getCreateStoryPage = async function (req, res, next) {
   // Get the story from database using the id:
-  console.log(req.params);
-  var selection = await chapters.getPhotoSelection(req.params.id, 0);
+  var selection = await chapters.getPhotoSelection(req.params.id, null, 0);
 
   // Render the create story page:
   res.render('create-story', {
