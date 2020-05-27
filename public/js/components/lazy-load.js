@@ -113,7 +113,7 @@ const lazyLoad = {
     this.startIdx = this.lazies.length;
 
     this.lastLazy = Array.from(this.lazies).find((lazy, i, self) => i == self.length-1);
-    var scrollTop;
+    var scrollTop, screenHeight;
 
     // Calc the offsetTop of the last image:
     window.addEventListener('load', (e) => {
@@ -124,7 +124,9 @@ const lazyLoad = {
     document.addEventListener('scroll', async (e) => {
       if (this.scrolling) {
         scrollTop = window.scrollY;
-        if (scrollTop >= this.lastLazyTop - 100) {
+        screenHeight = window.innerHeight;
+
+        if (scrollTop + screenHeight >= this.lastLazyTop) {
           this.scrolling = false;
           var selection = await this.fetchPhotoSelection(this.startIdx);
           this.addPhotos(selection);
