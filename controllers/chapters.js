@@ -66,7 +66,7 @@ const chapters = {
 
     return data;
   },
-  getPhotoSelection: async function (id, startIdx) {
+  getPhotoSelection: async function (id, startYear, startIdx) {
     var counter = 0;
     return await database.getItem(database.stories, id)
       .then(result => {
@@ -75,7 +75,15 @@ const chapters = {
           if (result.data.hasOwnProperty(year)) {
             result.data[year] = result.data[year].filter(street => {
               var selection;
-              if (counter >= startIdx && counter < startIdx+50) selection = street;
+
+              if (Number(year) < startYear && counter >= startIdx) {
+                selection = street;
+                startIdx += street.photos.length;
+              } else if (Number(year) >= startYear && counter >= startIdx && counter < startIdx+50) {
+                selection = street;
+              }
+
+              // if (counter >= startIdx && counter < startIdx+50) selection = street;
               counter += street.photos.length;
               return selection;
             });
