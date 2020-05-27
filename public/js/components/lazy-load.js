@@ -4,12 +4,12 @@ var share = require('./share.js');
 const lazyLoad = {
   scrolling: true,
   lazies: document.querySelectorAll('.lazy'),
-  fetchPhotoSelection: async function (startIdx) {
+  fetchPhotoSelection: async function (startYear, startIdx) {
     var pathname = window.location.pathname.split('/');
     var id = pathname[pathname.length-1];
 
     // Fetch new photos:
-    return await fetch ('/photo-selection/' + id + '/' + startIdx)
+    return await fetch ('/photo-selection/' + id + '/' + startYear + '/' + startIdx)
       .then(res => res.json())
       .catch(err => console.log(err));
   },
@@ -27,6 +27,8 @@ const lazyLoad = {
         var yearElem = document.getElementById('year-' + year);
         var crosses = img.cloneNode(true);
         var fragment = document.createDocumentFragment();
+
+        console.log(Object.keys(selection));
 
         crosses.classList.add('crosses');
         crosses.src = '/images/crosses-amsterdam.svg';
@@ -112,7 +114,12 @@ const lazyLoad = {
     // Define startIdx:
     this.startIdx = this.lazies.length;
 
+    // Define last lazy image:
     this.lastLazy = Array.from(this.lazies).find((lazy, i, self) => i == self.length-1);
+
+    // Define startYear:
+    this.startYear = this.lastLazy.parentNode.parentNode.id.slice(5);
+
     var scrollTop, screenHeight;
 
     // Calc the offsetTop of the last image:
@@ -128,7 +135,7 @@ const lazyLoad = {
 
         if (scrollTop + screenHeight >= this.lastLazyTop) {
           this.scrolling = false;
-          var selection = await this.fetchPhotoSelection(this.startIdx);
+          var selection = await this.fetchPhotoSelection(this.startYear, this.startIdx);
           this.addPhotos(selection);
         }
       }
