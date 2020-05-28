@@ -23,4 +23,7 @@ router.get('/photo-selection/:id/:startYear/:startIdx', controller.getPhotoSelec
 // GET error page:
 router.get('/error', controller.getErrorPage);
 
+// CATCH non existing page requests:
+router.use(controller.catchNonExistingPages);
+
 module.exports = router;

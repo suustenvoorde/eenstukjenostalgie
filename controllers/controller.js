@@ -107,3 +107,7 @@ exports.getErrorPage = function (req, res, next) {
     status: status
   });
 }
+
+exports.catchNonExistingPages = function (req, res, next) {
+  res.status(404).redirect('/error?status=pageNotFound');
+}

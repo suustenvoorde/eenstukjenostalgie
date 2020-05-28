@@ -1,4 +1,12 @@
 const status = {
+  pageNotFound: {
+    title: "pagina niet gevonden.",
+    msg: "De opgevraagde pagina bestaat niet of kan niet gevonden worden. Probeer het met een andere url of ga naar de homepage.",
+    button: {
+      src: "/",
+      value: "Naar homepage"
+    }
+  },
   incorrectTimestamp: {
     title: "verkeerd beginjaar.",
     msg: "Het ingevoerde beginjaar is groter dan het eindjaar. Voer een eindjaar in dat na het beginjaar komt.",
