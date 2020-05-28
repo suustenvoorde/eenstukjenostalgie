@@ -1,5 +1,6 @@
 var imageDetail = require('./image-detail.js');
 var share = require('./share.js');
+var errors = require('./errors.js');
 
 const lazyLoad = {
   scrolling: true,
@@ -11,7 +12,7 @@ const lazyLoad = {
     // Fetch new photos:
     return await fetch ('/photo-selection/' + id + '/' + startYear + '/' + startIdx)
       .then(res => res.json())
-      .catch(err => console.log(err));
+      .catch(err => errors.fire('noSelectionFound'));
   },
   addPhotos: function (selection) {
     var h2 = document.createElement('h2');

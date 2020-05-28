@@ -1,5 +1,6 @@
 var imageDetail = require('./image-detail.js');
 var shareModal = require('./share-modal.js');
+var errors = require('./errors.js');
 
 const share = {
   elems: document.querySelectorAll('.share-btn'),
@@ -10,7 +11,7 @@ const share = {
       alt: img.alt
     };
 
-    fetch ('/foto', {
+    fetch ('/fot', {
       method: 'post',
       mode: 'cors',
       cache: 'no-cache',
@@ -27,7 +28,7 @@ const share = {
       if (imageDetail.modal.classList.contains('show')) imageDetail.modal.classList.remove('show');
       shareModal.openModal(photo.id);
     })
-    .catch(err => console.log(err));
+    .catch(err => errors.fire('noPhotoToDB'));
   },
   init: function () {
     this.elems.forEach(elem => {
