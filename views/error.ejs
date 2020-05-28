@@ -1,9 +1,21 @@
 <!DOCTYPE html>
 <html lang="nl">
   <%- include('partials/head.ejs') %>
-  <body>
-    <h1>Error!</h1>
-    <h2><%= status.msg %></h2>
+  <body class="error-page">
+    <article class="error-msg">
+      <div class="illustration">
+        <%- include('../public/images/icons/sad.svg') %>
+      </div>
+      <h1>Oeps,</h1>
+      <h2><%= status.title %></h2>
+      <p><%= status.msg %></p>
+      <% if (status.button) { %>
+        <a class="action-btn action-btn--white" href="<%- status.button.src %>" role="button">
+          <span><%= status.button.value %></span>
+          <%- include('../public/images/icons/arrow-right.svg') %>
+        </a>
+      <% } %>
+    </article>
 
     <%- include('partials/foot.ejs') %>
   </body>
