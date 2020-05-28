@@ -41,15 +41,19 @@ exports.postCreateStoryPage = async function (req, res, next) {
   await database.addItem(database.stories, story)
     .then(result => {
       // When added, redirect:
-      // res.redirect('/create-story/' + story.id);
       res.redirect('/' + street + '/' + story.id);
     })
-    .catch(err => console.log(err));
+    .catch(err => res.redirect('/error?status=noStoryToDB'));
 }
 
 exports.getCreateStoryPage = async function (req, res, next) {
   // Get the story from database using the id:
   var selection = await chapters.getPhotoSelection(req.params.id, null, 0);
+
+  if (!selection) {
+    res.redirect('/error?status=noStoryFromDB');
+    return;
+  }
 
   // Render the create story page:
   res.render('create-story', {
@@ -88,7 +92,7 @@ exports.getPhotoPage = async function (req, res, next) {
         alt: result.alt
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => res.redirect('/error?status=noPhotoFromDB'));
 }
 
 exports.getErrorPage = function (req, res, next) {

@@ -93,7 +93,7 @@ const chapters = {
         }
         return result.data;
       })
-      .catch(err => console.log(err));
+      .catch(err => undefined);
   },
   fetchStreetWkts: async function (wkt) {
     var url = sparqlqueries.getStreetWkts(wkt);
