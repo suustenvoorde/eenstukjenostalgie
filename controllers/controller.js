@@ -10,21 +10,6 @@ exports.homepage = async function (req, res, next) {
   res.render('index');
 }
 
-exports.searchLocationPage = function (req, res, next) {
-  var url = sparqlqueries.url(sparqlqueries.getLocationBySearch(req.body.searchLocation));
-
-  fetch (url)
-    .then(res => res.json())
-    .then(data => {
-      var rows = data.results.bindings;
-      req.session.searchResults = rows;
-      res.redirect('/');
-    })
-    .catch(err => {
-      console.log(err);
-    });
-}
-
 exports.postCreateStoryPage = async function (req, res, next) {
   // Get the photos from the API:
   var photos = await chapters.getPhotos(req.body);
@@ -35,11 +20,16 @@ exports.postCreateStoryPage = async function (req, res, next) {
     data: photos
   };
 
+  var street = story.data[Object.keys(story.data)[0]][0].uri;
+  street = street.split('/')[street.split('/').length-2];
+  street = street.split('-').join('');
+
   // Add story to the database:
   await database.addItem(database.stories, story)
     .then(result => {
       // When added, redirect:
-      res.redirect('/create-story/' + story.id);
+      // res.redirect('/create-story/' + story.id);
+      res.redirect('/' + street + '/' + story.id);
     })
     .catch(err => console.log(err));
 }

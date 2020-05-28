@@ -10,7 +10,7 @@ const share = {
       alt: img.alt
     };
 
-    fetch ('/photo', {
+    fetch ('/foto', {
       method: 'post',
       mode: 'cors',
       cache: 'no-cache',

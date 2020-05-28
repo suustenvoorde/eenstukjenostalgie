@@ -2,7 +2,7 @@ const shareModal = {
   modal: document.querySelector('.share-modal__overlay'),
   openModal: function (photoId) {
     var url = new URL(window.location.href);
-    var link = 'www.' + url.host + '/photo/' + photoId;
+    var link = 'www.' + url.host + '/foto/' + photoId;
 
     this.copyToClipboard.value = link;
     this.modal.classList.add('show');
