@@ -17,7 +17,7 @@ const status = {
   },
   noPhotosFound: {
     title: "geen foto's gevonden.",
-    msg: "Van de ingevoerde locatie en tijd hebben we helaas geen foto's. Probeer een andere locatie of neem een ander begin -of eindjaar.",
+    msg: "Van de ingevoerde locatie en tijd hebben we helaas geen foto's. Probeer een andere locatie of neem een ander begin -of eindjaar. Houd er rekening mee dat er alleen van binnen Amsterdam foto's zijn.",
     button: {
       src: "/",
       value: "Probeer het opnieuw"
