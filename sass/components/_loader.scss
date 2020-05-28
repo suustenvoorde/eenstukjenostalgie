@@ -7,7 +7,7 @@
   bottom: 0;
   display: block;
   opacity: 0;
-  background-color: rgba(255,255,255,.3);
+  background-color: rgba(255,255,255,.5);
   @include prefix(pointer-events, none);
   @include prefix(transition, opacity 1s ease);
 
