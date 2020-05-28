@@ -2,6 +2,10 @@
   background-color: $color-primary;
 
   & .error-msg {
+    position: relative;
+    z-index: 1;
+    top: 0;
+    right: 0;
     @include prefix(display, flex);
     @include prefix(flex-direction, column);
     @include prefix(justify-content, center);
@@ -9,9 +13,12 @@
     width: 100%;
     max-width: 30rem;
     min-height: calc(100vh - 4.5625rem);
-    padding: #{.5 * $spacing-unit};
+    padding-right: #{.5 * $spacing-unit};
+    border-radius: 0;
     margin: 0 auto;
+    background-color: transparent;
     text-align: center;
+    box-shadow: none;
 
     & > * {
       margin: #{.5 * $spacing-unit};
@@ -33,6 +40,13 @@
       margin-top: 0;
       margin-bottom: 0;
       color: $color-white;
+    }
+
+    & > p {
+      margin-top: #{.5 * $spacing-unit};
+      margin-bottom: #{.5 * $spacing-unit};
+      color: $color-black;
+      font-family: $base-ff;
     }
   }
 }
