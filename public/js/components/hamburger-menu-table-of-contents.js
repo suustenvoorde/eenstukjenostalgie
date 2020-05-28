@@ -1,4 +1,5 @@
 var lazyLoad = require('./lazy-load.js');
+var loader = require('./loader.js');
 
 //hamburger menu mobile table of contents
 const hamburgerMenu = {
@@ -35,6 +36,7 @@ const hamburgerMenu = {
           lazyLoad.addPhotos(selection);
 
           if (selection[startYear]) {
+            loader.show();
             var lastStreet = selection[startYear].find((street, i, self) => i == self.length-1);
             var lastPhoto = lastStreet.photos.find((photo, i, self) => i == self.length-1);
             var lastLazy = Array.from(document.querySelectorAll('.lazy')).find(lazy => lazy.querySelector('img').src == lastPhoto.url);
@@ -42,6 +44,7 @@ const hamburgerMenu = {
             lastLazy.querySelector('img').addEventListener('load', (e) => {
               var startYearTop = document.getElementById('year-' + startYear).offsetTop;
               window.scrollTo(0, startYearTop);
+              loader.hide();
             });
           }
         })
