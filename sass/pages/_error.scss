@@ -1,0 +1,52 @@
+.error-page {
+  background-color: $color-primary;
+
+  & .error-msg {
+    position: relative;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    @include prefix(display, flex);
+    @include prefix(flex-direction, column);
+    @include prefix(justify-content, center);
+    @include prefix(align-items, center);
+    width: 100%;
+    max-width: 30rem;
+    min-height: calc(100vh - 4.5625rem);
+    padding-right: #{.5 * $spacing-unit};
+    border-radius: 0;
+    margin: 0 auto;
+    background-color: transparent;
+    text-align: center;
+    box-shadow: none;
+
+    & > * {
+      margin: #{.5 * $spacing-unit};
+    }
+
+    & .illustration {
+      display: block;
+      width: 7rem;
+      height: auto;
+    }
+
+    & > h1 {
+      margin-top: $spacing-unit;
+      margin-bottom: #{.25 * $spacing-unit};
+      color: $color-white;
+    }
+
+    & > h2 {
+      margin-top: 0;
+      margin-bottom: 0;
+      color: $color-white;
+    }
+
+    & > p {
+      margin-top: #{.5 * $spacing-unit};
+      margin-bottom: #{.5 * $spacing-unit};
+      color: $color-black;
+      font-family: $base-ff;
+    }
+  }
+}

@@ -31,13 +31,15 @@
   'components/year-selection',
   'components/share-modal',
   'components/copy-to-clipboard',
-  'components/photo';
+  'components/photo',
+  'components/error-msg';
 
 // 5. Page-specific styles
 @import
   'pages/home',
   'pages/create-story',
-  'pages/photo-share';
+  'pages/photo-share',
+  'pages/error';
 
 // 6. Themes
 // 7. Vendors

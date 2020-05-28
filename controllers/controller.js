@@ -4,6 +4,7 @@ var shortid = require('shortid');
 var sparqlqueries = require('./sparql.js');
 var chapters = require('./chapters.js');
 var database = require('./database.js');
+var errorStatus = require('./error-status.js');
 
 exports.homepage = async function (req, res, next) {
   // Render the homepage:
@@ -11,8 +12,26 @@ exports.homepage = async function (req, res, next) {
 }
 
 exports.postCreateStoryPage = async function (req, res, next) {
+  // Check for error startyear > endyear:
+  if (req.body.startyear > req.body.endyear) {
+    res.redirect('/error?status=incorrectTimestamp');
+    return;
+  }
+
   // Get the photos from the API:
   var photos = await chapters.getPhotos(req.body);
+
+  // Check for API error:
+  if (!photos) {
+    res.redirect('/error?status=noApiConnection');
+    return;
+  }
+
+  // Check for error no photos found:
+  if (Object.values(photos).length == 0) {
+    res.redirect('/error?status=noPhotosFound');
+    return;
+  }
 
   // Create a story object:
   var story = {
@@ -28,15 +47,19 @@ exports.postCreateStoryPage = async function (req, res, next) {
   await database.addItem(database.stories, story)
     .then(result => {
       // When added, redirect:
-      // res.redirect('/create-story/' + story.id);
       res.redirect('/' + street + '/' + story.id);
     })
-    .catch(err => console.log(err));
+    .catch(err => res.redirect('/error?status=noPhotosToDB'));
 }
 
 exports.getCreateStoryPage = async function (req, res, next) {
   // Get the story from database using the id:
   var selection = await chapters.getPhotoSelection(req.params.id, null, 0);
+
+  if (!selection) {
+    res.redirect('/error?status=noPhotosFromDB');
+    return;
+  }
 
   // Render the create story page:
   res.render('create-story', {
@@ -75,5 +98,16 @@ exports.getPhotoPage = async function (req, res, next) {
         alt: result.alt
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => res.redirect('/error?status=noPhotoFromDB'));
+}
+
+exports.getErrorPage = function (req, res, next) {
+  var status = errorStatus[req.query.status];
+  res.render('error', {
+    status: status
+  });
+}
+
+exports.catchNonExistingPages = function (req, res, next) {
+  res.status(404).redirect('/error?status=pageNotFound');
 }

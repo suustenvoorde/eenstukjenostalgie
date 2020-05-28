@@ -1,0 +1,48 @@
+.error-msg {
+  position: fixed;
+  z-index: 10;
+  top: $spacing-unit;
+  right: $spacing-unit;
+  display: block;
+  max-width: 20rem;
+  padding: #{.5 * $spacing-unit};
+  padding-right: #{1.5 * $spacing-unit};
+  border-radius: .625rem;
+  background-color: $color-black;
+  box-shadow: 0 0 0 .3125rem rgba(44,44,44,.2);
+
+  & > p {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: $color-white;
+    font-family: $heading-ff;
+  }
+
+  & .close-btn {
+    position: absolute;
+    top: #{.25 * $spacing-unit};
+    right: #{.25 * $spacing-unit};
+    display: block;
+    width: $spacing-unit;
+    height: $spacing-unit;
+    padding: .71875rem;
+    border: 0;
+    border-radius: 50%;
+    outline: 0;
+    background-color: $color-white;
+    cursor: pointer;
+    @include prefix(transform, scale(1,1));
+    @include prefix(transition, transform .3s ease);
+
+    & > img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    &:hover,
+    &:focus {
+      @include prefix(transform, scale(.9,.9));
+    }
+  }
+}
