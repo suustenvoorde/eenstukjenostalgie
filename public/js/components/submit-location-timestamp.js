@@ -19,7 +19,7 @@ const submitLocationTimestamp = {
 
       // Check for error with timestamp:
       if (data.startyear > data.endyear) {
-        // Direct to error handling js here:
+        errors.fire('incorrectTimestamp');
         return;
       }
 
