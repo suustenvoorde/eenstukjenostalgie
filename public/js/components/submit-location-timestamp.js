@@ -1,11 +1,13 @@
 // var map = require('./map.js');
 var map = require('./map.js');
 var loader = require('./loader.js');
+var errors = require('./errors.js');
 
 const submitLocationTimestamp = {
   form: document.querySelector('.location-timestamp'),
   init: function () {
     this.form.addEventListener('submit', (e) => {
+      e.preventDefault();
       var formdata = new FormData(e.target);
       var data = {
         wkt: map.inputCircle.wkt,
@@ -14,6 +16,12 @@ const submitLocationTimestamp = {
 
       for (var key of formdata.keys()) {
         data[key] = formdata.get(key);
+      }
+
+      // Check for error with timestamp:
+      if (data.startyear > data.endyear) {
+        // Direct to error handling js here:
+        return;
       }
 
       var http = new XMLHttpRequest();
@@ -31,7 +39,6 @@ const submitLocationTimestamp = {
         }
       }
       http.send(JSON.stringify(data));
-      e.preventDefault();
     });
   }
 };
