@@ -9,6 +9,8 @@ const chapters = {
     // Fetch the images for selected location and timestamp:
     var photos = await this.fetchLocationAndTimestamp(formdata.startyear, formdata.endyear, formdata.wkt);
 
+    if (!photos) return undefined;
+
     // Map the photos with the street distance from centerPoint:
     photos = photos.map(photo => {
       var parseWkt = wellknown(photo.wkt.value);
@@ -109,7 +111,7 @@ const chapters = {
     return await fetch (url)
       .then(res => res.json())
       .then(data => data.results.bindings)
-      .catch(err => console.log(err));
+      .catch(err => undefined);
   }
 };
 

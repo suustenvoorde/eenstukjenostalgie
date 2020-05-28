@@ -13,6 +13,9 @@ const status = {
   },
   noPhotoFromDB: {
     msg: "Foto niet gevonden uit de database."
+  },
+  noApiConnection: {
+    msg: "Geen connectie met de API."
   }
 };
 

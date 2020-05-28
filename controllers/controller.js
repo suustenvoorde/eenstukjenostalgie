@@ -21,6 +21,12 @@ exports.postCreateStoryPage = async function (req, res, next) {
   // Get the photos from the API:
   var photos = await chapters.getPhotos(req.body);
 
+  // Check for API error:
+  if (!photos) {
+    res.redirect('/error?status=noApiConnection');
+    return;
+  }
+
   // Check for error no photos found:
   if (Object.values(photos).length == 0) {
     res.redirect('/error?status=noPhotosFound');
