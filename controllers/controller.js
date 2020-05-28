@@ -49,7 +49,7 @@ exports.postCreateStoryPage = async function (req, res, next) {
       // When added, redirect:
       res.redirect('/' + street + '/' + story.id);
     })
-    .catch(err => res.redirect('/error?status=noStoryToDB'));
+    .catch(err => res.redirect('/error?status=noPhotosToDB'));
 }
 
 exports.getCreateStoryPage = async function (req, res, next) {
@@ -57,7 +57,7 @@ exports.getCreateStoryPage = async function (req, res, next) {
   var selection = await chapters.getPhotoSelection(req.params.id, null, 0);
 
   if (!selection) {
-    res.redirect('/error?status=noStoryFromDB');
+    res.redirect('/error?status=noPhotosFromDB');
     return;
   }
 
