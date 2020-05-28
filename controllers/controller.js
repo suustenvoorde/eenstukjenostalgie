@@ -4,6 +4,7 @@ var shortid = require('shortid');
 var sparqlqueries = require('./sparql.js');
 var chapters = require('./chapters.js');
 var database = require('./database.js');
+var errorStatus = require('./error-status.js');
 
 exports.homepage = async function (req, res, next) {
   // Render the homepage:
@@ -11,17 +12,18 @@ exports.homepage = async function (req, res, next) {
 }
 
 exports.postCreateStoryPage = async function (req, res, next) {
+  // Check for error startyear > endyear:
+  if (req.body.startyear > req.body.endyear) {
+    res.redirect('/error?status=incorrectTimestamp');
+    return;
+  }
+
   // Get the photos from the API:
   var photos = await chapters.getPhotos(req.body);
 
-  // Check for errors:
-  var errMsg = req.body.startyear > req.body.endyear
-    ? 'year' : Object.values(photos).length == 0
-    ? 'empty'
-    : undefined;
-
-  if (errMsg) {
-    res.redirect('/?err=' + errMsg);
+  // Check for error no photos found:
+  if (Object.values(photos).length == 0) {
+    res.redirect('/error?status=noPhotosFound');
     return;
   }
 
@@ -87,4 +89,11 @@ exports.getPhotoPage = async function (req, res, next) {
       });
     })
     .catch(err => console.log(err));
+}
+
+exports.getErrorPage = function (req, res, next) {
+  var status = errorStatus[req.query.status];
+  res.render('error', {
+    status: status
+  });
 }
