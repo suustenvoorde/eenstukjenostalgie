@@ -1,0 +1,38 @@
+.error-page {
+  background-color: $color-primary;
+
+  & .error-msg {
+    @include prefix(display, flex);
+    @include prefix(flex-direction, column);
+    @include prefix(justify-content, center);
+    @include prefix(align-items, center);
+    width: 100%;
+    max-width: 30rem;
+    min-height: calc(100vh - 4.5625rem);
+    padding: #{.5 * $spacing-unit};
+    margin: 0 auto;
+    text-align: center;
+
+    & > * {
+      margin: #{.5 * $spacing-unit};
+    }
+
+    & .illustration {
+      display: block;
+      width: 7rem;
+      height: auto;
+    }
+
+    & > h1 {
+      margin-top: $spacing-unit;
+      margin-bottom: #{.25 * $spacing-unit};
+      color: $color-white;
+    }
+
+    & > h2 {
+      margin-top: 0;
+      margin-bottom: 0;
+      color: $color-white;
+    }
+  }
+}
