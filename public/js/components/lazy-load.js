@@ -82,6 +82,14 @@ const lazyLoad = {
               }
             });
 
+            cloneImg.addEventListener('error', (e) => {
+              cloneLi.parentNode.removeChild(cloneLi);
+              if (cloneUl.children.length == 0) {
+                cloneUl.parentNode.removeChild(cloneUl);
+                cloneH2.parentNode.removeChild(cloneH2);
+              }
+            });
+
             // Create the p elem:
             var cloneP = p.cloneNode(true);
             cloneP.classList.add('photo__desc');
