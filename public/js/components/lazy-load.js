@@ -26,15 +26,17 @@ const lazyLoad = {
     for (var year in selection) {
       if (selection.hasOwnProperty(year)) {
         var yearElem = document.getElementById('year-' + year);
-        var crosses = img.cloneNode(true);
         var fragment = document.createDocumentFragment();
 
         this.startYear = Object.keys(selection)[Object.keys(selection).length-1];
 
-        crosses.classList.add('crosses');
-        crosses.src = '/images/crosses-amsterdam.svg';
-        crosses.alt = '';
-        fragment.appendChild(crosses);
+        if (yearElem.children.length == 0) {
+          var crosses = img.cloneNode(true);
+          crosses.classList.add('crosses');
+          crosses.src = '/images/crosses-amsterdam.svg';
+          crosses.alt = '';
+          fragment.appendChild(crosses);
+        }
 
         selection[year].forEach((street, i) => {
           // Create the new street ul elem:
@@ -77,6 +79,14 @@ const lazyLoad = {
               if (i == selection[year].length-1 && j == street.photos.length-1) {
                 this.lastLazyTop = cloneLi.offsetTop;
                 this.scrolling = true;
+              }
+            });
+
+            cloneImg.addEventListener('error', (e) => {
+              cloneLi.parentNode.removeChild(cloneLi);
+              if (cloneUl.children.length == 0) {
+                cloneUl.parentNode.removeChild(cloneUl);
+                cloneH2.parentNode.removeChild(cloneH2);
               }
             });
 
