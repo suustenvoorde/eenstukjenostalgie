@@ -36,6 +36,7 @@ exports.postCreateStoryPage = async function (req, res, next) {
   // Create a story object:
   var story = {
     id: shortid.generate(),
+    date: new Date(Date.now()),
     data: photos
   };
 
