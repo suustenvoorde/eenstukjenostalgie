@@ -86,26 +86,29 @@ const map = {
 		draggableCircle.on('drag', (e) => {
 			this.currentPos.x = e.sourceTarget._newPos.x;
 			this.currentPos.y = e.sourceTarget._newPos.y;
-		});
 
-		draggableCircle.on('dragend', (e) => {
-			var x = this.startPos.x + this.currentPos.x;
-			var y = this.startPos.y + this.currentPos.y;
-			var latLng = this.map.layerPointToLatLng({ x: x, y: y });
+			var x = this.startPos.x + this.currentPos.x - this.distance.x;
+			var y = this.startPos.y + this.currentPos.y - this.distance.y;
+			var point = { x: x, y: y };
+			var latLng = Object.values(this.map.layerPointToLatLng(point));
 
-			this.centerLatLng = Object.values(latLng);
-			this.createPolygon(this.centerLatLng);
+			L.DomUtil.setTransform(this.circle._path, { x: 0, y: 0 });
+			this.circle.setLatLng(latLng);
+			this.createPolygon(latLng);
 		});
 
 		this.map.on('zoomend', (e) => {
-			var newZoomLevel = Number(e.sourceTarget._animateToZoom);
-			var centerPoint = this.map.latLngToLayerPoint(this.centerLatLng);
-			this.map.setView(this.centerLatLng, newZoomLevel);
-			this.startPos.x = centerPoint.x - this.currentPos.x;
-			this.startPos.y = centerPoint.y - this.currentPos.y;
+			var newZoomLevel = e.sourceTarget._animateToZoom;
+			var newCenterLatLng = this.circle.getLatLng();
+			var newCenterPoint = this.map.latLngToLayerPoint(newCenterLatLng);
 
-			var latLng = this.map.layerPointToLatLng({ x: this.startPos.x, y: this.startPos.y });
-			this.circle.setLatLng(Object.values(latLng));
+			this.startPos.x = newCenterPoint.x;
+			this.startPos.y = newCenterPoint.y;
+
+			this.distance.x = this.currentPos.x;
+			this.distance.y = this.currentPos.y;
+
+			this.map.setView(newCenterLatLng, newZoomLevel);
 
 			// Change city district stroke width:
 			this.cityDistricts.eachLayer(layer => {
@@ -227,18 +230,19 @@ exports.selectedStreet = function (streetName) {
 	map.geoJSON.eachLayer(layer => {
 		if (layer.feature.properties.name === streetName) {
 			var bounds = layer.getBounds();
+			var latLng = Object.values(bounds.getCenter());
 
-			map.centerLatLng = Object.values(bounds.getCenter());
-			map.map.setView(map.centerLatLng, map.map.getZoom());
-			map.createPolygon(map.centerLatLng);
+			map.map.setView(latLng, map.map.getZoom());
+			map.circle.setLatLng(latLng);
+			map.createPolygon(latLng);
 
-			var centerPoint = map.map.latLngToLayerPoint(map.centerLatLng);
+			var newCenterPoint = map.map.latLngToLayerPoint(map.circle.getLatLng());
 
-			map.startPos.x = centerPoint.x - map.currentPos.x;
-			map.startPos.y = centerPoint.y - map.currentPos.y;
+			map.startPos.x = newCenterPoint.x;
+			map.startPos.y = newCenterPoint.y;
 
-			var latLng = map.map.layerPointToLatLng({ x: map.startPos.x, y: map.startPos.y });
-			map.circle.setLatLng(Object.values(latLng));
+			map.distance.x = map.currentPos.x;
+			map.distance.y = map.currentPos.y;
 		}
 	});
 }
