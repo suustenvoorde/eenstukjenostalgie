@@ -68,35 +68,6 @@ const chapters = {
 
     return data;
   },
-  getPhotoSelection: async function (id, startYear, startIdx) {
-    var counter = 0;
-    return await database.getItem(database.stories, id)
-      .then(result => {
-        // Filter the result for streets until we reach more than 50 photos:
-        for (var year in result.data) {
-          if (result.data.hasOwnProperty(year)) {
-            if (startYear == null) startYear = Number(Object.keys(result.data)[0]);
-
-            result.data[year] = result.data[year].filter(street => {
-              var selection;
-
-              if (Number(year) < startYear && counter >= startIdx) {
-                selection = street;
-                startIdx += street.photos.length;
-              } else if (Number(year) >= startYear && counter >= startIdx && counter < startIdx+50) {
-                selection = street;
-              }
-
-              // if (counter >= startIdx && counter < startIdx+50) selection = street;
-              counter += street.photos.length;
-              return selection;
-            });
-          }
-        }
-        return result.data;
-      })
-      .catch(err => undefined);
-  },
   fetchStreetWkts: async function (wkt) {
     var url = sparqlqueries.getStreetWkts(wkt);
 

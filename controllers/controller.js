@@ -55,18 +55,15 @@ exports.postCreateStoryPage = async function (req, res, next) {
 
 exports.getCreateStoryPage = async function (req, res, next) {
   // Get the story from database using the id:
-  var selection = await chapters.getPhotoSelection(req.params.id, null, 0);
-
-  if (!selection) {
-    res.redirect('/error?status=noPhotosFromDB');
-    return;
-  }
-
-  // Render the create story page:
-  res.render('create-story', {
-    data: selection,
-    sharedPhoto: req.sharedPhoto
-  });
+  await database.getItem(database.stories, req.params.id)
+    .then(result => {
+      // Render the create story page:
+      res.render('create-story', {
+        data: result.data,
+        sharedPhoto: req.sharedPhoto
+      });
+    })
+    .catch(err => res.redirect('/error?status=noPhotosFromDB'));
 }
 
 exports.getPhotoSelectionPage = async function (req, res, next) {
