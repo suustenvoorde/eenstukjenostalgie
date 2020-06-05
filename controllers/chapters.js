@@ -3,6 +3,7 @@ var wellknown = require('wellknown');
 var turf = require('@turf/turf');
 var sparqlqueries = require('./sparql.js');
 var database = require('./database.js');
+var sizeOf = require('probe-image-size');
 
 const chapters = {
   getPhotos: async function (formdata) {
@@ -37,6 +38,9 @@ const chapters = {
     // Filter photos with year <= current year:
     photos = photos.filter(photo => photo.year <= formdata.endyear);
 
+    // Filter out photos that have no .jpg extension:
+    photos = photos.filter(photo => photo.url.includes('.jpg'));
+
     // Create the data object:
     var data = {};
 
@@ -68,14 +72,6 @@ const chapters = {
 
     return data;
   },
-  fetchStreetWkts: async function (wkt) {
-    var url = sparqlqueries.getStreetWkts(wkt);
-
-    return await fetch (url)
-      .then(res => res.json())
-      .then(data => data.results.bindings)
-      .catch(err => console.log(err));
-  },
   fetchLocationAndTimestamp: async function (startyear, endyear, wkt) {
     var url = sparqlqueries.getLocationAndTimestamp(startyear, endyear, wkt);
 
@@ -83,6 +79,45 @@ const chapters = {
       .then(res => res.json())
       .then(data => data.results.bindings)
       .catch(err => undefined);
+  },
+  getPhotoSelection: async function (id, startYear, startIdx) {
+    var counter = 0;
+    return await database.getItem(database.stories, id)
+      .then(result => {
+        // Filter the result for streets until we reach more than 50 photos:
+        for (var year in result.data) {
+          if (result.data.hasOwnProperty(year)) {
+            if (startYear == null) startYear = Number(Object.keys(result.data)[0]);
+
+            result.data[year] = result.data[year].filter(street => {
+              var selection;
+
+              if (Number(year) < startYear && counter >= startIdx) {
+                selection = street;
+                startIdx += street.photos.length;
+              } else if (Number(year) >= startYear && counter >= startIdx && counter < startIdx+50) {
+                selection = street;
+              }
+
+              counter += street.photos.length;
+              return selection;
+            });
+          }
+        }
+        return result.data;
+      })
+      .catch(err => undefined);
+  },
+  getPhotoSize: async function (url) {
+    return await sizeOf(url)
+      .then(image => {
+        return {
+          url: image.url,
+          width: image.width,
+          height: image.height
+        };
+      })
+      .catch(err => console.log(err));
   }
 };
 
