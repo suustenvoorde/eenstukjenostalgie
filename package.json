@@ -23,25 +23,26 @@
   "license": "ISC",
   "dependencies": {
     "@turf/turf": "^5.1.6",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.19.0",
     "browserify": "^16.5.1",
     "circle-to-polygon": "^1.0.2",
     "ejs": "^2.7.4",
-    "express": "^4.16.3",
-    "express-session": "^1.15.6",
-    "mongodb": "^3.5.7",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mongodb": "^3.5.8",
     "netlify-lambda": "^1.6.3",
-    "node-fetch": "^2.1.2",
-    "node-sass": "^4.13.1",
-    "serverless-http": "^2.3.2",
-    "shortid": "^2.2.8",
-    "uuid": "^3.2.1",
+    "node-fetch": "^2.6.0",
+    "node-sass": "^4.14.1",
+    "probe-image-size": "^5.0.0",
+    "serverless-http": "^2.5.0",
+    "shortid": "^2.2.15",
+    "uuid": "^3.4.0",
     "webpack-node-externals": "^1.7.2",
     "wellknown": "^0.5.0"
   },
   "devDependencies": {
     "dotenv": "^5.0.1",
-    "nodemon": "^1.17.5",
+    "nodemon": "^1.19.4",
     "watchify": "^3.11.1"
   }
 }
