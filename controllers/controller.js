@@ -70,11 +70,36 @@ exports.getCreateStoryPage = async function (req, res, next) {
 }
 
 exports.getPhotoSelectionPage = async function (req, res, next) {
+  var sizesQueue = [];
   var selection = await chapters.getPhotoSelection(req.params.id, Number(req.params.startYear), Number(req.params.startIdx));
+
   for (var year in selection) {
-    if (selection.hasOwnProperty(year) && selection[year].length == 0) delete selection[year];
+    if (selection.hasOwnProperty(year) && selection[year].length > 0) {
+      var photos = selection[year].map(street => street.photos);
+      photos = [].concat.apply([], photos);
+      photos.forEach(photo => sizesQueue.push(chapters.getPhotoSize(photo.url)));
+    } else {
+      delete selection[year];
+    }
   }
-  res.json(selection);
+
+  Promise.all(sizesQueue)
+    .then(sizes => {
+      for (var year in selection) {
+        if (selection.hasOwnProperty(year)) {
+          for (var street of selection[year]) {
+            street.photos = street.photos.map(photo => {
+              var size = sizes.find(size => size.url === photo.url);
+              photo.width = size.width;
+              photo.height = size.height;
+              return photo;
+            });
+          }
+        }
+      }
+      res.json(selection);
+    })
+    .catch(err => console.log(err));
 }
 
 exports.postPhotoPage = async function (req, res, next) {
