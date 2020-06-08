@@ -51,7 +51,7 @@ const lazyLoad = {
             var cloneLi = li.cloneNode(true);
             cloneLi.classList.add('photo');
             cloneLi.classList.add('lazy');
-            cloneLi.style.paddingBottom = 'calc(' + Math.round((photo.height / photo.width) * 100) + '% - 25px)';
+            cloneLi.style.height = Math.round((this.photos()[0].offsetWidth / photo.width) * photo.height) + 'px';
             this.lazyObserver.observe(cloneLi);
             cloneUl.appendChild(cloneLi);
 
@@ -134,9 +134,12 @@ const lazyLoad = {
               var img = lazy.querySelector('img');
 
               img.src = img.dataset.src;
-              lazy.classList.remove('lazy');
-              lazy.style.paddingBottom = 0;
-              this.lazyObserver.unobserve(lazy);
+
+              img.addEventListener('load', (e) => {
+                lazy.classList.remove('lazy');
+                lazy.style.height = 'auto';
+                this.lazyObserver.unobserve(lazy);
+              });
             }
           });
         });

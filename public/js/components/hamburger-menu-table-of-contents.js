@@ -24,6 +24,7 @@ const hamburgerMenu = {
       })
       items.forEach(function(el){
         el.children[0].addEventListener('click', async function(e){
+          e.preventDefault();
           menu.classList.remove('open-menu');
           menu.classList.add('close-menu');
           close.style.display = "none";
@@ -31,22 +32,15 @@ const hamburgerMenu = {
 
           var link = el.children[0].href;
           var startYear = link.slice(link.indexOf('#') + 6);
-          var selection = await lazyLoad.fetchPhotoSelection(startYear, lazyLoad.startIdx);
 
+          loader.show();
+
+          var selection = await lazyLoad.fetchPhotoSelection(startYear, lazyLoad.startIdx);
           lazyLoad.addPhotos(selection);
 
-          if (selection[startYear]) {
-            loader.show();
-            var lastStreet = selection[startYear].find((street, i, self) => i == self.length-1);
-            var lastPhoto = lastStreet.photos.find((photo, i, self) => i == self.length-1);
-            var lastLazy = Array.from(document.querySelectorAll('.lazy')).find(lazy => lazy.querySelector('img').src == lastPhoto.url);
-
-            lastLazy.querySelector('img').addEventListener('load', (e) => {
-              var startYearTop = document.getElementById('year-' + startYear).offsetTop;
-              window.scrollTo(0, startYearTop);
-              loader.hide();
-            });
-          }
+          var yearElem = document.getElementById('year-' + startYear);
+          window.scrollTo(0, yearElem.offsetTop);
+          loader.hide();
         })
       })
     }
