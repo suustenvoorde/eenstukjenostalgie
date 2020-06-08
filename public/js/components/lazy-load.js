@@ -52,6 +52,7 @@ const lazyLoad = {
             cloneLi.classList.add('photo');
             cloneLi.classList.add('lazy');
             cloneLi.style.paddingBottom = 'calc(' + Math.round((photo.height / photo.width) * 100) + '% - 25px)';
+            this.lazyObserver.observe(cloneLi);
             cloneUl.appendChild(cloneLi);
 
             var cloneA = a.cloneNode(true);
@@ -124,30 +125,25 @@ const lazyLoad = {
       }
     });
 
+    document.addEventListener('DOMContentLoaded', (e) => {
+      if ('IntersectionObserver' in window) {
+        this.lazyObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              var lazy = entry.target;
+              var img = lazy.querySelector('img');
 
-
-    // document.addEventListener('DOMContentLoaded', (e) => {
-      // if ('IntersectionObserver' in window) {
-      //   var lazyObserver = new IntersectionObserver((entries, observer) => {
-      //     entries.forEach(entry => {
-      //       if (entry.isIntersecting) {
-      //         var lazy = entry.target;
-      //         var img = lazy.querySelector('img');
-      //
-      //         img.src = img.dataset.src;
-      //         lazy.classList.remove('lazy');
-      //         lazyObserver.unobserve(lazy);
-      //       }
-      //     });
-      //   });
-      //
-      //   this.lazies.forEach(lazy => {
-      //     lazyObserver.observe(lazy);
-      //   });
-      // } else {
-      //   console.log('does not exist');
-      // }
-    // });
+              img.src = img.dataset.src;
+              lazy.classList.remove('lazy');
+              lazy.style.paddingBottom = 0;
+              this.lazyObserver.unobserve(lazy);
+            }
+          });
+        });
+      } else {
+        // Fallback
+      }
+    });
   }
 };
 

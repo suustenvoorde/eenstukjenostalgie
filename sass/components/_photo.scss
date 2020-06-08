@@ -9,6 +9,7 @@
   & > * {
     opacity: 1;
     @include prefix(pointer-events, auto);
+    @include prefix(transition, opacity .3s ease);
   }
 
   &.lazy {
