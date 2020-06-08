@@ -3,6 +3,17 @@ var loader = require('./loader.js');
 
 //hamburger menu mobile table of contents
 const hamburgerMenu = {
+  fetchSelection: async function (startYear) {
+    var selection = await lazyLoad.fetchPhotoSelection(startYear, lazyLoad.startIdx);
+    lazyLoad.addPhotos(selection);
+
+    var lastYear = Object.keys(selection).find((year, i, self) => i === self.length-1);
+    var yearElem = lastYear >= startYear ? startYear : lastYear;
+    var fetched = lastYear >= startYear ? true : false;
+
+    window.scrollTo(0, document.getElementById('year-' + yearElem).offsetTop);
+    return fetched;
+  },
   init: function(){
     if('querySelector' in document && 'querySelectorAll' in document && 'addEventListener' in window) {
       var open = document.querySelector('.open');
@@ -22,8 +33,8 @@ const hamburgerMenu = {
         close.style.display = "none";
         open.style.display = "block";
       })
-      items.forEach(function(el){
-        el.children[0].addEventListener('click', async function(e){
+      items.forEach(el => {
+        el.children[0].addEventListener('click', async (e) => {
           e.preventDefault();
           menu.classList.remove('open-menu');
           menu.classList.add('close-menu');
@@ -32,15 +43,21 @@ const hamburgerMenu = {
 
           var link = el.children[0].href;
           var startYear = link.slice(link.indexOf('#') + 6);
-
-          loader.show();
-
-          var selection = await lazyLoad.fetchPhotoSelection(startYear, lazyLoad.startIdx);
-          lazyLoad.addPhotos(selection);
-
           var yearElem = document.getElementById('year-' + startYear);
-          window.scrollTo(0, yearElem.offsetTop);
-          loader.hide();
+
+          if (yearElem.children.length === 0) {
+            var fetched = false;
+
+            loader.show();
+
+            while (fetched == false) {
+              fetched = await this.fetchSelection(startYear);
+            }
+
+            loader.hide();
+          } else {
+            window.scrollTo(0, yearElem.offsetTop);
+          }
         })
       })
     }

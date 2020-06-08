@@ -82,6 +82,7 @@ const chapters = {
   },
   getPhotoSelection: async function (id, startYear, startIdx) {
     var counter = 0;
+    var max = startIdx + 500;
     return await database.getItem(database.stories, id)
       .then(result => {
         // Filter the result for streets until we reach more than 50 photos:
@@ -92,7 +93,7 @@ const chapters = {
             result.data[year] = result.data[year].filter(street => {
               var selection;
 
-              if (Number(year) < startYear && counter >= startIdx) {
+              if (Number(year) < startYear && counter >= startIdx && counter <= max) {
                 selection = street;
                 startIdx += street.photos.length;
               } else if (Number(year) >= startYear && counter >= startIdx && counter < startIdx+50) {
