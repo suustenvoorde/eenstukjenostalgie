@@ -55,23 +55,51 @@ exports.postCreateStoryPage = async function (req, res, next) {
 
 exports.getCreateStoryPage = async function (req, res, next) {
   // Get the story from database using the id:
-  await database.getItem(database.stories, req.params.id)
-    .then(result => {
-      // Render the create story page:
-      res.render('create-story', {
-        data: result.data,
-        sharedPhoto: req.sharedPhoto
-      });
-    })
-    .catch(err => res.redirect('/error?status=noPhotosFromDB'));
+  var selection = await chapters.getPhotoSelection(req.params.id, null, 0);
+
+  if (!selection) {
+    res.redirect('/error?status=noPhotosFromDB');
+    return;
+  }
+
+  // Render the create story page:
+  res.render('create-story', {
+    data: selection,
+    sharedPhoto: req.sharedPhoto
+  });
 }
 
 exports.getPhotoSelectionPage = async function (req, res, next) {
+  var sizesQueue = [];
   var selection = await chapters.getPhotoSelection(req.params.id, Number(req.params.startYear), Number(req.params.startIdx));
+
   for (var year in selection) {
-    if (selection.hasOwnProperty(year) && selection[year].length == 0) delete selection[year];
+    if (selection.hasOwnProperty(year) && selection[year].length > 0) {
+      var photos = selection[year].map(street => street.photos);
+      photos = [].concat.apply([], photos);
+      photos.forEach(photo => sizesQueue.push(chapters.getPhotoSize(photo.url)));
+    } else {
+      delete selection[year];
+    }
   }
-  res.json(selection);
+
+  Promise.all(sizesQueue)
+    .then(sizes => {
+      for (var year in selection) {
+        if (selection.hasOwnProperty(year)) {
+          for (var street of selection[year]) {
+            street.photos = street.photos.map(photo => {
+              var size = sizes.find(size => size.url === photo.url);
+              photo.width = size.width;
+              photo.height = size.height;
+              return photo;
+            });
+          }
+        }
+      }
+      res.json(selection);
+    })
+    .catch(err => console.log(err));
 }
 
 exports.postPhotoPage = async function (req, res, next) {
