@@ -42,9 +42,9 @@
 								<ul class="street <%- street.uri.split('/')[street.uri.split('/').length-2] %>">
 									<% street.photos.forEach(photo => { %>
 
-										<li class="photo lazy">
+										<li class="photo">
 											<a class="photo__img">
-												<img src="" alt="<%- photo.title %>" data-src="<%- photo.url %>">
+												<img src="<%- photo.url %>" alt="<%- photo.title %>">
 											</a>
 											<p class="photo__desc"><%= photo.title %></p>
 											<button class="share-btn" type="submit"><%- include('../public/images/icons/share.svg') %></button>
