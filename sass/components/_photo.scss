@@ -6,6 +6,11 @@
   width: 100%;
   margin-bottom: $spacing-unit;
 
+  & > * {
+    opacity: 1;
+    @include prefix(pointer-events, auto);
+  }
+
   &.lazy {
     background-color: rgba(44,44,44,.2);
 

@@ -3,8 +3,8 @@ var share = require('./share.js');
 var errors = require('./errors.js');
 
 const lazyLoad = {
-  scrolling: true,
-  lazies: document.querySelectorAll('.lazy'),
+  scrolling: false,
+  photos: function () { return Array.from(document.querySelectorAll('.photo')); },
   fetchPhotoSelection: async function (startYear, startIdx) {
     var pathname = window.location.pathname.split('/');
     var id = pathname[pathname.length-1];
@@ -15,11 +15,11 @@ const lazyLoad = {
       .catch(err => errors.fire('noSelectionFound'));
   },
   addPhotos: function (selection) {
+    var img = document.createElement('img');
     var h2 = document.createElement('h2');
     var ul = document.createElement('ul');
     var li = document.createElement('li');
     var a = document.createElement('a');
-    var img = document.createElement('img');
     var p = document.createElement('p');
     var button = document.createElement('button');
 
@@ -28,9 +28,7 @@ const lazyLoad = {
         var yearElem = document.getElementById('year-' + year);
         var fragment = document.createDocumentFragment();
 
-        this.startYear = Object.keys(selection)[Object.keys(selection).length-1];
-
-        if (yearElem.children.length == 0) {
+        if (yearElem.children.length === 0) {
           var crosses = img.cloneNode(true);
           crosses.classList.add('crosses');
           crosses.src = '/images/crosses-amsterdam.svg';
@@ -38,68 +36,43 @@ const lazyLoad = {
           fragment.appendChild(crosses);
         }
 
-        selection[year].forEach((street, i) => {
-          // Create the new street ul elem:
+        selection[year].forEach(street => {
+          var cloneH2 = h2.cloneNode(true);
+          cloneH2.textContent = street.label;
+          fragment.appendChild(cloneH2);
+
           var classname = street.uri.split('/')[street.uri.split('/').length-2];
           var cloneUl = ul.cloneNode(true);
           cloneUl.classList.add('street');
           cloneUl.classList.add(classname);
           fragment.appendChild(cloneUl);
 
-          //Create the h2 elem:
-          var cloneH2 = h2.cloneNode(true);
-          cloneH2.textContent = street.label;
-          fragment.insertBefore(cloneH2, cloneUl);
-
-          street.photos.forEach((photo, j) => {
-            // Add one to the startIdx value:
-            this.startIdx++;
-
-            // Create the li elem:
+          street.photos.forEach(photo => {
             var cloneLi = li.cloneNode(true);
             cloneLi.classList.add('photo');
             cloneLi.classList.add('lazy');
-            cloneLi.classList.add('placeholder');
+            cloneLi.style.paddingBottom = 'calc(' + Math.round((photo.height / photo.width) * 100) + '% - 25px)';
             cloneUl.appendChild(cloneLi);
 
-            // Create the a elem:
             var cloneA = a.cloneNode(true);
             cloneA.classList.add('photo__img');
             cloneLi.appendChild(cloneA);
 
-            // Create the img elem:
             var cloneImg = img.cloneNode(true);
-            cloneImg.src = photo.url;
+            cloneImg.src = '';
             cloneImg.alt = photo.title;
+            cloneImg.setAttribute('data-src', photo.url);
             cloneA.appendChild(cloneImg);
-
-            cloneImg.addEventListener('load', (e) => {
-              cloneLi.classList.remove('placeholder');
-
-              if (i == selection[year].length-1 && j == street.photos.length-1) {
-                this.lastLazyTop = cloneLi.offsetTop;
-                this.scrolling = true;
-              }
-            });
-
-            cloneImg.addEventListener('error', (e) => {
-              cloneLi.parentNode.removeChild(cloneLi);
-              if (cloneUl.children.length == 0) {
-                cloneUl.parentNode.removeChild(cloneUl);
-                cloneH2.parentNode.removeChild(cloneH2);
-              }
-            });
-
-            // Create the p elem:
-            var cloneP = p.cloneNode(true);
-            cloneP.classList.add('photo__desc');
-            cloneP.textContent = photo.title;
-            cloneLi.appendChild(cloneP);
 
             cloneA.addEventListener('click', (e) => {
               imageDetail.openModal(cloneImg.src, cloneImg.alt);
               e.preventDefault();
             });
+
+            var cloneP = p.cloneNode(true);
+            cloneP.classList.add('photo__desc');
+            cloneP.textContent = photo.title;
+            cloneLi.appendChild(cloneP);
 
             var cloneButton = button.cloneNode(true);
             cloneButton.classList.add('share-btn');
@@ -107,7 +80,7 @@ const lazyLoad = {
             cloneLi.appendChild(cloneButton);
 
             var cloneButtonImage = img.cloneNode(true);
-            cloneButtonImage.src = '../../images/icons/share.svg';
+            cloneButtonImage.src = '/images/icons/share.svg';
             cloneButton.appendChild(cloneButtonImage);
 
             cloneButton.addEventListener('click', (e) => {
@@ -116,41 +89,65 @@ const lazyLoad = {
           });
         });
 
-        // Append the fragment to the year elem:
         yearElem.appendChild(fragment);
       }
     }
+
+    this.startIdx = this.photos().length;
+    var lastPhoto = this.photos()[this.startIdx-1];
+    this.startYear = lastPhoto.parentNode.parentNode.id.slice(5);
+    this.lastPhotoTop = lastPhoto.offsetTop;
+    this.scrolling = true;
   },
   init: function () {
-    // Define startIdx:
-    this.startIdx = this.lazies.length;
-
-    // Define last lazy image:
-    this.lastLazy = Array.from(this.lazies).find((lazy, i, self) => i == self.length-1);
-
-    // Define startYear:
-    this.startYear = this.lastLazy.parentNode.parentNode.id.slice(5);
-
+    this.startIdx = this.photos().length;
+    var lastPhoto = this.photos()[this.startIdx-1];
+    var lastImg = lastPhoto.querySelector('img');
     var scrollTop, screenHeight;
+    this.startYear = lastPhoto.parentNode.parentNode.id.slice(5);
 
-    // Calc the offsetTop of the last image:
-    window.addEventListener('load', (e) => {
-      this.lastLazyTop = this.lastLazy.offsetTop;
+    lastImg.addEventListener('load', (e) => {
+      this.scrolling = true;
+      this.lastPhotoTop = lastPhoto.offsetTop;
+      screenHeight = window.innerHeight;
     });
 
-    // Determine if scroll position >= position last img:
     document.addEventListener('scroll', async (e) => {
       if (this.scrolling) {
         scrollTop = window.scrollY;
-        screenHeight = window.innerHeight;
 
-        if (scrollTop + screenHeight >= this.lastLazyTop) {
+        if (scrollTop >= this.lastPhotoTop - (2 * screenHeight)) {
           this.scrolling = false;
           var selection = await this.fetchPhotoSelection(this.startYear, this.startIdx);
           this.addPhotos(selection);
         }
       }
     });
+
+
+
+    // document.addEventListener('DOMContentLoaded', (e) => {
+      // if ('IntersectionObserver' in window) {
+      //   var lazyObserver = new IntersectionObserver((entries, observer) => {
+      //     entries.forEach(entry => {
+      //       if (entry.isIntersecting) {
+      //         var lazy = entry.target;
+      //         var img = lazy.querySelector('img');
+      //
+      //         img.src = img.dataset.src;
+      //         lazy.classList.remove('lazy');
+      //         lazyObserver.unobserve(lazy);
+      //       }
+      //     });
+      //   });
+      //
+      //   this.lazies.forEach(lazy => {
+      //     lazyObserver.observe(lazy);
+      //   });
+      // } else {
+      //   console.log('does not exist');
+      // }
+    // });
   }
 };
 
