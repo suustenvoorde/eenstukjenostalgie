@@ -47,6 +47,21 @@
     }
   }
 
+  &.back-btn {
+    & > svg {
+      margin-left: 0;
+      margin-right: #{.5 * $spacing-unit};
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      & > svg {
+        @include prefix(transform, translateX(-.625rem));
+      }
+    }
+  }
+
   &--primary {
     border-color: $color-primary;
     color: $color-primary;
