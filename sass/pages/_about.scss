@@ -1,0 +1,36 @@
+.about {
+  background-color: $color-black;
+
+  & .overlay {
+    display: block;
+    max-width: 40rem;
+    padding: #{.5 * $spacing-unit};
+    margin: 0 auto;
+    background-color: $color-primary;
+    @media all and (min-width: 40em) {
+      border-radius: .625rem;
+      margin: $spacing-unit auto;
+    }
+    @include smallScreen() {
+      padding: #{.5 * $spacing-unit} $spacing-unit;
+    }
+
+    & .action-btn {
+      margin: #{.5 * $spacing-unit};
+    }
+
+    & .project-info {
+      & h1,
+      & p {
+        color: $color-white;
+        margin: $spacing-unit #{.5 * $spacing-unit};
+      }
+    }
+  }
+
+  & .site-footer {
+    @media all and (min-width: 40em) {
+      text-align: center;
+    }
+  }
+}
