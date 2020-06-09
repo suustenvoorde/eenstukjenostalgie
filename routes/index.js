@@ -11,6 +11,9 @@ router.post('/foto', controller.postPhotoPage);
 // GET photo share page:
 router.get('/foto/:id', controller.getPhotoPage);
 
+// GET about page:
+router.get('/over', controller.getAboutPage);
+
 // POST create story page:
 router.post('/create-story', controller.postCreateStoryPage);
 
