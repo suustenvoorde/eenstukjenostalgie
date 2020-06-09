@@ -127,6 +127,10 @@ exports.getPhotoPage = async function (req, res, next) {
     .catch(err => res.redirect('/error?status=noPhotoFromDB'));
 }
 
+exports.getAboutPage = function (req, res, next) {
+  res.render('about');
+}
+
 exports.getErrorPage = function (req, res, next) {
   var status = errorStatus[req.query.status];
   res.render('error', {
