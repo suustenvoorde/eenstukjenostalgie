@@ -14,7 +14,7 @@ const chapters = {
 
     // Map the photos with the street distance from centerPoint:
     photos = photos.map(photo => {
-      var parseWkt = wellknown(photo.wkt.value);
+      var parseWkt = wellknown(photo.wkt);
       var point = turf.point([formdata.coords[1], formdata.coords[0]]);
       var line = parseWkt.type == 'MultiLineString'
         ? turf.multiLineString(parseWkt.coordinates) : parseWkt.type == 'LineString'
@@ -24,12 +24,12 @@ const chapters = {
       var nearestPoint = turf.nearestPointOnLine(line, point, { units: 'kilometers' });
 
       return {
-        url: photo.img.value.split(':')[0].length == 5 ? photo.img.value : photo.img.value.split(':').join('s:'),
-        title: photo.title.value,
-        year: photo.start.value.slice(0,4),
+        url: photo.img.split(':')[0].length == 5 ? photo.img : photo.img.split(':').join('s:'),
+        title: photo.title,
+        year: photo.start.slice(0,4),
         street: {
-          uri: photo.street.value,
-          label: photo.streetLabel.value,
+          uri: photo.street,
+          label: photo.streetLabel,
           distanceFromCenter: nearestPoint.properties.dist * 1000
         }
       };
@@ -77,7 +77,6 @@ const chapters = {
 
     return await fetch (url)
       .then(res => res.json())
-      .then(data => data.results.bindings)
       .catch(err => undefined);
   },
   getPhotoSelection: async function (id, startYear, startIdx) {
