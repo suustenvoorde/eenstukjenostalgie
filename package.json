@@ -31,7 +31,7 @@
     "express-session": "^1.17.1",
     "mongodb": "^3.5.8",
     "netlify-lambda": "^1.6.3",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "node-sass": "^4.14.1",
     "probe-image-size": "^5.0.0",
     "serverless-http": "^2.5.0",
